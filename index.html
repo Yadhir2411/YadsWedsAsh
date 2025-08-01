@@ -816,21 +816,21 @@
     
     <script>
         // Floating hearts animation
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            const colors = ['#ff6b6b', '#ffa3a3', '#ffd3d3', '#a5d8ff', '#74c0fc'];
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = 10 + Math.random() * 20 + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                container.appendChild(heart);
-            }
-        }
+function createHearts() {
+    const container = document.getElementById('hearts-container');
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 10 + Math.random() * 20 + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.color = 'white';
+        heart.style.opacity = 0.3 + Math.random() * 0.7; // Random opacity between 0.3-1
+        container.appendChild(heart);
+    }
+}
         
         // Countdown timer
         function updateCountdown() {
