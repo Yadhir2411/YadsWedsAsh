@@ -97,9 +97,9 @@
 
         .footprint {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,70 Q50,30 70,70 Q85,50 65,30 Q50,10 30,30 Q15,50 30,70 Z" fill="%23d4a373" opacity="0.8"/></svg>');
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,70 Q35,60 40,65 Q45,70 50,60 Q55,50 60,55 Q65,60 70,50" fill="none" stroke="%23d4a373" stroke-width="8" stroke-linecap="round"/></svg>');
             background-size: contain;
             background-repeat: no-repeat;
             opacity: 0;
@@ -112,6 +112,14 @@
             20% { opacity: 1; transform: scale(1) translateY(0); }
             80% { opacity: 1; transform: scale(1) translateY(0); }
             100% { opacity: 0; transform: scale(0.5) translateY(-10px); }
+        }
+
+        .footprint.left {
+            transform: rotate(-15deg);
+        }
+
+        .footprint.right {
+            transform: rotate(15deg) scaleX(-1);
         }
 
         @keyframes pulse {
@@ -661,9 +669,9 @@
             <div class="story-text">
                 <h3></h3>
                 <p>
-                    A simple "Hi," a message on a screen,
-A friendship bloomed, the best I've ever seen.
-From pixels shared, a love began to grow,
+                    A simple "Hi,"...<br> a message on a screen!<br>
+A friendship bloomed,<br> the best I've ever seen!<br>
+From pixels shared...<br>a love began to grow,<br>
 A perfect start, so long ago.</p>
             </div>
             <div class="story-image">
@@ -869,71 +877,63 @@ Souls intertwined, on Cloud 9, side by side.</p>
     
     <script>
         // Floating hearts animation
-function createHearts() {
-    const container = document.getElementById('hearts-container');
-    
-    for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = 10 + Math.random() * 20 + 's';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        heart.style.color = 'white';
-        heart.style.opacity = 0.3 + Math.random() * 0.7; // Random opacity between 0.3-1
-        container.appendChild(heart);
-    }
-}
-
-// Footprints animation
-function createLovePath() {
-    const container = document.getElementById('footprintsJourney');
-    container.innerHTML = ''; // Clear previous elements
-    
-    // Path coordinates (x%, y%, delay in seconds)
-    const path = [
-        {x: 5, y: 50, delay: 0},    // Start
-        {x: 15, y: 60, delay: 0.3},
-        {x: 25, y: 40, delay: 0.6},
-        {x: 35, y: 60, delay: 0.9},  // First dip
-        {x: 45, y: 30, delay: 1.2}, // Big dip
-        {x: 55, y: 60, delay: 1.5}, // Peak
-        {x: 65, y: 40, delay: 1.8},
-        {x: 75, y: 60, delay: 2.1},
-        {x: 85, y: 30, delay: 2.4}, // Final dip
-        {x: 95, y: 50, delay: 2.7}  // End
-    ];
-
-    path.forEach((step, index) => {
-        const footprint = document.createElement('div');
-        footprint.classList.add('footprint');
-        footprint.style.left = step.x + '%';
-        footprint.style.top = step.y + '%';
-        footprint.style.animationDelay = step.delay + 's';
-        
-        // Alternate left/right footprints
-        if(index % 2 === 0) {
-            footprint.style.transform = 'scaleX(-1) rotate(-15deg)';
-        } else {
-            footprint.style.transform = 'rotate(15deg)';
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = 10 + Math.random() * 20 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.color = 'white';
+                heart.style.opacity = 0.3 + Math.random() * 0.7;
+                container.appendChild(heart);
+            }
         }
-        
-        container.appendChild(footprint);
-    });
 
-    // Add pulsing heart at the end
-    const finalHeart = document.createElement('div');
-    finalHeart.innerHTML = '❤';
-    finalHeart.style.position = 'absolute';
-    finalHeart.style.left = '92%';
-    finalHeart.style.top = '45%';
-    finalHeart.style.fontSize = '2rem';
-    finalHeart.style.color = 'var(--accent)';
-    finalHeart.style.animation = 'pulse 1.5s infinite ' + (path[path.length-1].delay + 0.5) + 's';
-    finalHeart.style.opacity = '0';
-    finalHeart.style.animationFillMode = 'forwards';
-    container.appendChild(finalHeart);
-}
+        // Footprints animation
+        function createLovePath() {
+            const container = document.getElementById('footprintsJourney');
+            container.innerHTML = ''; // Clear previous elements
+            
+            // Path coordinates (x%, y%, delay in seconds, side)
+            const path = [
+                {x: 5, y: 50, delay: 0, side: 'right'},
+                {x: 15, y: 55, delay: 0.3, side: 'left'},
+                {x: 25, y: 45, delay: 0.6, side: 'right'},
+                {x: 35, y: 55, delay: 0.9, side: 'left'},
+                {x: 45, y: 40, delay: 1.2, side: 'right'},
+                {x: 55, y: 55, delay: 1.5, side: 'left'},
+                {x: 65, y: 45, delay: 1.8, side: 'right'},
+                {x: 75, y: 55, delay: 2.1, side: 'left'},
+                {x: 85, y: 40, delay: 2.4, side: 'right'},
+                {x: 95, y: 50, delay: 2.7, side: 'left'}
+            ];
+
+            path.forEach((step) => {
+                const footprint = document.createElement('div');
+                footprint.classList.add('footprint', step.side);
+                footprint.style.left = step.x + '%';
+                footprint.style.top = step.y + '%';
+                footprint.style.animationDelay = step.delay + 's';
+                container.appendChild(footprint);
+            });
+
+            // Add pulsing heart at the end
+            const finalHeart = document.createElement('div');
+            finalHeart.innerHTML = '❤';
+            finalHeart.style.position = 'absolute';
+            finalHeart.style.left = '92%';
+            finalHeart.style.top = '45%';
+            finalHeart.style.fontSize = '2rem';
+            finalHeart.style.color = 'var(--accent)';
+            finalHeart.style.animation = 'pulse 1.5s infinite 3.2s';
+            finalHeart.style.opacity = '0';
+            finalHeart.style.animationFillMode = 'forwards';
+            container.appendChild(finalHeart);
+        }
         
         // Countdown timer
         function updateCountdown() {
