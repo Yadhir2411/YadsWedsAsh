@@ -49,24 +49,8 @@
             position: relative;
             overflow: hidden;
         }
-    @keyframes float-petal {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.6;
-        }
-        90% {
-            opacity: 0.6;
-        }
-        100% {
-            transform: translateY(-100px) rotate(360deg);
-            opacity: 0;
-        }
-    }
-
     
+        
         /* Floating hearts animation */
         .floating-hearts {
             position: absolute;
@@ -102,26 +86,7 @@
             }
         }
 
-        /* --- NEW Footprints Animation CSS --- */
-        #footprints-container {
-            position: relative;
-            width: 100%;
-            min-height: 100px; /* Adjust height as needed for visibility */
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .footprint {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,70 Q35,60 40,65 Q45,70 50,60 Q55,50 60,55 Q65,60 70,50" fill="none" stroke="%23d4a373" stroke-width="8" stroke-linecap="round"/></svg>');
-            background-size: cover;
-            opacity: 0;
-            transform-origin: center;
-            transition: all 0.5s ease-out;
-        }
-
+        
         .header-content {
             z-index: 2;
             animation: fadeIn 2s ease-out;
@@ -598,7 +563,8 @@
         }
     </style>
 </head>
-    <audio autoplay loop id="bgMusic">
+    <!-- Add this right before </body> -->
+<audio autoplay loop id="bgMusic">
   <source src="Music/Love.mp3" type="audio/mpeg">
   Your browser does not support audio element.
 </audio>
@@ -610,19 +576,21 @@
   }, { once: true });
 </script>
 <body>
+    <!-- Floating hearts background -->
     <div class="floating-hearts" id="hearts-container"></div>
     
+    <!-- Navigation -->
     <nav id="navbar">
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#story">Our Story</a></li>
-            <li><a href="#hurdhee">Hurdhee</a></li> <!-- New tab -->
             <li><a href="#details">Details</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#rsvp">RSVP</a></li>
         </ul>
     </nav>
     
+    <!-- Header/Hero Section -->
     <header id="home">
         <div class="header-content">
             <h1>Yadhir & Ashwari</h1>
@@ -650,6 +618,7 @@
         </div>
     </header>
     
+    <!-- Our Story Section -->
     <section id="story">
         <div class="section-title">
             <h2>Jab We Met</h2>
@@ -657,26 +626,28 @@
         
         <div class="story-container">
             <div class="story-text">
-                <h3>The beginning</h3>
+                <h3></h3>
                 <p>
-                    A simple "Hi,"...<br> a message on a screen!<br>
-A friendship bloomed,<br> the best I've ever seen!<br>
-From pixels shared...<br>a love began to grow,<br>
-A perfect start, so long <span id="start-word">ago</span>.</p>
+                    A simple "Hi," a message on a screen,
+A friendship bloomed, the best I've ever seen.
+From pixels shared, a love began to grow,
+A perfect start, so long ago.</p>
             </div>
             <div class="story-image">
                 <img src="Images\12.jpeg" alt="Yadhir & Ashwari">
             </div>
         </div>
-        
-        <div id="footprints-container"></div>
+        <div class="footprints-container" id="footprintsJourney"></div>
 
+<!-- Add this JavaScript -->
+
+</script>
         <div class="story-container">
             <div class="story-image">
                 <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proposal">
             </div>
             <div class="story-text">
-                <h3 id="end-word">The Proposal</h3>
+                <h3></h3>
                 <p> </p>
                 <p>Love knows no bounds, though miles divide,
 Our shared sky, where whispered promises hide.
@@ -684,52 +655,8 @@ Souls intertwined, on Cloud 9, side by side.</p>
             </div>
         </div>
     </section>
-    <section id="Hurdhee" style="background-color: #FFF8E1; position: relative; overflow: hidden;">
-    <!-- Marigold decorations -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path d=\"M50,0 Q60,40 50,80 Q40,40 50,0 Z\" fill=\"%23FFC107\" opacity=\"0.3\"/></svg>'); background-repeat: repeat-x; transform: rotate(180deg); z-index: 0;"></div>
-    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path d=\"M50,0 Q60,40 50,80 Q40,40 50,0 Z\" fill=\"%23FFC107\" opacity=\"0.3\"/></svg>'); background-repeat: repeat-x; z-index: 0;"></div>
     
-    <div class="section-title" style="position: relative; z-index: 1;">
-        <h2 style="color: #E65100;">Hurdhee Ceremony</h2>
-    </div>
-    
-    <div class="details-grid" style="position: relative; z-index: 1;">
-        <div class="detail-card" style="background-color: #FFECB3; border: 2px dashed #FFA000;">
-            <div class="detail-icon" style="color: #FF8F00;">
-                <i class="fas fa-clock"></i>
-            </div>
-            <h3 style="color: #BF360C;">When</h3>
-            <p>Friday, December 18, 2026</p>
-            <p>4:00 PM - 7:00 PM</p>
-        </div>
-        
-        <div class="detail-card" style="background-color: #FFECB3; border: 2px dashed #FFA000;">
-            <div class="detail-icon" style="color: #FF8F00;">
-                <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <h3 style="color: #BF360C;">Where</h3>
-            <p>Asrai Family Home</p>
-            <p>123 Sunshine Lane</p>
-            <p>Ballito, 4399</p>
-        </div>
-        
-        <div class="detail-card" style="background-color: #FFECB3; border: 2px dashed #FFA000;">
-            <div class="detail-icon" style="color: #FF8F00;">
-                <i class="fas fa-tshirt"></i>
-            </div>
-            <h3 style="color: #BF360C;">Dress Code</h3>
-            <p>Yellow or White Traditional Wear</p>
-            <p>Comfortable clothes you don't mind getting stained!</p>
-        </div>
-    </div>
-    
-    <!-- Floating marigold petals -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;">
-        <div style="position: absolute; top: 20%; left: 10%; width: 30px; height: 30px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%23FFC107\" opacity=\"0.4\"/></svg>'); background-size: contain; animation: float-petal 8s linear infinite;"></div>
-        <div style="position: absolute; top: 40%; left: 80%; width: 40px; height: 40px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%23FFA000\" opacity=\"0.4\"/></svg>'); background-size: contain; animation: float-petal 10s linear infinite 2s;"></div>
-        <div style="position: absolute; top: 70%; left: 30%; width: 25px; height: 25px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%23FFC107\" opacity=\"0.4\"/></svg>'); background-size: contain; animation: float-petal 12s linear infinite 4s;"></div>
-    </div>
-</section>
+    <!-- Wedding Details Section -->
     <section id="details">
         <div class="section-title">
             <h2>Wedding Details</h2>
@@ -803,6 +730,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
+    <!-- Gallery Section -->
     <section id="gallery">
         <div class="section-title">
             <h2>Our Gallery</h2>
@@ -845,6 +773,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
+    <!-- RSVP Section -->
     <section class="rsvp-section" id="rsvp">
         <div class="section-title">
             <h2>RSVP</h2>
@@ -892,6 +821,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
+    <!-- Footer -->
     <footer>
         <div class="footer-logo">Ashwari & Yadhir</div>
         <div>December 19, 2026</div>
@@ -903,97 +833,28 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
         
         <div class="copyright">
-            © 2026 Ashwari & Yadhir. All rights reserved.
+            &copy; 2026 Ashwari & Yadhir. All rights reserved.
         </div>
     </footer>
     
     <script>
         // Floating hearts animation
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = 10 + Math.random() * 20 + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.color = 'white';
-                heart.style.opacity = 0.3 + Math.random() * 0.7;
-                container.appendChild(heart);
-            }
-        }
-
-        // --- NEW Footprints Animation JavaScript ---
-        function animateFootprints() {
-            const startWord = document.getElementById('start-word');
-            const endWord = document.getElementById('end-word');
-            const footprintsContainer = document.getElementById('footprints-container');
-
-            if (!startWord || !endWord || !footprintsContainer) {
-                console.error("Footprint elements not found.");
-                return;
-            }
-            
-            // Get the positions of the words
-            const startRect = startWord.getBoundingClientRect();
-            const endRect = endWord.getBoundingClientRect();
-
-            // Calculate the start and end points
-            const startX = startRect.left + startRect.width; // Start from end of the word 'ago'
-            const startY = startRect.top + startRect.height / 2;
-            const endX = endRect.left + endRect.width / 2;
-            const endY = endRect.top + endRect.height / 2;
-
-            // Calculate the total distance
-            const dx = endX - startX;
-            const dy = endY - startY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            // Number of footprints
-            const numFootprints = 25;
-            const stepSize = distance / numFootprints;
-
-            // Calculate the angle of the path in degrees
-            const angleRad = Math.atan2(dy, dx);
-            const angleDeg = angleRad * 180 / Math.PI;
-
-            // A small offset for a more organic, slightly wobbly path
-            const offsetRange = 15; // Pixels
-
-            // Create and animate the footprints
-            for (let i = 0; i < numFootprints; i++) {
-                const footprint = document.createElement('div');
-                footprint.classList.add('footprint');
-                
-                // Calculate the position of each footprint along the path
-                const currentDistance = i * stepSize;
-                const currentX = startX + (currentDistance / distance) * dx;
-                const currentY = startY + (currentDistance / distance) * dy;
-
-                // Add a random offset for a less-perfect, more "walking" look
-                const offsetX = (Math.random() - 0.5) * offsetRange;
-                const offsetY = (Math.random() - 0.5) * offsetRange;
-                
-                // Alternate the footprint's rotation to simulate left/right steps
-                const rotationOffset = (i % 2 === 0) ? -15 : 15; // Rotate left or right
-                
-                // Set initial position and rotation
-                footprint.style.left = `${currentX + offsetX}px`;
-                footprint.style.top = `${currentY + offsetY}px`;
-                footprint.style.transform = `rotate(${angleDeg + rotationOffset}deg) scale(0)`;
-                
-                footprintsContainer.appendChild(footprint);
-
-                // Animate the footprint with a delay
-                setTimeout(() => {
-                    footprint.style.opacity = '1';
-                    footprint.style.transform = `rotate(${angleDeg + rotationOffset}deg) scale(1)`;
-                }, i * 100); // 100ms delay between each footprint
-            }
-        }
-
+function createHearts() {
+    const container = document.getElementById('hearts-container');
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 10 + Math.random() * 20 + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.color = 'white';
+        heart.style.opacity = 0.3 + Math.random() * 0.7; // Random opacity between 0.3-1
+        container.appendChild(heart);
+    }
+}
+        
         // Countdown timer
         function updateCountdown() {
             const weddingDate = new Date('December 19, 2026 14:00:00').getTime();
@@ -1073,23 +934,12 @@ Souls intertwined, on Cloud 9, side by side.</p>
             this.reset();
         });
         
-        // Initialize animations when footprints section is visible
-        const observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                animateFootprints();
-                observer.unobserve(entries[0].target); // Stop observing after first animation
-            }
-        }, {threshold: 0.1}); // Trigger when 10% of the element is visible
-        
         // Initialize
         window.addEventListener('load', () => {
             createHearts();
             updateCountdown();
             setInterval(updateCountdown, 1000);
             checkScroll();
-            
-            const footprintsContainer = document.getElementById('footprints-container');
-            if(footprintsContainer) observer.observe(footprintsContainer);
         });
         
         window.addEventListener('scroll', () => {
