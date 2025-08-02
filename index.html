@@ -109,6 +109,11 @@
                 opacity: 0;
             }
         }
+        @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+    }
         
         .header-content {
             z-index: 2;
@@ -709,18 +714,8 @@ A perfect start, so long ago.</p>
         container.appendChild(finalHeart);
     }
 
-    // Call this in your initialization
-    window.addEventListener('load', () => {
-        createLovePath();
-        // Your other init functions...
-    });
-
     // Add this to your CSS for the heart pulse
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.3); }
-        100% { transform: scale(1); }
-    }
+
 </script>
         <div class="story-container">
             <div class="story-image">
@@ -1020,6 +1015,7 @@ function createHearts() {
             updateCountdown();
             setInterval(updateCountdown, 1000);
             checkScroll();
+            createLovePath();
         });
         
         window.addEventListener('scroll', () => {
