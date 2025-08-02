@@ -49,6 +49,23 @@
             position: relative;
             overflow: hidden;
         }
+    @keyframes float-petal {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.6;
+        }
+        90% {
+            opacity: 0.6;
+        }
+        100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
     
         /* Floating hearts animation */
         .floating-hearts {
@@ -599,6 +616,7 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#story">Our Story</a></li>
+            <li><a href="#hurdhee">Hurdhee</a></li> <!-- New tab -->
             <li><a href="#details">Details</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#rsvp">RSVP</a></li>
@@ -666,7 +684,52 @@ Souls intertwined, on Cloud 9, side by side.</p>
             </div>
         </div>
     </section>
+    <section id="Hurdhee" style="background-color: #FFF8E1; position: relative; overflow: hidden;">
+    <!-- Marigold decorations -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path d=\"M50,0 Q60,40 50,80 Q40,40 50,0 Z\" fill=\"%23FFC107\" opacity=\"0.3\"/></svg>'); background-repeat: repeat-x; transform: rotate(180deg); z-index: 0;"></div>
+    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path d=\"M50,0 Q60,40 50,80 Q40,40 50,0 Z\" fill=\"%23FFC107\" opacity=\"0.3\"/></svg>'); background-repeat: repeat-x; z-index: 0;"></div>
     
+    <div class="section-title" style="position: relative; z-index: 1;">
+        <h2 style="color: #E65100;">Hurdhee Ceremony</h2>
+    </div>
+    
+    <div class="details-grid" style="position: relative; z-index: 1;">
+        <div class="detail-card" style="background-color: #FFECB3; border: 2px dashed #FFA000;">
+            <div class="detail-icon" style="color: #FF8F00;">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3 style="color: #BF360C;">When</h3>
+            <p>Friday, December 18, 2026</p>
+            <p>4:00 PM - 7:00 PM</p>
+        </div>
+        
+        <div class="detail-card" style="background-color: #FFECB3; border: 2px dashed #FFA000;">
+            <div class="detail-icon" style="color: #FF8F00;">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 style="color: #BF360C;">Where</h3>
+            <p>Asrai Family Home</p>
+            <p>123 Sunshine Lane</p>
+            <p>Ballito, 4399</p>
+        </div>
+        
+        <div class="detail-card" style="background-color: #FFECB3; border: 2px dashed #FFA000;">
+            <div class="detail-icon" style="color: #FF8F00;">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <h3 style="color: #BF360C;">Dress Code</h3>
+            <p>Yellow or White Traditional Wear</p>
+            <p>Comfortable clothes you don't mind getting stained!</p>
+        </div>
+    </div>
+    
+    <!-- Floating marigold petals -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;">
+        <div style="position: absolute; top: 20%; left: 10%; width: 30px; height: 30px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%23FFC107\" opacity=\"0.4\"/></svg>'); background-size: contain; animation: float-petal 8s linear infinite;"></div>
+        <div style="position: absolute; top: 40%; left: 80%; width: 40px; height: 40px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%23FFA000\" opacity=\"0.4\"/></svg>'); background-size: contain; animation: float-petal 10s linear infinite 2s;"></div>
+        <div style="position: absolute; top: 70%; left: 30%; width: 25px; height: 25px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%23FFC107\" opacity=\"0.4\"/></svg>'); background-size: contain; animation: float-petal 12s linear infinite 4s;"></div>
+    </div>
+</section>
     <section id="details">
         <div class="section-title">
             <h2>Wedding Details</h2>
