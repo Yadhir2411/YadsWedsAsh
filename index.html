@@ -520,9 +520,10 @@
         }
 
         /* Pre-Wedding Story Books */
-        .pre-wedding {
+       .pre-wedding {
             padding: 6rem 2rem;
             background-color: #fff9f9;
+            text-align: center;
         }
 
         .story-books {
@@ -531,42 +532,37 @@
             gap: 40px;
             flex-wrap: wrap;
             margin-top: 30px;
+            perspective: 2000px;
         }
 
         .story-book {
-            width: 200px;
-            height: 300px;
+            width: 220px;
+            height: 320px;
             position: relative;
-            perspective: 1000px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
         }
 
-        .story-book:hover {
+        .story-book:hover:not(.open) {
             transform: translateY(-10px);
         }
 
-        .book-cover, .book-content {
+        .book-cover {
             position: absolute;
             width: 100%;
             height: 100%;
-            backface-visibility: hidden;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            border-radius: 5px 15px 15px 5px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .book-cover {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            z-index: 2;
-            transform: rotateY(0deg);
+            border-radius: 5px 15px 15px 5px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            backface-visibility: hidden;
+            transform-origin: left center;
+            z-index: 10;
         }
 
         .book-cover img {
@@ -576,30 +572,73 @@
             object-fit: cover;
             border: 3px solid white;
             margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .book-cover h3 {
             color: #333;
             font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0;
         }
 
-        .book-content {
+        .book-spine {
+            position: absolute;
+            left: 0;
+            top: 5%;
+            width: 15px;
+            height: 90%;
+            background: linear-gradient(to right, #a3a3a3, #d4d4d4, #a3a3a3);
+            transform: rotateY(90deg) translateX(-15px);
+            z-index: 5;
+        }
+
+        .book-pages {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             background: white;
-            padding: 20px;
-            transform: rotateY(180deg);
-            z-index: 1;
+            border-radius: 5px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
             display: flex;
-            align-items: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .left-page, .right-page {
+            width: 50%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .left-page {
+            border-right: 1px solid #eee;
+            background: linear-gradient(to right, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 5%);
+        }
+
+        .right-page {
+            background: linear-gradient(to left, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 5%);
+        }
+
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            text-align: center;
+        }
+
+        .story-book.open {
+            transform: translateX(100px) rotateY(-180deg);
         }
 
         .story-book.open .book-cover {
-            transform: rotateY(-180deg);
-        }
-
-        .story-book.open .book-content {
-            transform: rotateY(0deg);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         }
 
         /* Hearts animation for books */
@@ -609,6 +648,7 @@
             opacity: 0;
             color: #ff6b6b;
             font-size: 1.2rem;
+            z-index: 100;
         }
 
         @keyframes float-up {
@@ -750,7 +790,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
     </section>
 
     <!-- Pre-Wedding Section -->
-    <section id="pre-wedding" class="pre-wedding">
+       <section id="pre-wedding" class="pre-wedding">
         <div class="section-title">
             <h2>Our Love Story</h2>
         </div>
@@ -761,11 +801,20 @@ Souls intertwined, on Cloud 9, side by side.</p>
                     <img src="Images\12.jpeg" alt="Our First Meeting">
                     <h3>How We Met</h3>
                 </div>
-                <div class="book-content">
-                    <p>Our story began with a simple "Hi" online. 
-                    What started as casual chats turned into endless conversations. 
-                    We discovered our shared love for music, travel, and bad jokes. 
-                    The more we talked, the more we realized this was something special.</p>
+                <div class="book-spine"></div>
+                <div class="book-pages">
+                    <div class="left-page">
+                        <div class="page-content">
+                            <p>It all began with a simple message online. What started as casual conversation quickly turned into something more. We discovered our shared love for music, travel, and terrible puns.</p>
+                            <p>Late night chats turned into marathon conversations. We'd talk about everything - our dreams, our fears, our favorite foods. The connection was instant and undeniable.</p>
+                        </div>
+                    </div>
+                    <div class="right-page">
+                        <div class="page-content">
+                            <p>Our first meeting was magical. The moment we saw each other, it felt like we'd known one another forever. That first hug erased all doubts - this was something special.</p>
+                            <p>We spent hours walking and talking, completely losing track of time. The chemistry was electric, and we both knew this was just the beginning of our beautiful journey.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -774,11 +823,20 @@ Souls intertwined, on Cloud 9, side by side.</p>
                     <img src="Images\11.jpeg" alt="Our Journey">
                     <h3>Our Journey</h3>
                 </div>
-                <div class="book-content">
-                    <p>From our first date at that cozy coffee shop to the weekend getaways,
-                    every moment has been magical. The laughter, the adventures,
-                    even the challenges - they all brought us closer. 
-                    And now, we're writing the most beautiful chapter yet!</p>
+                <div class="book-spine"></div>
+                <div class="book-pages">
+                    <div class="left-page">
+                        <div class="page-content">
+                            <p>From weekend getaways to cozy nights in, every moment together has been an adventure. We've built memories that will last a lifetime - the laughter, the challenges, the growth.</p>
+                            <p>Through the miles and months apart, our love only grew stronger. Every reunion was sweeter, every goodbye harder. The distance taught us patience and deepened our connection.</p>
+                        </div>
+                    </div>
+                    <div class="right-page">
+                        <div class="page-content">
+                            <p>The proposal was perfect - just like you. Under the stars, with tears in our eyes, we promised forever. That moment will live in our hearts forever.</p>
+                            <p>Now, as we prepare to begin our married life together, we're filled with gratitude for every step of this journey. The best is yet to come, and we can't wait to write the next chapter together.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1069,8 +1127,17 @@ Souls intertwined, on Cloud 9, side by side.</p>
         });
 
         // Story book animation
+        
+        // Story book animation - Updated for realistic book opening
         function openBook(book) {
-            // Toggle book open/close
+            // Close any open books first
+            document.querySelectorAll('.story-book.open').forEach(openBook => {
+                if (openBook !== book) {
+                    openBook.classList.remove('open');
+                }
+            });
+            
+            // Toggle current book
             book.classList.toggle('open');
             
             // Create hearts only when opening the book
@@ -1084,15 +1151,16 @@ Souls intertwined, on Cloud 9, side by side.</p>
             const bookCenterX = bookRect.left + bookRect.width / 2;
             const bookTop = bookRect.top;
             
-            // Create 10 hearts
-            for (let i = 0; i < 10; i++) {
+            // Create 15 hearts for better effect
+            for (let i = 0; i < 15; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('book-heart');
                 heart.innerHTML = '❤️';
-                heart.style.left = `${bookCenterX - 10 + Math.random() * 20}px`;
-                heart.style.top = `${bookTop + bookRect.height}px`;
-                heart.style.fontSize = `${15 + Math.random() * 10}px`;
+                heart.style.left = `${bookCenterX - 20 + Math.random() * 40}px`;
+                heart.style.top = `${bookTop + bookRect.height/2}px`;
+                heart.style.fontSize = `${15 + Math.random() * 15}px`;
                 heart.style.animation = `float-up ${1 + Math.random() * 2}s ease-out forwards`;
+                heart.style.animationDelay = `${Math.random() * 0.5}s`;
                 
                 document.body.appendChild(heart);
                 
