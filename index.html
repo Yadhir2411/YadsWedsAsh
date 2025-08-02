@@ -50,7 +50,6 @@
             overflow: hidden;
         }
     
-        
         /* Floating hearts animation */
         .floating-hearts {
             position: absolute;
@@ -86,48 +85,26 @@
             }
         }
 
-        /* Footprints Animation */
-        .footprints-container {
+        /* --- NEW Footprints Animation CSS --- */
+        #footprints-container {
             position: relative;
-            height: 100px;
-            margin: 50px auto;
-            width: 90%;
-            overflow: visible;
+            width: 100%;
+            min-height: 100px; /* Adjust height as needed for visibility */
+            pointer-events: none;
+            z-index: 10;
         }
 
         .footprint {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,70 Q35,60 40,65 Q45,70 50,60 Q55,50 60,55 Q65,60 70,50" fill="none" stroke="%23d4a373" stroke-width="8" stroke-linecap="round"/></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
+            background-size: cover;
             opacity: 0;
-            z-index: 10;
-            animation: walk 2s ease-in-out forwards;
+            transform-origin: center;
+            transition: all 0.5s ease-out;
         }
 
-        @keyframes walk {
-            0% { opacity: 0; transform: scale(0.5) translateY(10px); }
-            20% { opacity: 1; transform: scale(1) translateY(0); }
-            80% { opacity: 1; transform: scale(1) translateY(0); }
-            100% { opacity: 0; transform: scale(0.5) translateY(-10px); }
-        }
-
-        .footprint.left {
-            transform: rotate(-15deg);
-        }
-
-        .footprint.right {
-            transform: rotate(15deg) scaleX(-1);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-        
         .header-content {
             z-index: 2;
             animation: fadeIn 2s ease-out;
@@ -604,8 +581,7 @@
         }
     </style>
 </head>
-    <!-- Add this right before </body> -->
-<audio autoplay loop id="bgMusic">
+    <audio autoplay loop id="bgMusic">
   <source src="Music/Love.mp3" type="audio/mpeg">
   Your browser does not support audio element.
 </audio>
@@ -617,10 +593,8 @@
   }, { once: true });
 </script>
 <body>
-    <!-- Floating hearts background -->
     <div class="floating-hearts" id="hearts-container"></div>
     
-    <!-- Navigation -->
     <nav id="navbar">
         <ul>
             <li><a href="#home">Home</a></li>
@@ -631,7 +605,6 @@
         </ul>
     </nav>
     
-    <!-- Header/Hero Section -->
     <header id="home">
         <div class="header-content">
             <h1>Yadhir & Ashwari</h1>
@@ -659,7 +632,6 @@
         </div>
     </header>
     
-    <!-- Our Story Section -->
     <section id="story">
         <div class="section-title">
             <h2>Jab We Met</h2>
@@ -667,25 +639,26 @@
         
         <div class="story-container">
             <div class="story-text">
-                <h3></h3>
+                <h3>The beginning</h3>
                 <p>
                     A simple "Hi,"...<br> a message on a screen!<br>
 A friendship bloomed,<br> the best I've ever seen!<br>
 From pixels shared...<br>a love began to grow,<br>
-A perfect start, so long ago.</p>
+A perfect start, so long <span id="start-word">ago</span>.</p>
             </div>
             <div class="story-image">
                 <img src="Images\12.jpeg" alt="Yadhir & Ashwari">
             </div>
         </div>
-        <div class="footprints-container" id="footprintsJourney"></div>
+        
+        <div id="footprints-container"></div>
 
         <div class="story-container">
             <div class="story-image">
                 <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proposal">
             </div>
             <div class="story-text">
-                <h3>The Proposal</h3>
+                <h3 id="end-word">The Proposal</h3>
                 <p> </p>
                 <p>Love knows no bounds, though miles divide,
 Our shared sky, where whispered promises hide.
@@ -694,7 +667,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
-    <!-- Wedding Details Section -->
     <section id="details">
         <div class="section-title">
             <h2>Wedding Details</h2>
@@ -768,7 +740,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
-    <!-- Gallery Section -->
     <section id="gallery">
         <div class="section-title">
             <h2>Our Gallery</h2>
@@ -811,7 +782,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
-    <!-- RSVP Section -->
     <section class="rsvp-section" id="rsvp">
         <div class="section-title">
             <h2>RSVP</h2>
@@ -859,7 +829,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
     </section>
     
-    <!-- Footer -->
     <footer>
         <div class="footer-logo">Ashwari & Yadhir</div>
         <div>December 19, 2026</div>
@@ -871,7 +840,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
         
         <div class="copyright">
-            &copy; 2026 Ashwari & Yadhir. All rights reserved.
+            © 2026 Ashwari & Yadhir. All rights reserved.
         </div>
     </footer>
     
@@ -893,48 +862,75 @@ Souls intertwined, on Cloud 9, side by side.</p>
             }
         }
 
-        // Footprints animation
-        function createLovePath() {
-            const container = document.getElementById('footprintsJourney');
-            container.innerHTML = ''; // Clear previous elements
+        // --- NEW Footprints Animation JavaScript ---
+        function animateFootprints() {
+            const startWord = document.getElementById('start-word');
+            const endWord = document.getElementById('end-word');
+            const footprintsContainer = document.getElementById('footprints-container');
+
+            if (!startWord || !endWord || !footprintsContainer) {
+                console.error("Footprint elements not found.");
+                return;
+            }
             
-            // Path coordinates (x%, y%, delay in seconds, side)
-            const path = [
-                {x: 5, y: 50, delay: 0, side: 'right'},
-                {x: 15, y: 55, delay: 0.3, side: 'left'},
-                {x: 25, y: 45, delay: 0.6, side: 'right'},
-                {x: 35, y: 55, delay: 0.9, side: 'left'},
-                {x: 45, y: 40, delay: 1.2, side: 'right'},
-                {x: 55, y: 55, delay: 1.5, side: 'left'},
-                {x: 65, y: 45, delay: 1.8, side: 'right'},
-                {x: 75, y: 55, delay: 2.1, side: 'left'},
-                {x: 85, y: 40, delay: 2.4, side: 'right'},
-                {x: 95, y: 50, delay: 2.7, side: 'left'}
-            ];
+            // Get the positions of the words
+            const startRect = startWord.getBoundingClientRect();
+            const endRect = endWord.getBoundingClientRect();
 
-            path.forEach((step) => {
+            // Calculate the start and end points
+            const startX = startRect.left + startRect.width; // Start from end of the word 'ago'
+            const startY = startRect.top + startRect.height / 2;
+            const endX = endRect.left + endRect.width / 2;
+            const endY = endRect.top + endRect.height / 2;
+
+            // Calculate the total distance
+            const dx = endX - startX;
+            const dy = endY - startY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Number of footprints
+            const numFootprints = 25;
+            const stepSize = distance / numFootprints;
+
+            // Calculate the angle of the path in degrees
+            const angleRad = Math.atan2(dy, dx);
+            const angleDeg = angleRad * 180 / Math.PI;
+
+            // A small offset for a more organic, slightly wobbly path
+            const offsetRange = 15; // Pixels
+
+            // Create and animate the footprints
+            for (let i = 0; i < numFootprints; i++) {
                 const footprint = document.createElement('div');
-                footprint.classList.add('footprint', step.side);
-                footprint.style.left = step.x + '%';
-                footprint.style.top = step.y + '%';
-                footprint.style.animationDelay = step.delay + 's';
-                container.appendChild(footprint);
-            });
+                footprint.classList.add('footprint');
+                
+                // Calculate the position of each footprint along the path
+                const currentDistance = i * stepSize;
+                const currentX = startX + (currentDistance / distance) * dx;
+                const currentY = startY + (currentDistance / distance) * dy;
 
-            // Add pulsing heart at the end
-            const finalHeart = document.createElement('div');
-            finalHeart.innerHTML = '❤';
-            finalHeart.style.position = 'absolute';
-            finalHeart.style.left = '92%';
-            finalHeart.style.top = '45%';
-            finalHeart.style.fontSize = '2rem';
-            finalHeart.style.color = 'var(--accent)';
-            finalHeart.style.animation = 'pulse 1.5s infinite 3.2s';
-            finalHeart.style.opacity = '0';
-            finalHeart.style.animationFillMode = 'forwards';
-            container.appendChild(finalHeart);
+                // Add a random offset for a less-perfect, more "walking" look
+                const offsetX = (Math.random() - 0.5) * offsetRange;
+                const offsetY = (Math.random() - 0.5) * offsetRange;
+                
+                // Alternate the footprint's rotation to simulate left/right steps
+                const rotationOffset = (i % 2 === 0) ? -15 : 15; // Rotate left or right
+                
+                // Set initial position and rotation
+                footprint.style.left = `${currentX + offsetX}px`;
+                footprint.style.top = `${currentY + offsetY}px`;
+                footprint.style.transform = `rotate(${angleDeg + rotationOffset}deg) scale(0)`;
+                
+                footprintsContainer.appendChild(footprint);
+
+                // Animate the footprint with a delay
+                setTimeout(() => {
+                    footprint.style.opacity = '1';
+                    footprint.style.transform = `rotate(${angleDeg + rotationOffset}deg) scale(1)`;
+                }, i * 100); // 100ms delay between each footprint
+            }
         }
-        
+
         // Countdown timer
         function updateCountdown() {
             const weddingDate = new Date('December 19, 2026 14:00:00').getTime();
@@ -1017,9 +1013,10 @@ Souls intertwined, on Cloud 9, side by side.</p>
         // Initialize animations when footprints section is visible
         const observer = new IntersectionObserver((entries) => {
             if(entries[0].isIntersecting) {
-                createLovePath();
+                animateFootprints();
+                observer.unobserve(entries[0].target); // Stop observing after first animation
             }
-        }, {threshold: 0.5});
+        }, {threshold: 0.1}); // Trigger when 10% of the element is visible
         
         // Initialize
         window.addEventListener('load', () => {
@@ -1028,8 +1025,8 @@ Souls intertwined, on Cloud 9, side by side.</p>
             setInterval(updateCountdown, 1000);
             checkScroll();
             
-            const footprintsSection = document.getElementById('footprintsJourney');
-            if(footprintsSection) observer.observe(footprintsSection);
+            const footprintsContainer = document.getElementById('footprints-container');
+            if(footprintsContainer) observer.observe(footprintsContainer);
         });
         
         window.addEventListener('scroll', () => {
