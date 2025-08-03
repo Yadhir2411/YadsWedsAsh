@@ -568,12 +568,13 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-}.books-wrapper {
+}
+.books-wrapper {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 3rem;
-  padding: 3rem 1rem;
+  padding: 3rem 0;
 }
 
 .book {
@@ -664,17 +665,8 @@
   }
 
   .book {
-    width: 100%;
-    max-width: 320px;
-    height: 400px;
-  }
-
-  .book:hover {
-    transform: none;
-  }
-
-  .book.open {
-    transform: rotateY(180deg);
+    width: 90%;
+    height: 300px;
   }
 }
 
