@@ -568,79 +568,114 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-}
-
-.book-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 3rem;
+}.books-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 3rem 1rem;
 }
 
 .book {
-    perspective: 1500px;
-    width: 300px;
-    height: 400px;
-    cursor: pointer;
+  position: relative;
+  width: 260px;
+  height: 350px;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  cursor: pointer;
 }
 
-.book-inner {
-    width: 100%;
-    height: 100%;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    position: relative;
+.book:hover {
+  transform: rotateY(180deg);
 }
 
-.book.open .book-inner {
-    transform: rotateY(180deg);
+.book-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.book-front, .book-pages {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    backface-visibility: hidden;
-    overflow: hidden;
+.book-cover img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
 }
 
-.book-front {
-    background-color: var(--light);
-    display: flex;
+.book-heading {
+  padding: 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  background-color: rgba(255,255,255,0.85);
+  width: 100%;
+  text-align: center;
+  color: var(--secondary);
+}
+
+.book-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  background: var(--light);
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.book-front-page {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.book-back-page {
+  transform: rotateY(0deg);
+  z-index: 0;
+}
+
+.book-page h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.book-page p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .books-wrapper {
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    padding: 1rem;
-    z-index: 2;
-    transform: rotateY(0deg);
-}
+  }
 
-.book-front img {
+  .book {
     width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    flex-grow: 1;
-}
+    max-width: 320px;
+    height: 400px;
+  }
 
-.book-title {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--secondary);
-}
+  .book:hover {
+    transform: none;
+  }
 
-.book-pages {
-    display: flex;
-    background: #fff;
+  .book.open {
     transform: rotateY(180deg);
-    z-index: 1;
-    padding: 1.5rem;
-    gap: 1rem;
+  }
 }
 
 .page-left, .page-right {
@@ -1103,6 +1138,14 @@ function createHearts() {
             handleScroll();
             checkScroll();
         });
+        // Flip book on click for mobile
+document.querySelectorAll('.book').forEach(book => {
+  book.addEventListener('click', function () {
+    if (window.innerWidth <= 768) {
+      this.classList.toggle('open');
+    }
+  });
+});
     </script>
 </body>
 </html>
