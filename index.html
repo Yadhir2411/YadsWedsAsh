@@ -1144,7 +1144,26 @@ function createHearts() {
         startAutoFlipBooks(); // 🔁 Start the flipping loop
     });
 </script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('weddingMusic');
 
+    function enableAudioPlayback() {
+      if (audio) {
+        audio.play().catch((e) => {
+          console.log("Autoplay blocked:", e);
+        });
+      }
+      // Remove the listener after first interaction
+      document.removeEventListener('click', enableAudioPlayback);
+      document.removeEventListener('scroll', enableAudioPlayback);
+    }
+
+    // Start music on first click or scroll
+    document.addEventListener('click', enableAudioPlayback);
+    document.addEventListener('scroll', enableAudioPlayback);
+  });
+</script>
     </script>
 </body>
 </html>
