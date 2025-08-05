@@ -1104,6 +1104,52 @@ function createHearts() {
         function toggleBook(bookEl) {
     bookEl.classList.toggle('open');
 }
+        <script>
+    function toggleBook(bookEl) {
+        bookEl.classList.toggle('open');
+    }
+
+    // Auto flip logic
+    function startAutoFlipBooks() {
+        const books = document.querySelectorAll('.book');
+        let isFlipped = false;
+
+        const FLIP_TO_PAGES_DELAY = 3000; // 3 seconds
+        const STAY_ON_PAGES_DURATION = 20000; // 20 seconds
+        const STAY_ON_COVER_DURATION = 3000; // 3 seconds
+
+        function flipBooks() {
+            books.forEach(book => book.classList.add('open'));
+            isFlipped = true;
+
+            setTimeout(() => {
+                books.forEach(book => book.classList.remove('open'));
+                isFlipped = false;
+            }, STAY_ON_PAGES_DURATION);
+        }
+
+        // Start initial flip after 3 seconds
+        setTimeout(() => {
+            flipBooks();
+
+            // Repeat the flipping logic every 23 seconds (20s open + 3s closed)
+            setInterval(() => {
+                flipBooks();
+            }, STAY_ON_PAGES_DURATION + STAY_ON_COVER_DURATION);
+
+        }, FLIP_TO_PAGES_DELAY);
+    }
+
+    // Call after window load
+    window.addEventListener('load', () => {
+        createHearts();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        checkScroll();
+        startAutoFlipBooks(); // 🔁 Start the flipping loop
+    });
+</script>
+
     </script>
 </body>
 </html>
