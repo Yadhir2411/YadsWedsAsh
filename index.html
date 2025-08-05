@@ -518,116 +518,6 @@
                 transform: translateY(100vh) rotate(720deg);
             }
         }
-
-        /* Pre-Wedding Story Books */
-/* Pre-Wedding Books */
-#prewedding {
-    padding: 6rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.book-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 3rem;
-}
-
-.book {
-    perspective: 1500px;
-    width: 300px;
-    height: 400px;
-    cursor: pointer;
-}
-
-.book-inner {
-    width: 100%;
-    height: 100%;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    position: relative;
-}
-
-.book.open .book-inner {
-    transform: rotateY(180deg);
-}
-
-.book-front, .book-pages {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    backface-visibility: hidden;
-    overflow: hidden;
-}
-
-.book-front {
-    background-color: var(--light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 1rem;
-    z-index: 2;
-    transform: rotateY(0deg);
-}
-
-.book-front img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    flex-grow: 1;
-}
-
-.book-title {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--secondary);
-}
-
-.book-pages {
-    display: flex;
-    background: #fff;
-    transform: rotateY(180deg);
-    z-index: 1;
-    padding: 1.5rem;
-    gap: 1rem;
-}
-
-.page-left, .page-right {
-    width: 50%;
-    font-size: 0.9rem;
-    text-align: left;
-    padding: 1rem;
-    background: var(--light);
-    border-radius: 5px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-}
-
-.page-left h4, .page-right h4 {
-    margin-bottom: 0.5rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--accent);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .book-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .book {
-        width: 90%;
-        height: auto;
-    }
-}
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -670,14 +560,21 @@
             .rsvp-form {
                 padding: 2rem 1rem;
             }
-
-            .story-books {
-                flex-direction: column;
-                align-items: center;
-            }
         }
     </style>
 </head>
+    <!-- Add this right before </body> -->
+<audio autoplay loop id="bgMusic">
+  <source src="Music/Love.mp3" type="audio/mpeg">
+  Your browser does not support audio element.
+</audio>
+
+<script>
+  // This helps with autoplay restrictions
+  document.addEventListener('click', function() {
+    document.getElementById('bgMusic').play();
+  }, { once: true });
+</script>
 <body>
     <!-- Floating hearts background -->
     <div class="floating-hearts" id="hearts-container"></div>
@@ -687,7 +584,6 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#story">Our Story</a></li>
-            <li><a href="#pre-wedding">Pre-Wedding</a></li>
             <li><a href="#details">Details</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#rsvp">RSVP</a></li>
@@ -741,7 +637,11 @@ A perfect start, so long ago.</p>
                 <img src="Images\12.jpeg" alt="Yadhir & Ashwari">
             </div>
         </div>
-        
+        <div class="footprints-container" id="footprintsJourney"></div>
+
+<!-- Add this JavaScript -->
+
+</script>
         <div class="story-container">
             <div class="story-image">
                 <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proposal">
@@ -755,55 +655,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
             </div>
         </div>
     </section>
-
-    <!-- Pre-Wedding Section -->
-     <!-- Pre-Wedding Section -->
-<section id="prewedding">
-    <div class="section-title">
-        <h2>Pre-Wedding Celebrations</h2>
-    </div>
-
-    <div class="book-container">
-        <div class="book" onclick="toggleBook(this)">
-            <div class="book-inner">
-                <div class="book-front">
-                    <img src="Images/1.jpeg" alt="Hurdhee Cover">
-                    <div class="book-title">Hurdhee</div>
-                </div>
-                <div class="book-pages">
-                    <div class="page-left">
-                        <h4>Hurdhee Ceremony</h4>
-                        <p>A celebration of blessings, family, and tradition. Join us as we mark this beautiful journey toward union.</p>
-                    </div>
-                    <div class="page-right">
-                        <h4>Details</h4>
-                        <p>Location: Bride's Residence<br>Date: December 17, 2026<br>Dress Code: Traditional Yellow</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="book" onclick="toggleBook(this)">
-            <div class="book-inner">
-                <div class="book-front">
-                    <img src="Images/3.jpeg" alt="Mehndi Cover">
-                    <div class="book-title">Mehndi</div>
-                </div>
-                <div class="book-pages">
-                    <div class="page-left">
-                        <h4>Mehndi Night</h4>
-                        <p>Henna, laughter, and music fill the air. A colorful night of celebration under the stars.</p>
-                    </div>
-                    <div class="page-right">
-                        <h4>Details</h4>
-                        <p>Location: Event Hall<br>Date: December 18, 2026<br>Dress Code: Vibrant Ethnic Wear</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
+    
     <!-- Wedding Details Section -->
     <section id="details">
         <div class="section-title">
@@ -984,30 +836,24 @@ Souls intertwined, on Cloud 9, side by side.</p>
             &copy; 2026 Ashwari & Yadhir. All rights reserved.
         </div>
     </footer>
-
-    <!-- Background Music -->
-    <audio autoplay loop id="bgMusic">
-      <source src="Music/Love.mp3" type="audio/mpeg">
-      Your browser does not support audio element.
-    </audio>
     
     <script>
         // Floating hearts animation
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = 10 + Math.random() * 20 + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.color = 'white';
-                heart.style.opacity = 0.3 + Math.random() * 0.7; // Random opacity between 0.3-1
-                container.appendChild(heart);
-            }
-        }
+function createHearts() {
+    const container = document.getElementById('hearts-container');
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 10 + Math.random() * 20 + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.color = 'white';
+        heart.style.opacity = 0.3 + Math.random() * 0.7; // Random opacity between 0.3-1
+        container.appendChild(heart);
+    }
+}
         
         // Countdown timer
         function updateCountdown() {
@@ -1028,7 +874,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
         
         // Scroll animations
         function checkScroll() {
-            const elements = document.querySelectorAll('.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form, .story-book');
+            const elements = document.querySelectorAll('.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form');
             
             elements.forEach(element => {
                 const elementPosition = element.getBoundingClientRect().top;
@@ -1087,55 +933,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
             alert('Thank you for your RSVP! We look forward to celebrating with you.');
             this.reset();
         });
-
-        // Story book animation
-       // Story book animation - Updated for realistic book opening
-        function openBook(book) {
-            // Close any open books first
-            document.querySelectorAll('.story-book.open').forEach(openBook => {
-                if (openBook !== book) {
-                    openBook.classList.remove('open');
-                }
-            });
-            
-            // Toggle current book
-            book.classList.toggle('open');
-            
-            // Create hearts only when opening the book
-            if (book.classList.contains('open')) {
-                createBookHearts(book);
-            }
-        }
-
-        function createBookHearts(book) {
-            const bookRect = book.getBoundingClientRect();
-            const bookCenterX = bookRect.left + bookRect.width / 2;
-            const bookTop = bookRect.top;
-            
-            // Create 15 hearts for better effect
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('book-heart');
-                heart.innerHTML = '❤️';
-                heart.style.left = `${bookCenterX - 20 + Math.random() * 40}px`;
-                heart.style.top = `${bookTop + bookRect.height/2}px`;
-                heart.style.fontSize = `${15 + Math.random() * 15}px`;
-                heart.style.animation = `float-up ${1 + Math.random() * 2}s ease-out forwards`;
-                heart.style.animationDelay = `${Math.random() * 0.5}s`;
-                
-                document.body.appendChild(heart);
-                
-                // Remove heart after animation
-                setTimeout(() => {
-                    heart.remove();
-                }, 3000);
-            }
-        }
-
-        // Background music autoplay
-        document.addEventListener('click', function() {
-            document.getElementById('bgMusic').play();
-        }, { once: true });
         
         // Initialize
         window.addEventListener('load', () => {
@@ -1144,10 +941,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
             setInterval(updateCountdown, 1000);
             checkScroll();
         });
-
-        function toggleBook(bookEl) {
-    bookEl.classList.toggle('open');
-}
         
         window.addEventListener('scroll', () => {
             handleScroll();
@@ -1156,4 +949,3 @@ Souls intertwined, on Cloud 9, side by side.</p>
     </script>
 </body>
 </html>
-
