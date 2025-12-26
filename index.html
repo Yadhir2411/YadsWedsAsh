@@ -90,6 +90,7 @@
         .header-content {
             z-index: 2;
             animation: fadeIn 2s ease-out;
+            padding: 0 1rem;
         }
         
         @keyframes fadeIn {
@@ -124,6 +125,7 @@
             gap: 2rem;
             margin-top: 2rem;
             animation: slideUp 1s ease-out 0.5s both;
+            flex-wrap: wrap;
         }
         
         @keyframes slideUp {
@@ -159,7 +161,7 @@
         }
         
         nav.scrolled {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 1rem 0;
         }
@@ -173,6 +175,8 @@
             justify-content: center;
             list-style: none;
             gap: 3rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
         }
         
         nav a {
@@ -182,6 +186,7 @@
             letter-spacing: 1px;
             transition: color 0.3s;
             position: relative;
+            font-size: 0.9rem;
         }
         
         nav a:hover {
@@ -205,22 +210,22 @@
         
         /* Sections */
         section {
-            padding: 6rem 2rem;
+            padding: 4rem 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             position: relative;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             display: inline-block;
             background-color: var(--light);
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             position: relative;
             z-index: 2;
         }
@@ -254,6 +259,11 @@
         .story-text.visible {
             opacity: 1;
             transform: translateX(0);
+        }
+        
+        .story-text p {
+            line-height: 1.8;
+            font-size: 1rem;
         }
         
         .story-image {
@@ -290,14 +300,14 @@
         /* Wedding Details */
         .details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
         
         .detail-card {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -316,7 +326,7 @@
         }
         
         .detail-icon {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--accent);
             margin-bottom: 1rem;
         }
@@ -324,14 +334,26 @@
         .detail-card h3 {
             margin-bottom: 1rem;
             color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        
+        .detail-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .detail-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
         }
         
         /* Gallery */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 2rem;
         }
         
         .gallery-item {
@@ -382,7 +404,7 @@
                        url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
             color: white;
             text-align: center;
-            padding: 8rem 2rem;
+            padding: 5rem 1.5rem;
         }
         
         .rsvp-section .section-title h2 {
@@ -399,7 +421,7 @@
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            padding: 3rem;
+            padding: 2rem 1.5rem;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             opacity: 0;
@@ -421,6 +443,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
+            font-size: 0.95rem;
         }
         
         .form-group input, 
@@ -433,6 +456,7 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
             font-family: inherit;
+            font-size: 1rem;
         }
         
         .form-group input::placeholder,
@@ -452,6 +476,7 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            width: 100%;
         }
         
         .submit-btn:hover {
@@ -465,7 +490,7 @@
             background-color: var(--dark);
             color: white;
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 3rem 1.5rem;
         }
         
         .footer-logo {
@@ -519,7 +544,104 @@
             }
         }
         
-        /* Responsive */
+        /* Pre-Wedding Books */
+        #prewedding {
+            padding: 4rem 1.5rem;
+        }
+
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .book {
+            perspective: 1500px;
+            width: 100%;
+            max-width: 300px;
+            height: 400px;
+            cursor: pointer;
+        }
+
+        .book-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .book.open .book-inner {
+            transform: rotateY(180deg);
+        }
+
+        .book-front, .book-pages {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        .book-front {
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 1rem;
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+
+        .book-front img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            flex-grow: 1;
+        }
+
+        .book-title {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+        }
+
+        .book-pages {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            transform: rotateY(180deg);
+            z-index: 1;
+            padding: 1.5rem;
+            gap: 1rem;
+        }
+
+        .page-left, .page-right {
+            width: 100%;
+            font-size: 0.85rem;
+            text-align: left;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 5px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .page-left h4, .page-right h4 {
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -527,178 +649,143 @@
             
             .subtitle {
                 font-size: 1rem;
+                letter-spacing: 2px;
             }
             
             .date {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .countdown {
-                gap: 1rem;
+                gap: 0.8rem;
+                padding: 0 1rem;
             }
             
             .countdown-number {
                 font-size: 1.8rem;
             }
             
+            .countdown-label {
+                font-size: 0.75rem;
+            }
+            
             nav ul {
-                gap: 1.5rem;
+                gap: 1rem;
+                padding: 0 0.5rem;
+            }
+            
+            nav a {
+                font-size: 0.8rem;
             }
             
             .story-container {
                 flex-direction: column;
+                gap: 2rem;
+                margin-bottom: 2rem;
             }
             
             .story-image:before {
-                display: none;
+                top: -10px;
+                left: -10px;
             }
             
             section {
-                padding: 4rem 1rem;
+                padding: 3rem 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+                padding: 0 1rem;
             }
             
             .rsvp-form {
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
+            }
+            
+            .rsvp-section {
+                padding: 4rem 1rem;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .book {
+                height: 350px;
+            }
+            
+            .book-pages {
+                padding: 1rem;
+            }
+            
+            .page-left, .page-right {
+                font-size: 0.8rem;
+                padding: 0.8rem;
             }
         }
-        /* Pre-Wedding Books */
-#prewedding {
-    padding: 6rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.book-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 3rem;
-}
-
-.book {
-    perspective: 1500px;
-    width: 300px;
-    height: 400px;
-    cursor: pointer;
-}
-
-.book-inner {
-    width: 100%;
-    height: 100%;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    position: relative;
-}
-
-.book.open .book-inner {
-    transform: rotateY(180deg);
-}
-
-.book-front, .book-pages {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    backface-visibility: hidden;
-    overflow: hidden;
-}
-
-.book-front {
-    background-color: var(--light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 1rem;
-    z-index: 2;
-    transform: rotateY(0deg);
-}
-
-.book-front img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    flex-grow: 1;
-}
-
-.book-title {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--secondary);
-}
-
-.book-pages {
-    display: flex;
-    background: #fff;
-    transform: rotateY(180deg);
-    z-index: 1;
-    padding: 1.5rem;
-    gap: 1rem;
-}
-
-.page-left, .page-right {
-    width: 50%;
-    font-size: 0.9rem;
-    text-align: left;
-    padding: 1rem;
-    background: var(--light);
-    border-radius: 5px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-}
-
-.page-left h4, .page-right h4 {
-    margin-bottom: 0.5rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--accent);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .book-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .book {
-        width: 90%;
-        height: auto;
-    }
-}
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown {
+                gap: 0.5rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+            
+            nav ul {
+                gap: 0.6rem;
+            }
+            
+            nav a {
+                font-size: 0.75rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .detail-card {
+                padding: 1.25rem;
+            }
+            
+            .book {
+                height: 320px;
+            }
+        }
     </style>
 </head>
-    <!-- Add this right before </body> -->
-<audio autoplay loop id="bgMusic">
-  <source src="Music/Love.mp3" type="audio/mpeg">
-  Your browser does not support audio element.
-</audio>
-
-<script>
-  // This helps with autoplay restrictions
-  document.addEventListener('click', function() {
-    document.getElementById('bgMusic').play();
-  }, { once: true });
-</script>
 <body>
-    <!-- Floating hearts background -->
+    <audio autoplay loop id="bgMusic">
+      <source src="Music/Love.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="floating-hearts" id="hearts-container"></div>
     
-    <!-- Navigation -->
     <nav id="navbar">
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#prewedding">Pre-Wedding</a></li>
-            <li><a href="#details">Wedding Reception</a></li>
+            <li><a href="#details">Reception</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#rsvp">RSVP</a></li>
         </ul>
     </nav>
     
-    <!-- Header/Hero Section -->
     <header id="home">
         <div class="header-content">
             <h1>Yadhir & Ashwari</h1>
@@ -726,7 +813,6 @@
         </div>
     </header>
     
-    <!-- Our Story Section -->
     <section id="story">
         <div class="section-title">
             <h2>Jab We Met</h2>
@@ -734,83 +820,74 @@
         
         <div class="story-container">
             <div class="story-text">
-                <h3></h3>
-                <p>
-                    A simple "Hi," a message on a screen,
-A friendship bloomed, the best I've ever seen.
-From pixels shared, a love began to grow,
+                <p>A simple "Hi," a message on a screen,<br>
+A friendship bloomed, the best I've ever seen.<br>
+From pixels shared, a love began to grow,<br>
 A perfect start, so long ago.</p>
             </div>
             <div class="story-image">
-                <img src="Images\12.jpeg" alt="Yadhir & Ashwari">
+                <img src="Images/12.jpeg" alt="Yadhir & Ashwari">
             </div>
         </div>
-        <div class="footprints-container" id="footprintsJourney"></div>
 
-<!-- Add this JavaScript -->
-
-</script>
         <div class="story-container">
             <div class="story-image">
                 <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proposal">
             </div>
             <div class="story-text">
-                <h3></h3>
-                <p> </p>
-                <p>Love knows no bounds, though miles divide,
-Our shared sky, where whispered promises hide.
+                <p>Love knows no bounds, though miles divide,<br>
+Our shared sky, where whispered promises hide.<br>
 Souls intertwined, on Cloud 9, side by side.</p>
             </div>
         </div>
     </section>
     
-    <!-- Pre-Wedding Section -->
     <section id="prewedding">
-    <div class="section-title">
-        <h2>Pre-Wedding Celebrations</h2>
-    </div>
+        <div class="section-title">
+            <h2>Pre-Wedding Celebrations</h2>
+        </div>
 
-    <div class="book-container">
-        <div class="book" onclick="toggleBook(this)">
-            <div class="book-inner">
-                <div class="book-front">
-                    <img src="Images/21.jpg" alt="Mendhi Cover">
-                    <div class="book-title">Mendhi</div>
-                </div>
-                <div class="book-pages">
-                    <div class="page-left">
-                        <h4>Mendhi Night</h4>
-                        <p>A celebration of blessings, family, and tradition. Join us as we mark this beautiful journey toward union.</p>
+        <div class="book-container">
+            <div class="book" onclick="toggleBook(this)">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="Images/21.jpg" alt="Mendhi Cover">
+                        <div class="book-title">Mendhi</div>
                     </div>
-                    <div class="page-right">
-                        <h4>Details</h4>
-                        <p>Location: Bride's Residence<br>Date: December 17, 2026<br>Dress Code: Traditional Yellow</p>
+                    <div class="book-pages">
+                        <div class="page-left">
+                            <h4>Mendhi Night</h4>
+                            <p>A celebration of blessings, family, and tradition. Join us as we mark this beautiful journey toward union.</p>
+                        </div>
+                        <div class="page-right">
+                            <h4>Details</h4>
+                            <p>Location: Bride's Residence<br>Date: December 17, 2026<br>Dress Code: Traditional Yellow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book" onclick="toggleBook(this)">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="Images/20.jpg" alt="Hurdhee Cover">
+                        <div class="book-title">Hurdhee</div>
+                    </div>
+                    <div class="book-pages">
+                        <div class="page-left">
+                            <h4>Hurdhee Ceremony</h4>
+                            <p>Henna, laughter, and music fill the air. A colorful night of celebration under the stars.</p>
+                        </div>
+                        <div class="page-right">
+                            <h4>Details</h4>
+                            <p>Location: Event Hall<br>Date: December 18, 2026<br>Dress Code: Vibrant Ethnic Wear</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="book" onclick="toggleBook(this)">
-            <div class="book-inner">
-                <div class="book-front">
-                    <img src="Images/20.jpg" alt="Hurdhee Cover">
-                    <div class="book-title">Hurdhee</div>
-                </div>
-                <div class="book-pages">
-                    <div class="page-left">
-                        <h4>Hurdhee Ceremony</h4>
-                        <p>Henna, laughter, and music fill the air. A colorful night of celebration under the stars.</p>
-                    </div>
-                    <div class="page-right">
-                        <h4>Details</h4>
-                        <p>Location: Event Hall<br>Date: December 18, 2026<br>Dress Code: Vibrant Ethnic Wear</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    <!-- Wedding Details Section -->
     <section id="details">
         <div class="section-title">
             <h2>Wedding Details</h2>
@@ -835,11 +912,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 <p>The Zimbali Country Club</p>
                 <p>R627, Zimbali Estate</p>
                 <p>Ballito, 4399</p>
-               <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef7138bc97bf2db:0x3a70a2ee1f6c012d!8m2!3d-29.5460026!4d31.1984946!16s%2Fg%2F1yw9l2f88?entry=ttu&g_ep=EgoyMDI1MDcyOS4wIKXMDSoASAFQAw%3D%3D" 
-   target="_blank" 
-   style="color: var(--accent); text-decoration: none;">
-   View on map
-</a>
+                <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef7138bc97bf2db:0x3a70a2ee1f6c012d!8m2!3d-29.5460026!4d31.1984946!16s%2Fg%2F1yw9l2f88?entry=ttu&g_ep=EgoyMDI1MDcyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">View on map</a>
             </div>
             
             <div class="detail-card">
@@ -858,8 +931,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 </div>
                 <h3>Accommodations</h3>
                 <p></p>
-                <p></p>
-                <p></p>
             </div>
             
             <div class="detail-card">
@@ -869,7 +940,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 <h3>Registry</h3>
                 <p>Your presence is present enough!</p>
                 <p>For those who insist, please give us cash.</p>
-                <p></p>
             </div>
             
             <div class="detail-card">
@@ -879,291 +949,15 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 <h3>Questions?</h3>
                 <p>Contact our wedding planner:</p>
                 <p>Prathika Asrai</p>
-                <p>asraiashwari@gmail.com | (082) 811-5166</p>
+                <p>asraiashwari@gmail.com<br>(082) 811-5166</p>
             </div>
         </div>
     </section>
     
-    <!-- Gallery Section -->
     <section id="gallery">
         <div class="section-title">
             <h2>Our Gallery</h2>
         </div>
         
         <div class="gallery">
-            <div class="gallery-item">
-                <img src="Images\1.jpeg" alt="Engagement photo">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\2.jpeg" alt="Together">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\3.jpeg" alt="Proposal moment">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\4.jpeg" alt="Vacation">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\5.jpeg" alt="Formal">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\6.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\7.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\8.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\9.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\10.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images\11.jpeg" alt="Casual">
-            </div>
-        </div>
-    </section>
-    
-    <!-- RSVP Section -->
-    <section class="rsvp-section" id="rsvp">
-        <div class="section-title">
-            <h2>RSVP</h2>
-        </div>
-        
-        <div class="rsvp-form">
-            <form id="wedding-rsvp">
-                <div class="form-group">
-                    <label for="name">Your Name(s)</label>
-                    <input type="text" id="name" name="name" placeholder="John & Jane Doe" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="guests">Number of Guests</label>
-                    <select id="guests" name="guests" required>
-                        <option value="" disabled selected>Select number</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="attending">Will you be attending?</label>
-                    <select id="attending" name="attending" required>
-                        <option value="" disabled selected>Select option</option>
-                        <option value="yes">Yes, we'll be there!</option>
-                        <option value="no">Regretfully decline</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message for the couple</label>
-                    <textarea id="message" name="message" rows="3" placeholder="We're so happy for you!"></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="submit-rsvp">Submit RSVP</button>
-            </form>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-logo">Ashwari & Yadhir</div>
-        <div>December 19, 2026</div>
-        
-        <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
-            <a href="#"><i class="fas fa-envelope"></i></a>
-        </div>
-        
-        <div class="copyright">
-            &copy; 2026 Ashwari & Yadhir. All rights reserved.
-        </div>
-    </footer>
-    
-    <script>
-        // Floating hearts animation
-function createHearts() {
-    const container = document.getElementById('hearts-container');
-    
-    for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = 10 + Math.random() * 20 + 's';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        heart.style.color = 'white';
-        heart.style.opacity = 0.3 + Math.random() * 0.7; // Random opacity between 0.3-1
-        container.appendChild(heart);
-    }
-}
-        
-        // Countdown timer
-        function updateCountdown() {
-            const weddingDate = new Date('December 19, 2026 14:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        // Scroll animations
-        function checkScroll() {
-            const elements = document.querySelectorAll('.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (elementPosition < screenPosition) {
-                    element.classList.add('visible');
-                }
-            });
-        }
-        
-        // Navbar scroll effect
-        function handleScroll() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        }
-        
-        // Confetti effect for RSVP submission
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#ffa3a3', '#ffd3d3', '#a5d8ff', '#74c0fc', '#b2f2bb', '#ffec99'];
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, 5000);
-            }
-        }
-        
-        // Smooth scrolling for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Form submission
-        document.getElementById('wedding-rsvp').addEventListener('submit', function(e) {
-            e.preventDefault();
-            createConfetti();
-            alert('Thank you for your RSVP! We look forward to celebrating with you.');
-            this.reset();
-        });
-        
-        // Initialize
-        window.addEventListener('load', () => {
-            createHearts();
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-            checkScroll();
-        });
-        
-        window.addEventListener('scroll', () => {
-            handleScroll();
-            checkScroll();
-        });
-
-        function toggleBook(bookEl) {
-    bookEl.classList.toggle('open');
-}      
-    // Auto flip logic
-    function startAutoFlipBooks() {
-        const books = document.querySelectorAll('.book');
-        let isFlipped = false;
-
-        const FLIP_TO_PAGES_DELAY = 3000; // 3 seconds
-        const STAY_ON_PAGES_DURATION = 20000; // 20 seconds
-        const STAY_ON_COVER_DURATION = 3000; // 3 seconds
-
-        function flipBooks() {
-            books.forEach(book => book.classList.add('open'));
-            isFlipped = true;
-
-            setTimeout(() => {
-                books.forEach(book => book.classList.remove('open'));
-                isFlipped = false;
-            }, STAY_ON_PAGES_DURATION);
-        }
-
-        // Start initial flip after 3 seconds
-        setTimeout(() => {
-            flipBooks();
-
-            // Repeat the flipping logic every 23 seconds (20s open + 3s closed)
-            setInterval(() => {
-                flipBooks();
-            }, STAY_ON_PAGES_DURATION + STAY_ON_COVER_DURATION);
-
-        }, FLIP_TO_PAGES_DELAY);
-    }
-
-    // Call after window load
-    window.addEventListener('load', () => {
-        createHearts();
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-        checkScroll();
-        startAutoFlipBooks(); // 🔁 Start the flipping loop
-    });
-</script>
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const audio = document.getElementById('weddingMusic');
-
-    function enableAudioPlayback() {
-      if (audio) {
-        audio.play().catch((e) => {
-          console.log("Autoplay blocked:", e);
-        });
-      }
-      // Remove the listener after first interaction
-      document.removeEventListener('click', enableAudioPlayback);
-      document.removeEventListener('scroll', enableAudioPlayback);
-    }
-
-    // Start music on first click or scroll
-    document.addEventListener('click', enableAudioPlayback);
-    document.addEventListener('scroll', enableAudioPlayback);
-  });
-</script>
-    </script>
-</body>
-</html>
+            <div class="gallery-item"><img src="Images/1.jpeg" alt="Photo 1"></div>
