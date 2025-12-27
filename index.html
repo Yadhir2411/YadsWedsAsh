@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -347,14 +348,9 @@
                 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .page-left {
-            transform: translateZ(5px);
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .page-right {
-            transform: translateZ(10px) rotateY(180deg);
-            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        .page-single {
+            transform: translateZ(10px);
+            width: 100%;
         }
 
         .page-content {
@@ -377,22 +373,6 @@
         .page-content p {
             margin-bottom: 1rem;
             text-align: justify;
-        }
-
-        .page-number {
-            position: absolute;
-            bottom: 1rem;
-            font-size: 0.8rem;
-            color: var(--secondary);
-            opacity: 0.6;
-        }
-
-        .page-left .page-number {
-            left: 2rem;
-        }
-
-        .page-right .page-number {
-            right: 2rem;
         }
 
         .click-instruction {
@@ -701,14 +681,25 @@
             
             .countdown {
                 gap: 1rem;
+                flex-wrap: wrap;
             }
             
             .countdown-number {
                 font-size: 1.8rem;
             }
             
+            nav {
+                padding: 0.8rem 0;
+            }
+            
             nav ul {
-                gap: 1.5rem;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+            
+            nav a {
+                font-size: 0.85rem;
             }
             
             .story-container {
@@ -727,22 +718,107 @@
                 padding: 2rem 1rem;
             }
 
+            /* Mobile-specific 3D book styles */
             .books-container {
-                gap: 4rem;
+                gap: 3rem;
+                flex-direction: column;
+                perspective: none;
+            }
+
+            .book-wrapper {
+                width: 100%;
+                max-width: 340px;
+                margin: 0 auto;
             }
 
             .book {
-                width: 280px;
-                height: 400px;
+                width: 100%;
+                height: auto;
+                min-height: 450px;
+                transform: none !important;
+            }
+
+            .book-wrapper:hover .book {
+                transform: none !important;
+            }
+
+            /* On mobile, show book content in a card layout instead of 3D */
+            .book.open {
+                transform: none !important;
+            }
+
+            .book-cover {
+                position: relative;
+                transform: none !important;
+                height: 200px;
+                border-radius: 10px 10px 0 0;
+            }
+
+            .book-cover img {
+                width: 60%;
+                height: 50%;
             }
 
             .book-cover h3 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
+            }
+
+            .book-spine {
+                display: none;
+            }
+
+            .book-back {
+                display: none;
+            }
+
+            .book-pages {
+                position: relative !important;
+                transform: none !important;
+                height: auto;
+                background: white;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .book.open .book-pages {
+                transform: none !important;
+            }
+
+            .book-page {
+                position: relative !important;
+                transform: none !important;
+                height: auto;
+                padding: 1.5rem;
+                box-shadow: none;
+                background: white;
+            }
+
+            .page-single {
+                border: none;
+            }
+
+            /* Hide pages by default on mobile */
+            .book-pages {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+
+            .book.open .book-pages {
+                max-height: 2000px;
             }
 
             .page-content {
-                font-size: 0.85rem;
-                padding: 2rem 1.5rem;
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .page-content h4 {
+                font-size: 1.3rem;
+            }
+
+            .click-instruction {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -834,7 +910,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
                         <h3>Mehendi Night</h3>
                     </div>
                     <div class="book-pages">
-                        <div class="book-page page-left">
+                        <div class="book-page page-single">
                             <div class="page-content">
                                 <h4>Mehendi Ceremony</h4>
                                 <p>Join us for an evening of color, tradition, and celebration as we adorn our hands with intricate henna designs.</p>
@@ -842,22 +918,8 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 <p><strong>Time:</strong> 6:00 PM onwards</p>
                                 <p><strong>Venue:</strong> The Garden Pavilion, Zimbali Estate</p>
                                 <p><strong>Dress Code:</strong> Vibrant traditional attire - think colorful lehengas, sarees, and kurtas!</p>
-                                <p>Experience the magic of music, dance, and the beautiful art of mehendi as we begin our wedding festivities.</p>
+                                <p style="margin-top: 1rem;">The evening will feature traditional mehendi artists, live music and dance performances, delicious Indian appetizers, and beautiful floral decorations. Come ready to dance, sing, and celebrate love in all its colorful glory!</p>
                             </div>
-                            <div class="page-number">1</div>
-                        </div>
-                        <div class="book-page page-right">
-                            <div class="page-content">
-                                <h4>Celebration Details</h4>
-                                <p>The evening will feature:</p>
-                                <p>• Traditional mehendi artists who will create stunning designs</p>
-                                <p>• Live music and dance performances</p>
-                                <p>• Delicious Indian appetizers and refreshments</p>
-                                <p>• Photo opportunities with beautiful floral decorations</p>
-                                <p>Come ready to dance, sing, and celebrate love in all its colorful glory. This is a night you won't want to miss!</p>
-                                <p style="font-style: italic; margin-top: 1rem;">We can't wait to see you there!</p>
-                            </div>
-                            <div class="page-number">2</div>
                         </div>
                     </div>
                     <div class="book-back"></div>
@@ -873,7 +935,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
                         <h3>Sangeet Night</h3>
                     </div>
                     <div class="book-pages">
-                        <div class="book-page page-left">
+                        <div class="book-page page-single">
                             <div class="page-content">
                                 <h4>Sangeet Celebration</h4>
                                 <p>Get ready for a night of music, dance, and unforgettable performances as our families come together to celebrate!</p>
@@ -881,23 +943,8 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 <p><strong>Time:</strong> 7:00 PM onwards</p>
                                 <p><strong>Venue:</strong> Grand Ballroom, Zimbali Country Club</p>
                                 <p><strong>Dress Code:</strong> Glamorous party wear - sequins, sparkles, and shine!</p>
-                                <p>Be prepared for surprise performances, choreographed dances, and lots of laughter!</p>
+                                <p style="margin-top: 1rem;">Enjoy opening dance performances by family and friends, a live DJ playing the best Bollywood and international hits, open dance floor for everyone, gourmet dinner and cocktails, plus a special couple performance. Bring your dancing shoes and your best moves!</p>
                             </div>
-                            <div class="page-number">1</div>
-                        </div>
-                        <div class="book-page page-right">
-                            <div class="page-content">
-                                <h4>Evening Program</h4>
-                                <p>The night includes:</p>
-                                <p>• Opening dance performances by family and friends</p>
-                                <p>• Live DJ playing the best Bollywood and international hits</p>
-                                <p>• Dance floor open for everyone!</p>
-                                <p>• Gourmet dinner and cocktails</p>
-                                <p>• Special couple performance</p>
-                                <p>Bring your dancing shoes and your best moves! This is the night we party before the big day!</p>
-                                <p style="font-style: italic; margin-top: 1rem;">Let's dance the night away!</p>
-                            </div>
-                            <div class="page-number">2</div>
                         </div>
                     </div>
                     <div class="book-back"></div>
@@ -1196,5 +1243,4 @@ Souls intertwined, on Cloud 9, side by side.</p>
     </script>
 </body>
 </html>
-                
-    
+            
