@@ -363,9 +363,10 @@
         }
 
         .book-back {
-            background: var(--secondary);
+            background: linear-gradient(145deg, #f8f9fa 0%, #e8e8e8 100%);
             transform: translateZ(-15px) rotateY(180deg);
-            box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #d4d4d4;
         }
 
         .book-pages {
@@ -430,6 +431,30 @@
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; }
             50% { opacity: 0.7; }
+        }
+
+        /* Heart Confetti */
+        .heart-confetti {
+            position: fixed;
+            font-size: 20px;
+            color: #ff69b4;
+            pointer-events: none;
+            z-index: 9999;
+            animation: heartBurst 2s ease-out forwards;
+        }
+
+        @keyframes heartBurst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rotation));
+            }
         }
         
         .story-container {
@@ -868,7 +893,7 @@
 </head>
 <body>
     <!-- Background Music -->
-    <audio id="bgMusic" autoplay loop>
+    <audio id="bgMusic" loop preload="auto">
         <source src="Love.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -1218,7 +1243,48 @@ Souls intertwined, on Cloud 9, side by side.</p>
         
         function toggleBook(wrapper) {
             const book = wrapper.querySelector('.book');
+            const wasOpen = book.classList.contains('open');
+            
             book.classList.toggle('open');
+            
+            // Create heart confetti burst when opening
+            if (!wasOpen) {
+                createHeartBurst(wrapper);
+            }
+        }
+
+        function createHeartBurst(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
+            const numHearts = 30;
+            
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-confetti');
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = centerX + 'px';
+                heart.style.top = centerY + 'px';
+                
+                // Random direction and distance
+                const angle = (Math.PI * 2 * i) / numHearts;
+                const distance = 100 + Math.random() * 150;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const rotation = Math.random() * 720 - 360;
+                
+                heart.style.setProperty('--tx', tx + 'px');
+                heart.style.setProperty('--ty', ty + 'px');
+                heart.style.setProperty('--rotation', rotation + 'deg');
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
         }
         
         function checkScroll() {
@@ -1284,26 +1350,41 @@ Souls intertwined, on Cloud 9, side by side.</p>
             setInterval(updateCountdown, 1000);
             checkScroll();
             
-            // Background music autoplay with fallback
+            // Enhanced audio playback for Android compatibility
             const music = document.getElementById('bgMusic');
-            music.volume = 0.5; // Set to 50% volume for better experience
+            music.volume = 0.5;
             
-            // Attempt autoplay
-            const playPromise = music.play();
+            let hasPlayed = false;
             
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log('Autoplay prevented, will play on user interaction');
-                    // Play on any user interaction
-                    const enableAudio = () => {
-                        music.play();
-                        document.removeEventListener('click', enableAudio);
-                        document.removeEventListener('touchstart', enableAudio);
-                    };
-                    document.addEventListener('click', enableAudio, { once: true });
-                    document.addEventListener('touchstart', enableAudio, { once: true });
-                });
-            }
+            // Function to start music
+            const startMusic = () => {
+                if (!hasPlayed) {
+                    music.play().then(() => {
+                        hasPlayed = true;
+                        console.log('Music playing');
+                    }).catch(err => {
+                        console.log('Playback failed:', err);
+                    });
+                }
+            };
+            
+            // Try immediate autoplay
+            startMusic();
+            
+            // Fallback: play on ANY user interaction
+            const interactions = ['click', 'touchstart', 'touchend', 'scroll', 'keydown'];
+            
+            interactions.forEach(event => {
+                document.addEventListener(event, startMusic, { once: true, passive: true });
+            });
+            
+            // Additional Android-specific triggers
+            window.addEventListener('focus', startMusic, { once: true });
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    startMusic();
+                }
+            }, { once: true });
         });
         
         window.addEventListener('scroll', () => {
