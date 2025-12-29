@@ -1359,12 +1359,49 @@ Souls intertwined, on Cloud 9, side by side.</p>
             });
         });
         
-        document.getElementById('wedding-rsvp').addEventListener('submit', function(e) {
-            e.preventDefault();
-            createConfetti();
-            alert('Thank you for your RSVP! We look forward to celebrating with you.');
-            this.reset();
+document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-rsvp');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    // Get form data
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        guests: document.getElementById('guests').value,
+        attending: document.getElementById('attending').value,
+        message: document.getElementById('message').value,
+        timestamp: new Date().toLocaleString()
+    };
+    
+    try {
+        // Send to Google Sheets
+        // Replace 'YOUR_GOOGLE_SCRIPT_URL' with your actual deployment URL
+        const googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec';
+        
+        await fetch(googleSheetsUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
         });
+        
+        createConfetti();
+        alert('Thank you for your RSVP! We look forward to celebrating with you.');
+        this.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
         
         window.addEventListener('load', () => {
             createHearts();
