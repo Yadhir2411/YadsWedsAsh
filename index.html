@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yadhir & Ashwari | Wedding</title>
+    <title>Yadhir & Ashwari | Wedding Journey</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
             --primary: #e8c8b0;
@@ -30,6 +31,202 @@
             overflow-x: hidden;
         }
         
+        /* 3D Landing Overlay */
+        #landing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            background: linear-gradient(to bottom, #87CEEB 0%, #ffb6c1 50%, #ffffff 100%);
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+        }
+        
+        #landing-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .landing-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .landing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInTitle 2s ease forwards 1s;
+        }
+        
+        @keyframes fadeInTitle {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+        }
+        
+        .landing-subtitle {
+            font-size: 1.8rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInTitle 2s ease forwards 1.5s;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .journey-btn {
+            pointer-events: auto;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInTitle 2s ease forwards 2s, pulse 2s ease-in-out infinite 3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journey-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .journey-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .journey-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.6);
+        }
+        
+        .journey-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .falling-petals {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ffb6c1, #ff69b4);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: snowfall linear infinite;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) translateX(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        .loading-text {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeInTitle 1s ease forwards 0.5s;
+        }
+        
+        /* Main Wedding Website Styles */
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -229,7 +426,6 @@
             z-index: 1;
         }
 
-        /* 3D Books Section */
         .books-container {
             display: flex;
             justify-content: center;
@@ -433,7 +629,6 @@
             50% { opacity: 0.7; }
         }
 
-        /* Heart Confetti */
         .heart-confetti {
             position: fixed;
             pointer-events: none;
@@ -721,28 +916,20 @@
             opacity: 0.7;
         }
         
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0;
-            z-index: 9999;
-            animation: confetti 5s ease-in-out;
-        }
-        
-        @keyframes confetti {
-            0% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(720deg);
-            }
-        }
-        
         @media (max-width: 768px) {
+            .landing-title {
+                font-size: 2.5rem;
+            }
+            
+            .landing-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .journey-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            
             h1 {
                 font-size: 2.5rem;
             }
@@ -794,7 +981,6 @@
                 padding: 2rem 1rem;
             }
 
-            /* Mobile-specific 3D book styles */
             .books-container {
                 gap: 3rem;
                 flex-direction: column;
@@ -818,7 +1004,6 @@
                 transform: none !important;
             }
 
-            /* On mobile, show book content in a card layout instead of 3D */
             .book.open {
                 transform: none !important;
             }
@@ -854,10 +1039,14 @@
                 background: white;
                 border-radius: 0 0 10px 10px;
                 box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
             }
 
             .book.open .book-pages {
                 transform: none !important;
+                max-height: 2000px;
             }
 
             .book-page {
@@ -867,21 +1056,6 @@
                 padding: 1.5rem;
                 box-shadow: none;
                 background: white;
-            }
-
-            .page-single {
-                border: none;
-            }
-
-            /* Hide pages by default on mobile */
-            .book-pages {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.5s ease;
-            }
-
-            .book.open .book-pages {
-                max-height: 2000px;
             }
 
             .page-content {
@@ -900,6 +1074,20 @@
     </style>
 </head>
 <body>
+    <!-- 3D Landing Overlay -->
+    <div id="landing-overlay">
+        <div id="canvas-container"></div>
+        <div class="falling-petals" id="petals-container"></div>
+        <div class="landing-content">
+            <h1 class="landing-title">Yadhir & Ashwari</h1>
+            <p class="landing-subtitle">Inviting You to Our Journey</p>
+            <button class="journey-btn" id="start-journey">
+                <span>✈ START THE JOURNEY ✈</span>
+            </button>
+            <p class="loading-text">Creating your magical experience...</p>
+        </div>
+    </div>
+
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
         <source src="Music/Love.mp3" type="audio/mpeg">
@@ -953,11 +1141,7 @@
         
         <div class="story-container">
             <div class="story-text">
-                <p>
-                    A simple "Hi," a message on a screen,
-A friendship bloomed, the best I've ever seen.
-From pixels shared, a love began to grow,
-A perfect start, so long ago.</p>
+                <p>A simple "Hi," a message on a screen, A friendship bloomed, the best I've ever seen. From pixels shared, a love began to grow, A perfect start, so long ago.</p>
             </div>
             <div class="story-image">
                 <img src="Images/12.jpeg" alt="Yadhir & Ashwari">
@@ -969,21 +1153,17 @@ A perfect start, so long ago.</p>
                 <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proposal">
             </div>
             <div class="story-text">
-                <p>Love knows no bounds, though miles divide,
-Our shared sky, where whispered promises hide.
-Souls intertwined, on Cloud 9, side by side.</p>
+                <p>Love knows no bounds, though miles divide, Our shared sky, where whispered promises hide. Souls intertwined, on Cloud 9, side by side.</p>
             </div>
         </div>
     </section>
 
-    <!-- Pre-Wedding 3D Books Section -->
     <section id="prewedding">
         <div class="section-title">
             <h2>Pre-Wedding</h2>
         </div>
         
         <div class="books-container">
-            <!-- First Book - Mehendi -->
             <div class="book-wrapper" onclick="toggleBook(this)">
                 <div class="book">
                     <div class="book-spine"></div>
@@ -1000,7 +1180,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 <p><strong>Time:</strong> 6:00 PM</p>
                                 <p><strong>Venue:</strong> The White Boxx, 369 Peter Mokaba Ridge, Berea</p>
                                 <p><strong>Dress Code:</strong> Vibrant traditional attire - think colorful lehengas, sarees, and kurtas!</p>
-
                             </div>
                         </div>
                     </div>
@@ -1008,7 +1187,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 </div>
             </div>
 
-            <!-- Second Book - Sangeet -->
             <div class="book-wrapper" onclick="toggleBook(this)">
                 <div class="book">
                     <div class="book-spine"></div>
@@ -1025,7 +1203,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 <p><strong>Time:</strong> 5:00 PM</p>
                                 <p><strong>Venue:</strong> The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</p>
                                 <p><strong>Dress Code:</strong> Vibrant traditional attire - think colorful lehengas, sarees, and kurtas!</p>
-                            
                             </div>
                         </div>
                     </div>
@@ -1052,7 +1229,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 <h3>When</h3>
                 <p>Saturday, December 19, 2026</p>
                 <p>Time: 5.30 PM for 6 PM</p>
-                
             </div>
             
             <div class="detail-card">
@@ -1062,11 +1238,7 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 <h3>Where</h3>
                 <p>King Protea</p>
                 <p>The Capital Zimbali Resort, Zimbali</p>
-               <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef7138bc97bf2db:0x3a70a2ee1f6c012d!8m2!3d-29.5460026!4d31.1984946!16s%2Fg%2F1yw9l2f88?entry=ttu&g_ep=EgoyMDI1MDcyOS4wIKXMDSoASAFQAw%3D%3D" 
-   target="_blank" 
-   style="color: var(--accent); text-decoration: none;">
-   View on map
-</a>
+                <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z/" target="_blank" style="color: var(--accent); text-decoration: none;">View on map</a>
             </div>
             
             <div class="detail-card">
@@ -1075,7 +1247,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 </div>
                 <h3>Dress Code</h3>
                 <p>Black Tie Event</p>
-        
             </div>
             
             <div class="detail-card">
@@ -1085,7 +1256,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 <h3>Registry</h3>
                 <p>Your presence is present enough!</p>
                 <p>For those who insist, please give us cash.</p>
-                <p></p>
             </div>
             
             <div class="detail-card">
@@ -1106,39 +1276,17 @@ Souls intertwined, on Cloud 9, side by side.</p>
         </div>
         
         <div class="gallery">
-            <div class="gallery-item">
-                <img src="Images/1.jpeg" alt="Engagement photo">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/2.jpeg" alt="Together">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/3.jpeg" alt="Proposal moment">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/4.jpeg" alt="Vacation">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/5.jpeg" alt="Formal">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/6.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/7.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/8.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/9.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/10.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/11.jpeg" alt="Casual">
-            </div>
+            <div class="gallery-item"><img src="Images/1.jpeg" alt="Engagement photo"></div>
+            <div class="gallery-item"><img src="Images/2.jpeg" alt="Together"></div>
+            <div class="gallery-item"><img src="Images/3.jpeg" alt="Proposal moment"></div>
+            <div class="gallery-item"><img src="Images/4.jpeg" alt="Vacation"></div>
+            <div class="gallery-item"><img src="Images/5.jpeg" alt="Formal"></div>
+            <div class="gallery-item"><img src="Images/6.jpeg" alt="Casual"></div>
+            <div class="gallery-item"><img src="Images/7.jpeg" alt="Casual"></div>
+            <div class="gallery-item"><img src="Images/8.jpeg" alt="Casual"></div>
+            <div class="gallery-item"><img src="Images/9.jpeg" alt="Casual"></div>
+            <div class="gallery-item"><img src="Images/10.jpeg" alt="Casual"></div>
+            <div class="gallery-item"><img src="Images/11.jpeg" alt="Casual"></div>
         </div>
     </section>
     
@@ -1205,6 +1353,259 @@ Souls intertwined, on Cloud 9, side by side.</p>
     </footer>
     
     <script>
+        // Three.js 3D Scene Setup
+        let scene, camera, renderer, airplane, clouds = [], flowers = [], snowflakes = [];
+        let mouseX = 0, mouseY = 0;
+        
+        function init3DScene() {
+            const container = document.getElementById('canvas-container');
+            
+            // Scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0xffc0cb, 10, 100);
+            
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 2, 10);
+            
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            container.appendChild(renderer.domElement);
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 10, 5);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0xffb6c1, 1, 50);
+            pointLight.position.set(0, 5, 0);
+            scene.add(pointLight);
+            
+            // Create Airplane
+            createAirplane();
+            
+            // Create Clouds
+            createClouds();
+            
+            // Create Flowers
+            createFlowers();
+            
+            // Mouse movement
+            document.addEventListener('mousemove', onMouseMove);
+            
+            // Start animation
+            animate();
+        }
+        
+        function createAirplane() {
+            const airplaneGroup = new THREE.Group();
+            
+            // Fuselage
+            const fuselageGeometry = new THREE.CylinderGeometry(0.5, 0.5, 4, 32);
+            const fuselageMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xffffff,
+                shininess: 100 
+            });
+            const fuselage = new THREE.Mesh(fuselageGeometry, fuselageMaterial);
+            fuselage.rotation.z = Math.PI / 2;
+            airplaneGroup.add(fuselage);
+            
+            // Nose cone
+            const noseGeometry = new THREE.ConeGeometry(0.5, 1, 32);
+            const nose = new THREE.Mesh(noseGeometry, fuselageMaterial);
+            nose.rotation.z = -Math.PI / 2;
+            nose.position.x = 2.5;
+            airplaneGroup.add(nose);
+            
+            // Wings
+            const wingGeometry = new THREE.BoxGeometry(0.2, 5, 1);
+            const wingMaterial = new THREE.MeshPhongMaterial({ color: 0xe0e0e0 });
+            const leftWing = new THREE.Mesh(wingGeometry, wingMaterial);
+            leftWing.position.set(-0.5, 0, 0);
+            airplaneGroup.add(leftWing);
+            
+            // Tail
+            const tailGeometry = new THREE.BoxGeometry(0.1, 2, 1.5);
+            const tail = new THREE.Mesh(tailGeometry, wingMaterial);
+            tail.position.set(-2, 0, 0);
+            tail.rotation.x = Math.PI / 4;
+            airplaneGroup.add(tail);
+            
+            // Windows
+            const windowGeometry = new THREE.CircleGeometry(0.15, 32);
+            const windowMaterial = new THREE.MeshBasicMaterial({ color: 0x87CEEB });
+            for (let i = 0; i < 6; i++) {
+                const window1 = new THREE.Mesh(windowGeometry, windowMaterial);
+                window1.position.set(1.5 - i * 0.6, 0.52, 0);
+                airplaneGroup.add(window1);
+                
+                const window2 = new THREE.Mesh(windowGeometry, windowMaterial);
+                window2.position.set(1.5 - i * 0.6, -0.52, 0);
+                window2.rotation.x = Math.PI;
+                airplaneGroup.add(window2);
+            }
+            
+            airplaneGroup.position.set(0, 0, 0);
+            airplaneGroup.scale.set(1.2, 1.2, 1.2);
+            airplane = airplaneGroup;
+            scene.add(airplaneGroup);
+        }
+        
+        function createClouds() {
+            for (let i = 0; i < 15; i++) {
+                const cloudGroup = new THREE.Group();
+                const cloudMaterial = new THREE.MeshPhongMaterial({ 
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                
+                for (let j = 0; j < 5; j++) {
+                    const cloudGeometry = new THREE.SphereGeometry(Math.random() * 0.5 + 0.3, 16, 16);
+                    const cloudPart = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                    cloudPart.position.set(
+                        Math.random() * 2 - 1,
+                        Math.random() * 0.5,
+                        Math.random() * 0.5
+                    );
+                    cloudGroup.add(cloudPart);
+                }
+                
+                cloudGroup.position.set(
+                    Math.random() * 40 - 20,
+                    Math.random() * 10 - 5,
+                    Math.random() * 30 - 40
+                );
+                
+                clouds.push(cloudGroup);
+                scene.add(cloudGroup);
+            }
+        }
+        
+        function createFlowers() {
+            for (let i = 0; i < 100; i++) {
+                const flowerGroup = new THREE.Group();
+                
+                // Petals
+                const petalGeometry = new THREE.CircleGeometry(0.1, 6);
+                const petalMaterial = new THREE.MeshPhongMaterial({ 
+                    color: Math.random() > 0.5 ? 0xffb6c1 : 0xff69b4,
+                    side: THREE.DoubleSide
+                });
+                
+                for (let j = 0; j < 5; j++) {
+                    const petal = new THREE.Mesh(petalGeometry, petalMaterial);
+                    const angle = (j / 5) * Math.PI * 2;
+                    petal.position.set(Math.cos(angle) * 0.08, Math.sin(angle) * 0.08, 0);
+                    flowerGroup.add(petal);
+                }
+                
+                // Center
+                const centerGeometry = new THREE.CircleGeometry(0.05, 16);
+                const centerMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+                const center = new THREE.Mesh(centerGeometry, centerMaterial);
+                flowerGroup.add(center);
+                
+                flowerGroup.position.set(
+                    Math.random() * 60 - 30,
+                    Math.random() * 20 - 15,
+                    Math.random() * 40 - 50
+                );
+                flowerGroup.userData = {
+                    speedY: Math.random() * 0.02 + 0.01,
+                    rotation: Math.random() * 0.05
+                };
+                
+                flowers.push(flowerGroup);
+                scene.add(flowerGroup);
+            }
+        }
+        
+        function onMouseMove(event) {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate airplane with mouse
+            if (airplane) {
+                airplane.rotation.y += 0.002;
+                airplane.rotation.z = mouseX * 0.2;
+                airplane.position.y = mouseY * 2;
+                airplane.position.x = Math.sin(Date.now() * 0.001) * 0.5;
+            }
+            
+            // Animate clouds
+            clouds.forEach(cloud => {
+                cloud.position.x += 0.02;
+                if (cloud.position.x > 30) cloud.position.x = -30;
+            });
+            
+            // Animate flowers
+            flowers.forEach(flower => {
+                flower.position.y += flower.userData.speedY;
+                flower.rotation.z += flower.userData.rotation;
+                
+                if (flower.position.y > 15) {
+                    flower.position.y = -15;
+                    flower.position.x = Math.random() * 60 - 30;
+                }
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Falling Petals
+        function createFallingPetals() {
+            const container = document.getElementById('petals-container');
+            
+            for (let i = 0; i < 30; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(petal);
+            }
+            
+            // Snowflakes
+            for (let i = 0; i < 20; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'em';
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(snowflake);
+            }
+        }
+        
+        // Start Journey Button
+        document.getElementById('start-journey').addEventListener('click', function() {
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                document.getElementById('landing-overlay').classList.add('hidden');
+                
+                // Store in memory that intro has been seen
+                const introSeen = { seen: true, timestamp: Date.now() };
+                try {
+                    // Store in session
+                    window.introSeenData = introSeen;
+                } catch (e) {
+                    console.log('Intro tracking in memory only');
+                }
+            }, 300);
+        });
+        
+        // Wedding Website Functions
         function createHearts() {
             const container = document.getElementById('hearts-container');
             
@@ -1243,7 +1644,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
             
             book.classList.toggle('open');
             
-            // Create heart confetti burst when opening
             if (!wasOpen) {
                 createHeartBurst(wrapper);
             }
@@ -1254,23 +1654,9 @@ Souls intertwined, on Cloud 9, side by side.</p>
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             
-            // Heart symbols and colors
             const hearts = ['♥', '❤', '♡'];
-            const colors = [
-                '#ffffff',
-                '#ffebee',
-                '#ffc0cb',
-                '#ff69b4',
-                '#ff1744',
-                '#f8bbd0',
-                '#f48fb1',
-                '#ec407a',
-                '#e91e63',
-                '#fce4ec'
-            ];
+            const colors = ['#ffffff', '#ffebee', '#ffc0cb', '#ff69b4', '#ff1744', '#f8bbd0'];
             const numHearts = 50;
-            
-            // Create multiple layers of hearts like fireworks
             const layers = 3;
             
             for (let layer = 0; layer < layers; layer++) {
@@ -1283,34 +1669,22 @@ Souls intertwined, on Cloud 9, side by side.</p>
                         heart.classList.add('heart-confetti');
                         heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                         
-                        // Random sizes
                         const size = 12 + Math.random() * 28;
                         heart.style.fontSize = size + 'px';
                         
-                        // Apply color explicitly
                         const color = colors[Math.floor(Math.random() * colors.length)];
                         heart.style.color = color;
-                        
-                        // Add text shadow for better visibility
-                        heart.style.textShadow = `
-                            0 0 10px ${color},
-                            0 0 20px ${color},
-                            2px 2px 4px rgba(0, 0, 0, 0.3)
-                        `;
-                        
-                        // Add drop shadow filter
+                        heart.style.textShadow = `0 0 10px ${color}, 0 0 20px ${color}, 2px 2px 4px rgba(0, 0, 0, 0.3)`;
                         heart.style.filter = `drop-shadow(0 0 8px ${color})`;
                         
                         heart.style.left = centerX + 'px';
                         heart.style.top = centerY + 'px';
                         
-                        // Circular explosion pattern
                         const angle = (Math.PI * 2 * i) / heartsPerLayer + (Math.random() * 0.3 - 0.15);
                         const distance = 150 + Math.random() * 200 + (layer * 50);
                         const tx = Math.cos(angle) * distance;
                         const ty = Math.sin(angle) * distance;
                         
-                        // Random rotation and scale
                         const rotation = Math.random() * 1080 - 540;
                         const scale = 0.3 + Math.random() * 0.7;
                         
@@ -1318,8 +1692,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                         heart.style.setProperty('--ty', ty + 'px');
                         heart.style.setProperty('--rotation', rotation + 'deg');
                         heart.style.setProperty('--scale', scale);
-                        
-                        // Add slight random delay
                         heart.style.animationDelay = (Math.random() * 0.2) + 's';
                         
                         document.body.appendChild(heart);
@@ -1337,22 +1709,9 @@ Souls intertwined, on Cloud 9, side by side.</p>
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             
-            // Heart symbols and colors - only symbols, red and white
             const hearts = ['♥', '❤', '♡'];
-            const colors = [
-                '#ffffff',
-                '#ffebee',
-                '#fef5f5',
-                '#ff0000',
-                '#dc143c',
-                '#ff1744',
-                '#f44336',
-                '#e53935',
-                '#c62828',
-                '#b71c1c'
-            ];
+            const colors = ['#ffffff', '#ffebee', '#fef5f5', '#ff0000', '#dc143c', '#ff1744'];
             
-            // Create multiple waves of fireworks
             const waves = 5;
             const heartsPerWave = 30;
             
@@ -1360,7 +1719,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                 const waveDelay = wave * 200;
                 
                 setTimeout(() => {
-                    // Each wave has multiple bursts
                     const burstsInWave = 3;
                     
                     for (let burst = 0; burst < burstsInWave; burst++) {
@@ -1372,15 +1730,12 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 heart.classList.add('heart-confetti');
                                 heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                                 
-                                // Varying sizes for more dynamic effect
                                 const size = 14 + Math.random() * 32;
                                 heart.style.fontSize = size + 'px';
                                 
-                                // Apply color explicitly
                                 const color = colors[Math.floor(Math.random() * colors.length)];
                                 heart.style.color = color;
                                 
-                                // Enhanced glow effect
                                 heart.style.textShadow = `
                                     0 0 15px ${color},
                                     0 0 30px ${color},
@@ -1388,7 +1743,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                     3px 3px 6px rgba(0, 0, 0, 0.4)
                                 `;
                                 
-                                // Multiple drop shadows for extra sparkle
                                 heart.style.filter = `
                                     drop-shadow(0 0 10px ${color})
                                     drop-shadow(0 0 20px ${color})
@@ -1397,13 +1751,11 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 heart.style.left = centerX + 'px';
                                 heart.style.top = centerY + 'px';
                                 
-                                // More dramatic explosion pattern
                                 const angle = (Math.PI * 2 * i) / heartsPerWave + (Math.random() * 0.5 - 0.25);
                                 const distance = 200 + Math.random() * 300 + (wave * 40);
                                 const tx = Math.cos(angle) * distance;
-                                const ty = Math.sin(angle) * distance - (Math.random() * 100); // Slight upward bias
+                                const ty = Math.sin(angle) * distance - (Math.random() * 100);
                                 
-                                // More dramatic rotation
                                 const rotation = Math.random() * 1440 - 720;
                                 const scale = 0.4 + Math.random() * 0.8;
                                 
@@ -1412,7 +1764,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
                                 heart.style.setProperty('--rotation', rotation + 'deg');
                                 heart.style.setProperty('--scale', scale);
                                 
-                                // Staggered animation
                                 heart.style.animationDelay = (Math.random() * 0.3) + 's';
                                 
                                 document.body.appendChild(heart);
@@ -1449,25 +1800,6 @@ Souls intertwined, on Cloud 9, side by side.</p>
             }
         }
         
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#ffa3a3', '#ffd3d3', '#a5d8ff', '#74c0fc', '#b2f2bb', '#ffec99'];
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, 5000);
-            }
-        }
-        
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1477,68 +1809,85 @@ Souls intertwined, on Cloud 9, side by side.</p>
             });
         });
         
-document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const submitBtn = document.getElementById('submit-rsvp');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    // Get form data
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        guests: document.getElementById('guests').value,
-        attending: document.getElementById('attending').value,
-        message: document.getElementById('message').value,
-        timestamp: new Date().toLocaleString()
-    };
-    
-    try {
-        // Send to Google Sheets
-        // Replace 'YOUR_GOOGLE_SCRIPT_URL' with your actual deployment URL
-        const googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec';
-        
-        await fetch(googleSheetsUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
+        document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-rsvp');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                guests: document.getElementById('guests').value,
+                attending: document.getElementById('attending').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            try {
+                const googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec';
+                
+                await fetch(googleSheetsUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                createRSVPCelebration(submitBtn);
+                
+                setTimeout(() => {
+                    alert('Thank you for your RSVP! We look forward to celebrating with you.');
+                    this.reset();
+                }, 300);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         });
         
-        // Create massive heart fireworks celebration!
-        createRSVPCelebration(submitBtn);
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
         
-        // Small delay before showing alert to let animation start
-        setTimeout(() => {
-            alert('Thank you for your RSVP! We look forward to celebrating with you.');
-            this.reset();
-        }, 300);
-    } catch (error) {
-        console.error('Error:', error);
-        alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
-    } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
-        
+        // Initialize everything on load
         window.addEventListener('load', () => {
+            // Check if intro has been seen (in memory only)
+            const introSeen = window.introSeenData;
+            
+            if (introSeen && introSeen.seen) {
+                // Skip intro if already seen in this session
+                document.getElementById('landing-overlay').classList.add('hidden');
+            } else {
+                // Show intro
+                init3DScene();
+                createFallingPetals();
+            }
+            
+            // Initialize wedding website
             createHearts();
             updateCountdown();
             setInterval(updateCountdown, 1000);
             checkScroll();
             
-            // Enhanced audio playback for Android compatibility
+            // Music playback
             const music = document.getElementById('bgMusic');
             music.volume = 0.5;
             
             let hasPlayed = false;
             
-            // Function to start music
             const startMusic = () => {
                 if (!hasPlayed) {
                     music.play().then(() => {
@@ -1550,17 +1899,14 @@ document.getElementById('wedding-rsvp').addEventListener('submit', async functio
                 }
             };
             
-            // Try immediate autoplay
             startMusic();
             
-            // Fallback: play on ANY user interaction
             const interactions = ['click', 'touchstart', 'touchend', 'scroll', 'keydown'];
             
             interactions.forEach(event => {
                 document.addEventListener(event, startMusic, { once: true, passive: true });
             });
             
-            // Additional Android-specific triggers
             window.addEventListener('focus', startMusic, { once: true });
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'visible') {
