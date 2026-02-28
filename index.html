@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Yadhir & Ashwari | Wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -15,1651 +16,1239 @@
             --accent: #d4a373;
             --light: #f8f1e9;
             --dark: #333333;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-        
-        header {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                        url('Images/13.jpeg') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .floating-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .heart {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.7);
-            animation: float 15s linear infinite;
-            font-size: 1.5rem;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1.5);
-                opacity: 0;
-            }
-        }
-        
-        .header-content {
-            z-index: 2;
-            animation: fadeIn 2s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-        
-        .date {
-            font-size: 1.8rem;
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-        
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            animation: slideUp 1s ease-out 0.5s both;
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .countdown-item {
-            text-align: center;
-        }
-        
-        .countdown-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .countdown-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-        
-        nav.scrolled {
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-        }
-        
-        nav.scrolled a {
-            color: var(--dark);
-        }
-        
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 3rem;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s;
-        }
-        
-        nav a:hover:after {
-            width: 100%;
-        }
-        
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-            position: relative;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            display: inline-block;
-            background-color: var(--light);
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background-color: var(--secondary);
-            z-index: 1;
+            --white: #ffffff;
         }
 
-        /* 3D Books Section */
-        .books-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10rem;
-            perspective: 2000px;
-            margin-top: 4rem;
-            min-height: 800px;
-            flex-wrap: wrap;
-        }
+```
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
 
-        .book-wrapper {
-            position: relative;
-            cursor: pointer;
-        }
+    html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+    }
 
-        .book {
-            width: 480px;
-            height: 650px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1s ease;
-        }
+    body {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--dark);
+        background-color: var(--light);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-        .book-wrapper:hover .book {
-            transform: rotateY(-25deg);
-        }
+    h1, h2, h3, h4 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+    }
 
-        .book.open {
-            transform: rotateY(-160deg);
-        }
+    /* ─── NAV ─── */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.2rem 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
 
-        .book-cover, .book-back, .book-page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 5px;
-        }
+    nav.scrolled {
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        padding: 0.8rem 0;
+    }
 
-        .book-cover {
-            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
-            transform: translateZ(15px);
-            box-shadow: 
-                0 0 0 3px #e8e8e8,
-                0 0 0 4px #d4d4d4,
-                5px 5px 30px rgba(0, 0, 0, 0.15),
-                inset 0 5px 30px rgba(255, 255, 255, 0.9),
-                inset 0 -5px 20px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            color: var(--dark);
-            overflow: hidden;
-            position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
+    nav.scrolled a { color: var(--dark); }
 
-        .book-cover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
-            opacity: 0.5;
-        }
+    nav ul {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        gap: 2rem;
+        padding: 0 1rem;
+        flex-wrap: wrap;
+    }
 
-        .book-cover img {
-            width: 90%;
-            height: 75%;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            border: 4px solid rgba(212, 163, 115, 0.3);
-            position: relative;
-            z-index: 2;
-        }
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        transition: color 0.3s;
+        position: relative;
+    }
 
-        .book-cover h3 {
-            font-size: 2.2rem;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            font-family: 'Playfair Display', serif;
-            position: relative;
-            z-index: 2;
-            color: var(--secondary);
-        }
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--accent);
+        transition: width 0.3s;
+    }
 
-        .book-spine {
-            position: absolute;
-            width: 50px;
-            height: 100%;
-            left: -25px;
-            top: 0;
-            background: linear-gradient(to right, 
-                #d4d4d4 0%, 
-                #e8e8e8 20%,
-                #f5f5f5 40%,
-                #e8e8e8 60%,
-                #d4d4d4 100%);
-            transform: rotateY(-90deg);
-            transform-origin: right;
-            border-radius: 5px 0 0 5px;
-            box-shadow: 
-                inset -2px 0 5px rgba(0, 0, 0, 0.2),
-                inset 2px 0 5px rgba(255, 255, 255, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    nav a:hover { color: var(--primary); }
+    nav a:hover::after { width: 100%; }
 
-        .book-spine::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 80%;
-            background: linear-gradient(to bottom,
-                transparent 0%,
-                rgba(212, 163, 115, 0.5) 10%,
-                rgba(212, 163, 115, 0.8) 50%,
-                rgba(212, 163, 115, 0.5) 90%,
-                transparent 100%);
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    /* ─── HEADER ─── */
+    header {
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: linear-gradient(rgba(0,0,0,0.38), rgba(0,0,0,0.38)),
+                    url('Images/13.jpeg') no-repeat center center / cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 1.5rem 3rem;
+    }
 
-        .book-back {
-            background: linear-gradient(145deg, #f8f9fa 0%, #e8e8e8 100%);
-            transform: translateZ(-15px) rotateY(180deg);
-            box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid #d4d4d4;
-        }
+    .floating-hearts {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
 
-        .book-pages {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 1s ease;
-            transform-origin: left;
-        }
+    .heart {
+        position: absolute;
+        color: rgba(255,255,255,0.6);
+        animation: float 15s linear infinite;
+        font-size: 1.3rem;
+        will-change: transform, opacity;
+    }
 
-        .book.open .book-pages {
-            transform: rotateY(-170deg);
-        }
+    @keyframes float {
+        0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
 
-        .book-page {
-            background: #faf8f4;
-            transform: translateZ(0);
-            padding: 3rem 2rem;
-            overflow-y: auto;
-            box-shadow: 
-                inset -3px 0 10px rgba(0, 0, 0, 0.1),
-                2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
+    .header-content {
+        z-index: 2;
+        animation: fadeIn 2s ease-out;
+        width: 100%;
+        max-width: 700px;
+    }
 
-        .page-single {
-            transform: translateZ(10px);
-            width: 100%;
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
 
-        .page-content {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: var(--dark);
-        }
+    h1 {
+        font-size: clamp(2.2rem, 8vw, 4.5rem);
+        margin-bottom: 0.8rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        line-height: 1.15;
+    }
 
-        .page-content h4 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 0.5rem;
-        }
+    .subtitle {
+        font-size: clamp(0.85rem, 3vw, 1.3rem);
+        letter-spacing: 3px;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
 
-        .page-content p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
+    .date {
+        font-size: clamp(1rem, 4vw, 1.6rem);
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
 
-        .click-instruction {
-            text-align: center;
-            margin-top: 2rem;
-            font-style: italic;
-            color: var(--secondary);
-            opacity: 0;
-            animation: fadeInOut 3s ease-in-out infinite;
-        }
+    .countdown {
+        display: flex;
+        justify-content: center;
+        gap: clamp(0.8rem, 4vw, 2.5rem);
+        margin-top: 1.5rem;
+        animation: slideUp 1s ease-out 0.5s both;
+        flex-wrap: nowrap;
+    }
 
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.7; }
-        }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Heart Confetti */
-        .heart-confetti {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            animation: heartBurst 2.5s ease-out forwards;
-            font-weight: normal;
-            -webkit-text-stroke: 0;
-            will-change: transform, opacity;
-        }
+    .countdown-item { text-align: center; }
 
-        @keyframes heartBurst {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(0) rotate(0deg);
-            }
-            20% {
-                opacity: 1;
-                transform: translate(calc(var(--tx) * 0.3), calc(var(--ty) * 0.3)) scale(var(--scale)) rotate(calc(var(--rotation) * 0.3));
-            }
-            50% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 0.8;
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(calc(var(--scale) * 1.5)) rotate(var(--rotation));
-            }
-        }
-        
+    .countdown-number {
+        font-size: clamp(1.5rem, 6vw, 2.8rem);
+        font-weight: 700;
+        color: var(--primary);
+        line-height: 1;
+        margin-bottom: 0.4rem;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .countdown-label {
+        font-size: clamp(0.6rem, 2vw, 0.9rem);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+        padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: clamp(2rem, 6vw, 4rem);
+        position: relative;
+    }
+
+    .section-title h2 {
+        font-size: clamp(1.6rem, 5vw, 2.5rem);
+        display: inline-block;
+        background-color: var(--light);
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--secondary);
+        z-index: 1;
+    }
+
+    /* ─── STORY ─── */
+    .story-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(1.5rem, 4vw, 3rem);
+        align-items: center;
+        margin-bottom: clamp(2rem, 6vw, 4rem);
+    }
+
+    .story-text {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.6s ease;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        line-height: 1.9;
+    }
+
+    .story-text.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .story-image {
+        position: relative;
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.6s ease;
+    }
+
+    .story-image.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .story-image img {
+        width: 100%;
+        border-radius: 6px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        display: block;
+    }
+
+    .story-image::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 2px solid var(--primary);
+        border-radius: 6px;
+        top: -12px;
+        left: -12px;
+        z-index: -1;
+    }
+
+    /* reverse second row */
+    .story-container:nth-child(even) .story-text { order: 2; transform: translateX(20px); }
+    .story-container:nth-child(even) .story-image { order: 1; transform: translateX(-20px); }
+    .story-container:nth-child(even) .story-image::before { left: auto; right: -12px; }
+    .story-container:nth-child(even) .story-text.visible,
+    .story-container:nth-child(even) .story-image.visible { transform: translateX(0); }
+
+    /* ─── PREWEDDING CARDS ─── */
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+        gap: clamp(1.5rem, 4vw, 2.5rem);
+        margin-top: 2rem;
+    }
+
+    .event-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+        cursor: pointer;
+    }
+
+    .event-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+    }
+
+    .event-card-image {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+    }
+
+    .event-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        display: block;
+    }
+
+    .event-card:hover .event-card-image img {
+        transform: scale(1.06);
+    }
+
+    .event-card-image-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+    }
+
+    .event-card-image-title {
+        position: absolute;
+        bottom: 1.2rem;
+        left: 1.5rem;
+        color: white;
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .event-card-body {
+        padding: clamp(1.2rem, 4vw, 1.8rem);
+    }
+
+    .event-card-body h4 {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        color: var(--accent);
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid var(--primary);
+    }
+
+    .event-detail-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+        line-height: 1.5;
+    }
+
+    .event-detail-row i {
+        color: var(--accent);
+        width: 16px;
+        flex-shrink: 0;
+        margin-top: 0.15rem;
+    }
+
+    /* ─── DETAILS GRID ─── */
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: clamp(1rem, 3vw, 2rem);
+        margin-top: 2rem;
+    }
+
+    .detail-card {
+        background: white;
+        padding: clamp(1.5rem, 4vw, 2rem);
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        transition: transform 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .detail-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .detail-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+    }
+
+    .detail-icon {
+        font-size: 2.2rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+    }
+
+    .detail-card h3 {
+        margin-bottom: 0.75rem;
+        color: var(--secondary);
+        font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+
+    .detail-card p {
+        font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+        line-height: 1.6;
+        margin-bottom: 0.4rem;
+    }
+
+    .detail-card a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+    }
+
+    /* ─── GALLERY ─── */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+        gap: clamp(0.6rem, 2vw, 1rem);
+        margin-top: 2rem;
+    }
+
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 6px;
+        aspect-ratio: 1 / 1;
+        opacity: 0;
+        transform: scale(0.92);
+        transition: all 0.5s ease;
+    }
+
+    .gallery-item.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+        display: block;
+    }
+
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    .gallery-item::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* ─── RSVP ─── */
+    .rsvp-section {
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                    url('Images/rsvp1.jpeg') no-repeat center center / cover;
+        color: white;
+        text-align: center;
+        padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 2rem);
+    }
+
+    .rsvp-section .section-title h2 {
+        background-color: transparent;
+        color: white;
+    }
+
+    .rsvp-section .section-title::after {
+        background-color: rgba(255,255,255,0.3);
+    }
+
+    .rsvp-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: clamp(1.5rem, 5vw, 3rem);
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.2);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+        text-align: left;
+    }
+
+    .rsvp-form.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .form-group {
+        margin-bottom: 1.4rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 6px;
+        background: rgba(255,255,255,0.15);
+        color: white;
+        font-family: inherit;
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .form-group select option { color: var(--dark); background: white; }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.65); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255,255,255,0.2);
+    }
+
+    .event-checkbox-block {
+        background: rgba(255,255,255,0.1);
+        padding: clamp(1rem, 3vw, 1.5rem);
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+        border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .event-checkbox-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+
+    .event-checkbox-row input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-top: 0.15rem;
+        cursor: pointer;
+        accent-color: var(--accent);
+        padding: 0;
+        border-radius: 4px;
+    }
+
+    .event-checkbox-row label {
+        margin: 0;
+        cursor: pointer;
+        flex: 1;
+    }
+
+    .event-checkbox-row label strong { display: block; margin-bottom: 0.2rem; }
+    .event-checkbox-row label span { font-size: clamp(0.78rem, 2vw, 0.88rem); opacity: 0.85; }
+
+    .guest-count-row {
+        display: none;
+        margin-top: 0.9rem;
+        margin-left: 2.1rem;
+        align-items: center;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+
+    .guest-count-row.visible { display: flex; }
+
+    .guest-count-row label {
+        font-size: clamp(0.82rem, 2.2vw, 0.92rem);
+        margin: 0;
+    }
+
+    .guest-count-row select {
+        width: auto;
+        padding: 0.4rem 0.7rem;
+        font-size: clamp(0.82rem, 2.2vw, 0.92rem);
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: var(--primary);
+        color: var(--dark);
+        border: none;
+        padding: 1rem 2rem;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        font-weight: 700;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-top: 0.5rem;
+        -webkit-appearance: none;
+    }
+
+    .submit-btn:hover {
+        background: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ─── FOOTER ─── */
+    footer {
+        background-color: var(--dark);
+        color: white;
+        text-align: center;
+        padding: clamp(2rem, 6vw, 3rem) 1.5rem;
+    }
+
+    .footer-logo {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+        margin-bottom: 0.6rem;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .footer-date { font-size: clamp(0.85rem, 2.5vw, 1rem); opacity: 0.8; }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .social-links a {
+        color: white;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .copyright {
+        margin-top: 1.5rem;
+        font-size: clamp(0.72rem, 2vw, 0.85rem);
+        opacity: 0.6;
+        line-height: 1.6;
+    }
+
+    /* ─── HEART CONFETTI ─── */
+    .heart-confetti {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        animation: heartBurst 2.5s ease-out forwards;
+        will-change: transform, opacity;
+    }
+
+    @keyframes heartBurst {
+        0%   { opacity: 1; transform: translate(0,0) scale(0) rotate(0deg); }
+        20%  { opacity: 1; transform: translate(calc(var(--tx)*0.3), calc(var(--ty)*0.3)) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); }
+        50%  { opacity: 1; }
+        70%  { opacity: 0.8; }
+        100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(calc(var(--scale)*1.5)) rotate(var(--rotation)); }
+    }
+
+    /* ─── MOBILE OVERRIDES ─── */
+    @media (max-width: 640px) {
+        nav ul { gap: 0.5rem 1.2rem; }
+        nav a  { font-size: 0.75rem; letter-spacing: 0.5px; }
+
         .story-container {
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 4rem;
-        }
-        
-        .story-text {
-            flex: 1;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.6s ease;
-        }
-        
-        .story-text.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .story-image {
-            flex: 1;
-            position: relative;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.6s ease;
-        }
-        
-        .story-image.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .story-image img {
-            width: 100%;
-            border-radius: 5px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .story-image:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--primary);
-            border-radius: 5px;
-            top: -15px;
-            left: -15px;
-            z-index: -1;
-        }
-        
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .detail-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .detail-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .detail-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .detail-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-        
-        .detail-card h3 {
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 3rem;
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-            aspect-ratio: 1/1;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.5s ease;
-        }
-        
-        .gallery-item.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-item:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .gallery-item:hover:after {
-            opacity: 1;
-        }
-        
-        .rsvp-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                       url('Images/rsvp1.jpeg') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-            padding: 8rem 2rem;
-        }
-        
-        .rsvp-section .section-title h2 {
-            background-color: transparent;
-            color: white;
-        }
-        
-        .rsvp-section .section-title:after {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .rsvp-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-        
-        .rsvp-form.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-family: inherit;
-        }
-        
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .submit-btn {
-            background: var(--primary);
-            color: var(--dark);
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .submit-btn:hover {
-            background: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        footer {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-        
-        .footer-logo {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
+            grid-template-columns: 1fr;
             gap: 1.5rem;
-            margin: 2rem 0;
         }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s;
+
+        .story-container:nth-child(even) .story-text { order: unset; }
+        .story-container:nth-child(even) .story-image { order: unset; }
+        .story-image::before { display: none; }
+        .story-text { transform: translateX(0) !important; opacity: 0; transform: translateY(15px); }
+        .story-text.visible { transform: translateY(0) !important; opacity: 1; }
+        .story-image { transform: translateX(0) !important; opacity: 0; transform: translateY(15px); }
+        .story-image.visible { transform: translateY(0) !important; opacity: 1; }
+
+        .gallery {
+            grid-template-columns: repeat(2, 1fr);
         }
-        
-        .social-links a:hover {
-            color: var(--primary);
-        }
-        
-        .copyright {
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-        
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0;
-            z-index: 9999;
-            animation: confetti 5s ease-in-out;
-        }
-        
-        @keyframes confetti {
-            0% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(720deg);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .date {
-                font-size: 1.2rem;
-            }
-            
-            .countdown {
-                gap: 1rem;
-                flex-wrap: wrap;
-            }
-            
-            .countdown-number {
-                font-size: 1.8rem;
-            }
-            
-            nav {
-                padding: 0.8rem 0;
-            }
-            
-            nav ul {
-                gap: 0.5rem;
-                flex-wrap: wrap;
-                padding: 0 1rem;
-            }
-            
-            nav a {
-                font-size: 0.85rem;
-            }
-            
-            .story-container {
-                flex-direction: column;
-            }
-            
-            .story-image:before {
-                display: none;
-            }
-            
-            section {
-                padding: 4rem 1rem;
-            }
-            
-            .rsvp-form {
-                padding: 2rem 1rem;
-            }
+    }
 
-            /* Mobile-specific 3D book styles */
-            .books-container {
-                gap: 3rem;
-                flex-direction: column;
-                perspective: none;
-            }
+    @media (max-width: 380px) {
+        nav ul { gap: 0.4rem 0.8rem; }
+        nav a  { font-size: 0.68rem; }
+        .countdown { gap: 0.6rem; }
+    }
+</style>
+```
 
-            .book-wrapper {
-                width: 100%;
-                max-width: 380px;
-                margin: 0 auto;
-            }
-
-            .book {
-                width: 100%;
-                height: auto;
-                min-height: 520px;
-                transform: none !important;
-            }
-
-            .book-wrapper:hover .book {
-                transform: none !important;
-            }
-
-            /* On mobile, show book content in a card layout instead of 3D */
-            .book.open {
-                transform: none !important;
-            }
-
-            .book-cover {
-                position: relative;
-                transform: none !important;
-                height: 250px;
-                border-radius: 10px 10px 0 0;
-            }
-
-            .book-cover img {
-                width: 75%;
-                height: 65%;
-            }
-
-            .book-cover h3 {
-                font-size: 1.5rem;
-            }
-
-            .book-spine {
-                display: none;
-            }
-
-            .book-back {
-                display: none;
-            }
-
-            .book-pages {
-                position: relative !important;
-                transform: none !important;
-                height: auto;
-                background: white;
-                border-radius: 0 0 10px 10px;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            }
-
-            .book.open .book-pages {
-                transform: none !important;
-            }
-
-            .book-page {
-                position: relative !important;
-                transform: none !important;
-                height: auto;
-                padding: 1.5rem;
-                box-shadow: none;
-                background: white;
-            }
-
-            .page-single {
-                border: none;
-            }
-
-            /* Hide pages by default on mobile */
-            .book-pages {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.5s ease;
-            }
-
-            .book.open .book-pages {
-                max-height: 2000px;
-            }
-
-            .page-content {
-                font-size: 0.9rem;
-                line-height: 1.6;
-            }
-
-            .page-content h4 {
-                font-size: 1.3rem;
-            }
-
-            .click-instruction {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Background Music -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="Music/Love.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
 
-    <div class="floating-hearts" id="hearts-container"></div>
-    
-    <nav id="navbar">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#story">Our Story</a></li>
-            <li><a href="#prewedding">Pre-Wedding</a></li>
-            <li><a href="#details">Details</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#rsvp">RSVP</a></li>
-        </ul>
-    </nav>
-    
-    <header id="home">
-        <div class="header-content">
-            <h1>Yadhir & Ashwari</h1>
-            <div class="subtitle">Are Getting Married</div>
-            <div class="date">December 19, 2026</div>
-            
-            <div class="countdown" id="countdown">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days">00</div>
-                    <div class="countdown-label">Days</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours">00</div>
-                    <div class="countdown-label">Hours</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">00</div>
-                    <div class="countdown-label">Minutes</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">00</div>
-                    <div class="countdown-label">Seconds</div>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <section id="story">
-        <div class="section-title">
-            <h2>Jab We Met</h2>
-        </div>
-        
-        <div class="story-container">
-            <div class="story-text">
-                <p>
-                    A simple "Hi," a message on a screen, </p>
-A friendship bloomed, the best I've ever seen. </p>
-From pixels shared, a love began to grow,</p>
-A perfect start, so long ago.</p>
-            </div>
-            <div class="story-image">
-                <img src="Images/12.jpeg" alt="Yadhir & Ashwari">
-            </div>
-        </div>
-        
-        <div class="story-container">
-            <div class="story-image">
-                <img src="Images/airplane.jpeg" alt="Proposal">
-            </div>
-            <div class="story-text">
-                <p>Love knows no bounds, though miles divide, </p>
-Our shared sky, where whispered promises hide.</p>
-Souls intertwined, on Cloud 9, side by side.</p>
-            </div>
-        </div>
-    </section>
+<!-- Background Music -->
 
-    <!-- Pre-Wedding 3D Books Section -->
-    <section id="prewedding">
-        <div class="section-title">
-            <h2>Pre-Wedding</h2>
-        </div>
-        
-        <div class="books-container">
-            <!-- First Book - Mehendi -->
-            <div class="book-wrapper" onclick="toggleBook(this)">
-                <div class="book">
-                    <div class="book-spine"></div>
-                    <div class="book-cover">
-                        <img src="Images/12.jpeg" alt="Mehendi Ceremony">
-                        <h3>Mehendi</h3>
-                    </div>
-                    <div class="book-pages">
-                        <div class="book-page page-single">
-                            <div class="page-content">
-                                <h4>Mehendi Ceremony</h4>
-                                <p>Join us for an evening of color, tradition, and celebration as we adorn our hands with intricate henna designs.</p>
-                                <p><strong>Date:</strong> December 17, 2026</p>
-                                <p><strong>Time:</strong> 6:00 PM</p>
-                                <p><strong>Venue:</strong> The White Boxx, 369 Peter Mokaba Ridge, Berea</p>
-                                <p><strong>Dress Code:</strong> Vibrant traditional attire - think colorful lehengas, sarees, and kurtas!</p>
+<audio id="bgMusic" loop preload="auto">
+    <source src="Music/Love.mp3" type="audio/mpeg">
+</audio>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-back"></div>
+<div class="floating-hearts" id="hearts-container"></div>
+
+<nav id="navbar">
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#prewedding">Pre-Wedding</a></li>
+        <li><a href="#details">Details</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+    </ul>
+</nav>
+
+<!-- ─── HEADER ─── -->
+
+<header id="home">
+    <div class="header-content">
+        <h1>Yadhir &amp; Ashwari</h1>
+        <div class="subtitle">Are Getting Married</div>
+        <div class="date">December 19, 2026</div>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ─── STORY ─── -->
+
+<section id="story">
+    <div class="section-title"><h2>Jab We Met</h2></div>
+
+```
+<div class="story-container">
+    <div class="story-text">
+        <p>A simple "Hi," a message on a screen,<br>
+        A friendship bloomed, the best I've ever seen.<br>
+        From pixels shared, a love began to grow,<br>
+        A perfect start, so long ago.</p>
+    </div>
+    <div class="story-image">
+        <img src="Images/12.jpeg" alt="Yadhir &amp; Ashwari">
+    </div>
+</div>
+
+<div class="story-container">
+    <div class="story-image">
+        <img src="Images/airplane.jpeg" alt="Proposal">
+    </div>
+    <div class="story-text">
+        <p>Love knows no bounds, though miles divide,<br>
+        Our shared sky, where whispered promises hide.<br>
+        Souls intertwined, on Cloud 9, side by side.</p>
+    </div>
+</div>
+```
+
+</section>
+
+<!-- ─── PRE-WEDDING ─── -->
+
+<section id="prewedding">
+    <div class="section-title"><h2>Pre-Wedding</h2></div>
+
+```
+<div class="cards-container">
+
+    <!-- Mehendi Card -->
+    <div class="event-card">
+        <div class="event-card-image">
+            <img src="Images/12.jpeg" alt="Mehendi Ceremony">
+            <div class="event-card-image-overlay"></div>
+            <div class="event-card-image-title">Mehendi</div>
+        </div>
+        <div class="event-card-body">
+            <h4>Mehendi Ceremony</h4>
+            <div class="event-detail-row">
+                <i class="fas fa-calendar-alt"></i>
+                <span>December 17, 2026</span>
+            </div>
+            <div class="event-detail-row">
+                <i class="fas fa-clock"></i>
+                <span>6:00 PM</span>
+            </div>
+            <div class="event-detail-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>The White Boxx, 369 Peter Mokaba Ridge, Berea</span>
+            </div>
+            <div class="event-detail-row">
+                <i class="fas fa-tshirt"></i>
+                <span>Vibrant traditional attire — colorful lehengas, sarees &amp; kurtas!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hurdhee Card -->
+    <div class="event-card">
+        <div class="event-card-image">
+            <img src="Images/11.jpeg" alt="Hurdhee Celebration">
+            <div class="event-card-image-overlay"></div>
+            <div class="event-card-image-title">Hurdhee</div>
+        </div>
+        <div class="event-card-body">
+            <h4>Hurdhee Celebration</h4>
+            <div class="event-detail-row">
+                <i class="fas fa-calendar-alt"></i>
+                <span>December 18, 2026</span>
+            </div>
+            <div class="event-detail-row">
+                <i class="fas fa-clock"></i>
+                <span>5:00 PM</span>
+            </div>
+            <div class="event-detail-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</span>
+            </div>
+            <div class="event-detail-row">
+                <i class="fas fa-tshirt"></i>
+                <span>Vibrant traditional attire — colorful lehengas, sarees &amp; kurtas!</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ─── WEDDING DETAILS ─── -->
+
+<section id="details">
+    <div class="section-title"><h2>Wedding Reception</h2></div>
+
+```
+<div class="details-grid">
+    <div class="detail-card">
+        <div class="detail-icon"><i class="fas fa-calendar-alt"></i></div>
+        <h3>When</h3>
+        <p>Saturday, December 19, 2026</p>
+        <p>Time: 5:30 PM for 6 PM</p>
+    </div>
+
+    <div class="detail-card">
+        <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3>Where</h3>
+        <p>King Protea</p>
+        <p>The Capital Zimbali Resort, Zimbali</p>
+        <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z" target="_blank" rel="noopener">View on map</a>
+    </div>
+
+    <div class="detail-card">
+        <div class="detail-icon"><i class="fas fa-heart"></i></div>
+        <h3>Dress Code</h3>
+        <p>Black Tie Event</p>
+    </div>
+
+    <div class="detail-card">
+        <div class="detail-icon"><i class="fas fa-gift"></i></div>
+        <h3>Registry</h3>
+        <p>Your presence is present enough!</p>
+        <p>For those who insist, please give us cash.</p>
+    </div>
+
+    <div class="detail-card">
+        <div class="detail-icon"><i class="fas fa-question-circle"></i></div>
+        <h3>Questions?</h3>
+        <p>Contact our wedding planner:</p>
+        <p>Prathika Asrai</p>
+        <p>asraiashwari@gmail.com | (082) 811-5166</p>
+    </div>
+</div>
+```
+
+</section>
+
+<!-- ─── GALLERY ─── -->
+
+<section id="gallery">
+    <div class="section-title"><h2>Our Gallery</h2></div>
+    <div class="gallery">
+        <div class="gallery-item"><img src="Images/1.jpeg" alt="Photo 1" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/2.jpeg" alt="Photo 2" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/3.jpeg" alt="Photo 3" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/4.jpeg" alt="Photo 4" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/5.jpeg" alt="Photo 5" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/6.jpeg" alt="Photo 6" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/7.jpeg" alt="Photo 7" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/8.jpeg" alt="Photo 8" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/9.jpeg" alt="Photo 9" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/10.jpeg" alt="Photo 10" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/11.jpeg" alt="Photo 11" loading="lazy"></div>
+    </div>
+</section>
+
+<!-- ─── RSVP ─── -->
+
+<section class="rsvp-section" id="rsvp">
+    <div class="section-title"><h2>RSVP</h2></div>
+
+```
+<div class="rsvp-form">
+    <form id="wedding-rsvp" novalidate>
+
+        <div class="form-group">
+            <label for="name">Your Name(s)</label>
+            <input type="text" id="name" name="name" placeholder="John &amp; Jane Doe" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+27 123 456 7890" required autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+            <label style="font-size: clamp(0.9rem,2.5vw,1.05rem); margin-bottom: 1rem;">Which events will you be attending?</label>
+
+            <!-- Mehendi -->
+            <div class="event-checkbox-block">
+                <div class="event-checkbox-row">
+                    <input type="checkbox" id="mehendi" name="mehendi">
+                    <label for="mehendi">
+                        <strong>Mehendi Ceremony</strong>
+                        <span>December 17, 2026 at 6:00 PM</span>
+                    </label>
+                </div>
+                <div class="guest-count-row" id="mehendi-guests">
+                    <label for="mehendi-count">Number of guests:</label>
+                    <select id="mehendi-count" name="mehendi-count">
+                        <option value="1">1</option><option value="2">2</option>
+                        <option value="3">3</option><option value="4">4</option>
+                        <option value="5">5</option><option value="6">6</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- Second Book - Sangeet -->
-            <div class="book-wrapper" onclick="toggleBook(this)">
-                <div class="book">
-                    <div class="book-spine"></div>
-                    <div class="book-cover">
-                        <img src="Images/11.jpeg" alt="Sangeet Night">
-                        <h3>Hurdhee</h3>
-                    </div>
-                    <div class="book-pages">
-                        <div class="book-page page-single">
-                            <div class="page-content">
-                                <h4>Hurdhee Celebration</h4>
-                                <p>Get ready for a night of music, dance, and unforgettable performances as our families come together to celebrate!</p>
-                                <p><strong>Date:</strong> December 18, 2026</p>
-                                <p><strong>Time:</strong> 5:00 PM</p>
-                                <p><strong>Venue:</strong> The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</p>
-                                <p><strong>Dress Code:</strong> Vibrant traditional attire - think colorful lehengas, sarees, and kurtas!</p>
-                            
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-back"></div>
+            <!-- Hurdhee -->
+            <div class="event-checkbox-block">
+                <div class="event-checkbox-row">
+                    <input type="checkbox" id="hurdhee" name="hurdhee">
+                    <label for="hurdhee">
+                        <strong>Hurdhee Celebration</strong>
+                        <span>December 18, 2026 at 5:00 PM</span>
+                    </label>
+                </div>
+                <div class="guest-count-row" id="hurdhee-guests">
+                    <label for="hurdhee-count">Number of guests:</label>
+                    <select id="hurdhee-count" name="hurdhee-count">
+                        <option value="1">1</option><option value="2">2</option>
+                        <option value="3">3</option><option value="4">4</option>
+                        <option value="5">5</option><option value="6">6</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Reception -->
+            <div class="event-checkbox-block">
+                <div class="event-checkbox-row">
+                    <input type="checkbox" id="reception" name="reception">
+                    <label for="reception">
+                        <strong>Wedding Reception</strong>
+                        <span>December 19, 2026 at 5:30 PM</span>
+                    </label>
+                </div>
+                <div class="guest-count-row" id="reception-guests">
+                    <label for="reception-count">Number of guests:</label>
+                    <select id="reception-count" name="reception-count">
+                        <option value="1">1</option><option value="2">2</option>
+                        <option value="3">3</option><option value="4">4</option>
+                        <option value="5">5</option><option value="6">6</option>
+                    </select>
                 </div>
             </div>
         </div>
 
-        <div class="click-instruction">
-            Click on the books to open them
+        <div class="form-group">
+            <label for="message">Message for the couple</label>
+            <textarea id="message" name="message" rows="3" placeholder="We're so happy for you!"></textarea>
         </div>
-    </section>
-    
-    <section id="details">
-        <div class="section-title">
-            <h2>Wedding Reception</h2>
-        </div>
-        
-        <div class="details-grid">
-            <div class="detail-card">
-                <div class="detail-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3>When</h3>
-                <p>Saturday, December 19, 2026</p>
-                <p>Time: 5.30 PM for 6 PM</p>
-                
-            </div>
-            
-            <div class="detail-card">
-                <div class="detail-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <h3>Where</h3>
-                <p>King Protea</p>
-                <p>The Capital Zimbali Resort, Zimbali</p>
-               <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef7138bc97bf2db:0x3a70a2ee1f6c012d!8m2!3d-29.5460026!4d31.1984946!16s%2Fg%2F1yw9l2f88?entry=ttu&g_ep=EgoyMDI1MDcyOS4wIKXMDSoASAFQAw%3D%3D" 
-   target="_blank" 
-   style="color: var(--accent); text-decoration: none;">
-   View on map
-</a>
-            </div>
-            
-            <div class="detail-card">
-                <div class="detail-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3>Dress Code</h3>
-                <p>Black Tie Event</p>
-        
-            </div>
-            
-            <div class="detail-card">
-                <div class="detail-icon">
-                    <i class="fas fa-gift"></i>
-                </div>
-                <h3>Registry</h3>
-                <p>Your presence is present enough!</p>
-                <p>For those who insist, please give us cash.</p>
-                <p></p>
-            </div>
-            
-            <div class="detail-card">
-                <div class="detail-icon">
-                    <i class="fas fa-question-circle"></i>
-                </div>
-                <h3>Questions?</h3>
-                <p>Contact our wedding planner:</p>
-                <p>Prathika Asrai</p>
-                <p>ashwariasrai@gmail.com | (082) 811-5166</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="gallery">
-        <div class="section-title">
-            <h2>Our Gallery</h2>
-        </div>
-        
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="Images/1.jpeg" alt="Engagement photo">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/2.jpeg" alt="Together">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/3.jpeg" alt="Proposal moment">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/4.jpeg" alt="Vacation">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/5.jpeg" alt="Formal">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/6.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/7.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/8.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/9.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/10.jpeg" alt="Casual">
-            </div>
-            <div class="gallery-item">
-                <img src="Images/11.jpeg" alt="Casual">
-            </div>
-        </div>
-    </section>
-    
-    <section class="rsvp-section" id="rsvp">
-        <div class="section-title">
-            <h2>RSVP</h2>
-        </div>
-        
-        <div class="rsvp-form">
-            <form id="wedding-rsvp">
-                <div class="form-group">
-                    <label for="name">Your Name(s)</label>
-                    <input type="text" id="name" name="name" placeholder="John & Jane Doe" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+27 123 456 7890" required>
-                </div>
-                
-                <div class="form-group">
-                    <label style="display: block; margin-bottom: 1rem; font-size: 1.1rem;">Which events will you be attending?</label>
-                    
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
-                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                            <input type="checkbox" id="mehendi" name="mehendi" style="width: auto; margin-right: 0.8rem; cursor: pointer; transform: scale(1.3);">
-                            <label for="mehendi" style="margin: 0; cursor: pointer; flex: 1;">
-                                <strong>Mehendi Ceremony</strong><br>
-                                <span style="font-size: 0.9rem; opacity: 0.9;">December 17, 2026 at 6:00 PM</span>
-                            </label>
-                        </div>
-                        <div id="mehendi-guests" style="display: none; margin-left: 2rem; margin-top: 0.5rem;">
-                            <label for="mehendi-count" style="font-size: 0.95rem;">Number of guests:</label>
-                            <select id="mehendi-count" name="mehendi-count" style="width: auto; margin-left: 0.5rem; padding: 0.4rem;">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
-                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                            <input type="checkbox" id="hurdhee" name="hurdhee" style="width: auto; margin-right: 0.8rem; cursor: pointer; transform: scale(1.3);">
-                            <label for="hurdhee" style="margin: 0; cursor: pointer; flex: 1;">
-                                <strong>Hurdhee Celebration</strong><br>
-                                <span style="font-size: 0.9rem; opacity: 0.9;">December 18, 2026 at 5:00 PM</span>
-                            </label>
-                        </div>
-                        <div id="hurdhee-guests" style="display: none; margin-left: 2rem; margin-top: 0.5rem;">
-                            <label for="hurdhee-count" style="font-size: 0.95rem;">Number of guests:</label>
-                            <select id="hurdhee-count" name="hurdhee-count" style="width: auto; margin-left: 0.5rem; padding: 0.4rem;">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 8px;">
-                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                            <input type="checkbox" id="reception" name="reception" style="width: auto; margin-right: 0.8rem; cursor: pointer; transform: scale(1.3);">
-                            <label for="reception" style="margin: 0; cursor: pointer; flex: 1;">
-                                <strong>Wedding Reception</strong><br>
-                                <span style="font-size: 0.9rem; opacity: 0.9;">December 19, 2026 at 5:30 PM</span>
-                            </label>
-                        </div>
-                        <div id="reception-guests" style="display: none; margin-left: 2rem; margin-top: 0.5rem;">
-                            <label for="reception-count" style="font-size: 0.95rem;">Number of guests:</label>
-                            <select id="reception-count" name="reception-count" style="width: auto; margin-left: 0.5rem; padding: 0.4rem;">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message for the couple</label>
-                    <textarea id="message" name="message" rows="3" placeholder="We're so happy for you!"></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="submit-rsvp">Submit RSVP</button>
-            </form>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="footer-logo">Ashwari & Yadhir</div>
-        <div>December 19, 2026</div>
-        
-        <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
-            <a href="#"><i class="fas fa-envelope"></i></a>
-        </div>
-        
-        <div class="copyright">
-            &copy; 2026 Ashwari & Yadhir. This website has been designed and programmed by Yadhir Inderparsad. All rights reserved.
-        </div>
-    </footer>
-    
-    <script>
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = 10 + Math.random() * 20 + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.color = 'white';
-                heart.style.opacity = 0.3 + Math.random() * 0.7;
-                container.appendChild(heart);
-            }
-        }
-        
-        function updateCountdown() {
-            const weddingDate = new Date('December 19, 2026 14:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        function toggleBook(wrapper) {
-            const book = wrapper.querySelector('.book');
-            const wasOpen = book.classList.contains('open');
-            
-            book.classList.toggle('open');
-            
-            // Create heart confetti burst when opening
-            if (!wasOpen) {
-                createHeartBurst(wrapper);
-            }
-        }
 
-        function createHeartBurst(element) {
-            const rect = element.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            // Heart symbols and colors
-            const hearts = ['♥', '❤', '♡'];
-            const colors = [
-                '#ffffff',
-                '#ffebee',
-                '#ffc0cb',
-                '#ff69b4',
-                '#ff1744',
-                '#f8bbd0',
-                '#f48fb1',
-                '#ec407a',
-                '#e91e63',
-                '#fce4ec'
-            ];
-            const numHearts = 50;
-            
-            // Create multiple layers of hearts like fireworks
-            const layers = 3;
-            
-            for (let layer = 0; layer < layers; layer++) {
-                const heartsPerLayer = Math.floor(numHearts / layers);
-                const layerDelay = layer * 100;
-                
-                setTimeout(() => {
-                    for (let i = 0; i < heartsPerLayer; i++) {
-                        const heart = document.createElement('div');
-                        heart.classList.add('heart-confetti');
-                        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                        
-                        // Random sizes
-                        const size = 12 + Math.random() * 28;
-                        heart.style.fontSize = size + 'px';
-                        
-                        // Apply color explicitly
-                        const color = colors[Math.floor(Math.random() * colors.length)];
-                        heart.style.color = color;
-                        
-                        // Add text shadow for better visibility
-                        heart.style.textShadow = `
-                            0 0 10px ${color},
-                            0 0 20px ${color},
-                            2px 2px 4px rgba(0, 0, 0, 0.3)
-                        `;
-                        
-                        // Add drop shadow filter
-                        heart.style.filter = `drop-shadow(0 0 8px ${color})`;
-                        
-                        heart.style.left = centerX + 'px';
-                        heart.style.top = centerY + 'px';
-                        
-                        // Circular explosion pattern
-                        const angle = (Math.PI * 2 * i) / heartsPerLayer + (Math.random() * 0.3 - 0.15);
-                        const distance = 150 + Math.random() * 200 + (layer * 50);
-                        const tx = Math.cos(angle) * distance;
-                        const ty = Math.sin(angle) * distance;
-                        
-                        // Random rotation and scale
-                        const rotation = Math.random() * 1080 - 540;
-                        const scale = 0.3 + Math.random() * 0.7;
-                        
-                        heart.style.setProperty('--tx', tx + 'px');
-                        heart.style.setProperty('--ty', ty + 'px');
-                        heart.style.setProperty('--rotation', rotation + 'deg');
-                        heart.style.setProperty('--scale', scale);
-                        
-                        // Add slight random delay
-                        heart.style.animationDelay = (Math.random() * 0.2) + 's';
-                        
-                        document.body.appendChild(heart);
-                        
-                        setTimeout(() => {
-                            heart.remove();
-                        }, 2700);
-                    }
-                }, layerDelay);
-            }
-        }
-        
-        function createRSVPCelebration(element) {
-            const rect = element.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            // Heart symbols and colors - only symbols, red and white
-            const hearts = ['♥', '❤', '♡'];
-            const colors = [
-                '#ffffff',
-                '#ffebee',
-                '#fef5f5',
-                '#ff0000',
-                '#dc143c',
-                '#ff1744',
-                '#f44336',
-                '#e53935',
-                '#c62828',
-                '#b71c1c'
-            ];
-            
-            // Create multiple waves of fireworks
-            const waves = 5;
-            const heartsPerWave = 30;
-            
-            for (let wave = 0; wave < waves; wave++) {
-                const waveDelay = wave * 200;
-                
-                setTimeout(() => {
-                    // Each wave has multiple bursts
-                    const burstsInWave = 3;
-                    
-                    for (let burst = 0; burst < burstsInWave; burst++) {
-                        const burstDelay = burst * 150;
-                        
-                        setTimeout(() => {
-                            for (let i = 0; i < heartsPerWave; i++) {
-                                const heart = document.createElement('div');
-                                heart.classList.add('heart-confetti');
-                                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                                
-                                // Varying sizes for more dynamic effect
-                                const size = 14 + Math.random() * 32;
-                                heart.style.fontSize = size + 'px';
-                                
-                                // Apply color explicitly
-                                const color = colors[Math.floor(Math.random() * colors.length)];
-                                heart.style.color = color;
-                                
-                                // Enhanced glow effect
-                                heart.style.textShadow = `
-                                    0 0 15px ${color},
-                                    0 0 30px ${color},
-                                    0 0 45px ${color},
-                                    3px 3px 6px rgba(0, 0, 0, 0.4)
-                                `;
-                                
-                                // Multiple drop shadows for extra sparkle
-                                heart.style.filter = `
-                                    drop-shadow(0 0 10px ${color})
-                                    drop-shadow(0 0 20px ${color})
-                                `;
-                                
-                                heart.style.left = centerX + 'px';
-                                heart.style.top = centerY + 'px';
-                                
-                                // More dramatic explosion pattern
-                                const angle = (Math.PI * 2 * i) / heartsPerWave + (Math.random() * 0.5 - 0.25);
-                                const distance = 200 + Math.random() * 300 + (wave * 40);
-                                const tx = Math.cos(angle) * distance;
-                                const ty = Math.sin(angle) * distance - (Math.random() * 100); // Slight upward bias
-                                
-                                // More dramatic rotation
-                                const rotation = Math.random() * 1440 - 720;
-                                const scale = 0.4 + Math.random() * 0.8;
-                                
-                                heart.style.setProperty('--tx', tx + 'px');
-                                heart.style.setProperty('--ty', ty + 'px');
-                                heart.style.setProperty('--rotation', rotation + 'deg');
-                                heart.style.setProperty('--scale', scale);
-                                
-                                // Staggered animation
-                                heart.style.animationDelay = (Math.random() * 0.3) + 's';
-                                
-                                document.body.appendChild(heart);
-                                
-                                setTimeout(() => {
-                                    heart.remove();
-                                }, 3000);
-                            }
-                        }, burstDelay);
-                    }
-                }, waveDelay);
-            }
-        }
-        
-        function checkScroll() {
-            const elements = document.querySelectorAll('.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (elementPosition < screenPosition) {
-                    element.classList.add('visible');
-                }
-            });
-        }
-        
-        function handleScroll() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        }
-        
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#ffa3a3', '#ffd3d3', '#a5d8ff', '#74c0fc', '#b2f2bb', '#ffec99'];
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, 5000);
-            }
-        }
-        
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Validate that at least one event is selected
-    const mehendiChecked = document.getElementById('mehendi').checked;
-    const hurdheeChecked = document.getElementById('hurdhee').checked;
-    const receptionChecked = document.getElementById('reception').checked;
-    
-    if (!mehendiChecked && !hurdheeChecked && !receptionChecked) {
-        alert('Please select at least one event to attend.');
-        return;
+        <button type="submit" class="submit-btn" id="submit-rsvp">Submit RSVP</button>
+    </form>
+</div>
+```
+
+</section>
+
+<!-- ─── FOOTER ─── -->
+
+<footer>
+    <div class="footer-logo">Ashwari &amp; Yadhir</div>
+    <div class="footer-date">December 19, 2026</div>
+    <div class="social-links">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div class="copyright">
+        &copy; 2026 Ashwari &amp; Yadhir. Designed &amp; programmed by Yadhir Inderparsad. All rights reserved.
+    </div>
+</footer>
+
+<script>
+/* ── Floating hearts in header ── */
+function createHearts() {
+    const container = document.getElementById('hearts-container');
+    for (let i = 0; i < 12; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.innerHTML = '❤';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = (10 + Math.random() * 18) + 's';
+        h.style.animationDelay = (Math.random() * 6) + 's';
+        h.style.opacity = 0.3 + Math.random() * 0.5;
+        container.appendChild(h);
     }
-    
-    const submitBtn = document.getElementById('submit-rsvp');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    // Get form data
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        mehendi_attending: mehendiChecked ? 'Yes' : 'No',
-        mehendi_guests: mehendiChecked ? document.getElementById('mehendi-count').value : '0',
-        hurdhee_attending: hurdheeChecked ? 'Yes' : 'No',
-        hurdhee_guests: hurdheeChecked ? document.getElementById('hurdhee-count').value : '0',
-        reception_attending: receptionChecked ? 'Yes' : 'No',
-        reception_guests: receptionChecked ? document.getElementById('reception-count').value : '0',
-        message: document.getElementById('message').value,
-        timestamp: new Date().toLocaleString()
+}
+
+/* ── Countdown ── */
+function updateCountdown() {
+    const target = new Date('December 19, 2026 17:30:00').getTime();
+    const diff   = target - Date.now();
+    if (diff <= 0) return;
+    const pad = n => String(Math.floor(n)).padStart(2,'0');
+    document.getElementById('days').textContent    = pad(diff / 86400000);
+    document.getElementById('hours').textContent   = pad((diff % 86400000) / 3600000);
+    document.getElementById('minutes').textContent = pad((diff % 3600000) / 60000);
+    document.getElementById('seconds').textContent = pad((diff % 60000) / 1000);
+}
+
+/* ── Scroll animations ── */
+function checkScroll() {
+    const threshold = window.innerHeight * 0.88;
+    document.querySelectorAll(
+        '.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form'
+    ).forEach(el => {
+        if (el.getBoundingClientRect().top < threshold) el.classList.add('visible');
+    });
+}
+
+/* ── Navbar ── */
+function handleScroll() {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+}
+
+/* ── Heart burst ── */
+function createHeartBurst(element, count = 45) {
+    const rect = element.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top  + rect.height / 2;
+    const syms   = ['♥','❤','♡'];
+    const colors = ['#fff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec'];
+    const layers = 3;
+
+    for (let l = 0; l < layers; l++) {
+        setTimeout(() => {
+            const perLayer = Math.floor(count / layers);
+            for (let i = 0; i < perLayer; i++) {
+                const el = document.createElement('div');
+                el.className = 'heart-confetti';
+                el.textContent = syms[Math.floor(Math.random() * syms.length)];
+                const size  = 12 + Math.random() * 26;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const angle = (Math.PI * 2 * i) / perLayer + (Math.random() * 0.3 - 0.15);
+                const dist  = 130 + Math.random() * 180 + l * 45;
+                el.style.cssText = `
+                    font-size:${size}px;color:${color};left:${cx}px;top:${cy}px;
+                    text-shadow:0 0 10px ${color},2px 2px 4px rgba(0,0,0,.25);
+                    filter:drop-shadow(0 0 6px ${color});
+                    animation-delay:${Math.random() * 0.2}s;
+                `;
+                el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+                el.style.setProperty('--ty', (Math.sin(angle) * dist) + 'px');
+                el.style.setProperty('--rotation', (Math.random() * 1080 - 540) + 'deg');
+                el.style.setProperty('--scale', (0.3 + Math.random() * 0.7).toString());
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 2800);
+            }
+        }, l * 110);
+    }
+}
+
+function createRSVPCelebration(element) {
+    const rect = element.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top  + rect.height / 2;
+    const syms   = ['♥','❤','♡'];
+    const colors = ['#fff','#ffebee','#ff0000','#dc143c','#ff1744','#f44336','#c62828'];
+    const waves = 5, perWave = 28;
+
+    for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+            for (let b = 0; b < 3; b++) {
+                setTimeout(() => {
+                    for (let i = 0; i < perWave; i++) {
+                        const el    = document.createElement('div');
+                        el.className = 'heart-confetti';
+                        el.textContent = syms[Math.floor(Math.random() * syms.length)];
+                        const size  = 14 + Math.random() * 30;
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        const angle = (Math.PI * 2 * i) / perWave + (Math.random() * 0.5 - 0.25);
+                        const dist  = 200 + Math.random() * 280 + w * 35;
+                        el.style.cssText = `
+                            font-size:${size}px;color:${color};left:${cx}px;top:${cy}px;
+                            text-shadow:0 0 15px ${color},0 0 30px ${color},3px 3px 6px rgba(0,0,0,.35);
+                            filter:drop-shadow(0 0 10px ${color});
+                            animation-delay:${Math.random() * 0.3}s;
+                        `;
+                        el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+                        el.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 80) + 'px');
+                        el.style.setProperty('--rotation', (Math.random() * 1440 - 720) + 'deg');
+                        el.style.setProperty('--scale', (0.4 + Math.random() * 0.8).toString());
+                        document.body.appendChild(el);
+                        setTimeout(() => el.remove(), 3100);
+                    }
+                }, b * 150);
+            }
+        }, w * 200);
+    }
+}
+
+/* ── Smooth anchor scrolling ── */
+document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+/* ── Checkbox guest-count toggles ── */
+['mehendi','hurdhee','reception'].forEach(id => {
+    document.getElementById(id).addEventListener('change', function () {
+        document.getElementById(id + '-guests').classList.toggle('visible', this.checked);
+    });
+});
+
+/* ── RSVP submit ── */
+document.getElementById('wedding-rsvp').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const m = document.getElementById('mehendi').checked;
+    const h = document.getElementById('hurdhee').checked;
+    const r = document.getElementById('reception').checked;
+    if (!m && !h && !r) { alert('Please select at least one event to attend.'); return; }
+
+    const btn = document.getElementById('submit-rsvp');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const payload = {
+        name:               document.getElementById('name').value,
+        email:              document.getElementById('email').value,
+        phone:              document.getElementById('phone').value,
+        mehendi_attending:  m ? 'Yes' : 'No',
+        mehendi_guests:     m ? document.getElementById('mehendi-count').value : '0',
+        hurdhee_attending:  h ? 'Yes' : 'No',
+        hurdhee_guests:     h ? document.getElementById('hurdhee-count').value : '0',
+        reception_attending:r ? 'Yes' : 'No',
+        reception_guests:   r ? document.getElementById('reception-count').value : '0',
+        message:            document.getElementById('message').value,
+        timestamp:          new Date().toLocaleString()
     };
-    
+
     try {
-        // Send to Google Sheets
-        const googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec';
-        
-        await fetch(googleSheetsUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
+        await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec', {
+            method: 'POST', mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
-        
-        // Create massive heart fireworks celebration!
-        createRSVPCelebration(submitBtn);
-        
-        // Small delay before showing alert to let animation start
+        createRSVPCelebration(btn);
         setTimeout(() => {
             alert('Thank you for your RSVP! We look forward to celebrating with you.');
             this.reset();
-            // Hide all guest count dropdowns after reset
-            document.getElementById('mehendi-guests').style.display = 'none';
-            document.getElementById('hurdhee-guests').style.display = 'none';
-            document.getElementById('reception-guests').style.display = 'none';
-        }, 300);
-    } catch (error) {
-        console.error('Error:', error);
+            ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(id => {
+                document.getElementById(id).classList.remove('visible');
+            });
+        }, 350);
+    } catch (err) {
+        console.error(err);
         alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
     } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        btn.textContent = 'Submit RSVP';
+        btn.disabled = false;
     }
 });
-        
-        window.addEventListener('load', () => {
-            createHearts();
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-            checkScroll();
-            
-            // Event checkbox handlers
-            const mehendiCheckbox = document.getElementById('mehendi');
-            const hurdheeCheckbox = document.getElementById('hurdhee');
-            const receptionCheckbox = document.getElementById('reception');
-            
-            mehendiCheckbox.addEventListener('change', function() {
-                document.getElementById('mehendi-guests').style.display = this.checked ? 'block' : 'none';
-            });
-            
-            hurdheeCheckbox.addEventListener('change', function() {
-                document.getElementById('hurdhee-guests').style.display = this.checked ? 'block' : 'none';
-            });
-            
-            receptionCheckbox.addEventListener('change', function() {
-                document.getElementById('reception-guests').style.display = this.checked ? 'block' : 'none';
-            });
-            
-            // Enhanced audio playback for Android compatibility
-            const music = document.getElementById('bgMusic');
-            music.volume = 0.5;
-            
-            let hasPlayed = false;
-            
-            // Function to start music
-            const startMusic = () => {
-                if (!hasPlayed) {
-                    music.play().then(() => {
-                        hasPlayed = true;
-                        console.log('Music playing');
-                    }).catch(err => {
-                        console.log('Playback failed:', err);
-                    });
-                }
-            };
-            
-            // Try immediate autoplay
-            startMusic();
-            
-            // Fallback: play on ANY user interaction
-            const interactions = ['click', 'touchstart', 'touchend', 'scroll', 'keydown'];
-            
-            interactions.forEach(event => {
-                document.addEventListener(event, startMusic, { once: true, passive: true });
-            });
-            
-            // Additional Android-specific triggers
-            window.addEventListener('focus', startMusic, { once: true });
-            document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState === 'visible') {
-                    startMusic();
-                }
-            }, { once: true });
-        });
-        
-        window.addEventListener('scroll', () => {
-            handleScroll();
-            checkScroll();
-        });
-    </script>
+
+/* ── Music autoplay with interaction fallback ── */
+window.addEventListener('load', () => {
+    createHearts();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    checkScroll();
+
+    const music = document.getElementById('bgMusic');
+    music.volume = 0.5;
+    let played = false;
+    const play = () => { if (!played) { music.play().then(() => played = true).catch(() => {}); } };
+    play();
+    ['click','touchstart','scroll','keydown'].forEach(ev => document.addEventListener(ev, play, { once: true, passive: true }));
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') play(); }, { once: true });
+});
+
+window.addEventListener('scroll', () => { handleScroll(); checkScroll(); }, { passive: true });
+</script>
+
 </body>
 </html>
