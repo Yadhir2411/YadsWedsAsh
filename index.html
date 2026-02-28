@@ -17,13 +17,13 @@
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
 ```
-    nav { position:fixed; top:0; width:100%; padding:1.2rem 0; z-index:1000; transition:all 0.3s ease; background:var(--light); box-shadow:0 2px 12px rgba(0,0,0,0.08); }
-    nav.scrolled { background:var(--light); box-shadow:0 2px 20px rgba(0,0,0,0.12); padding:0.8rem 0; }
+    nav { position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000; transition:all 0.3s ease; background:#f8f1e9; box-shadow:0 3px 16px rgba(0,0,0,0.18); border-bottom:2px solid #d4a373; }
+    nav.scrolled { background:#f8f1e9; box-shadow:0 3px 16px rgba(0,0,0,0.18); padding:0.8rem 0; }
     nav.scrolled a { color:var(--dark); }
     nav ul { display:flex; justify-content:center; list-style:none; gap:2rem; padding:0 1rem; flex-wrap:wrap; }
-    nav a { color:var(--dark); text-decoration:none; font-weight:600; font-size:0.85rem; letter-spacing:1px; transition:color 0.3s ease; position:relative; }
+    nav a { color:#333333; text-decoration:none; font-weight:700; font-size:0.92rem; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.3s ease; position:relative; }
     nav a::after { content:''; position:absolute; width:0; height:2px; bottom:-4px; left:0; background-color:var(--accent); transition:width 0.3s ease; }
-    nav a:hover { color:var(--primary); }
+    nav a:hover { color:#d4a373; }
     nav a:hover::after { width:100%; }
 
     header { min-height:100vh; min-height:100dvh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; position:relative; overflow:hidden; padding:6rem 1.5rem 3rem; }
