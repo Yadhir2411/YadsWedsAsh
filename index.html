@@ -4,23 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Yadhir & Ashwari | Wedding</title>
+    <title>Yadhir &amp; Ashwari | Wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary: #e8c8b0;
-            --secondary: #7a6a5f;
-            --accent: #d4a373;
-            --light: #f8f1e9;
-            --dark: #333333;
-            --white: #ffffff;
-        }
 
 ```
-    *, *::before, *::after {
+<style>
+
+    /* ============================================================
+       VARIABLES AND RESET
+    ============================================================ */
+
+    :root {
+        --primary:   #e8c8b0;
+        --secondary: #7a6a5f;
+        --accent:    #d4a373;
+        --light:     #f8f1e9;
+        --dark:      #333333;
+    }
+
+    *,
+    *::before,
+    *::after {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -38,7 +45,6 @@
         background-color: var(--light);
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3, h4 {
@@ -46,7 +52,11 @@
         font-weight: 700;
     }
 
-    /* ─── NAV ─── */
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+
     nav {
         position: fixed;
         top: 0;
@@ -57,12 +67,14 @@
     }
 
     nav.scrolled {
-        background-color: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        background-color: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         padding: 0.8rem 0;
     }
 
-    nav.scrolled a { color: var(--dark); }
+    nav.scrolled a {
+        color: var(--dark);
+    }
 
     nav ul {
         display: flex;
@@ -79,7 +91,7 @@
         font-weight: 600;
         font-size: 0.85rem;
         letter-spacing: 1px;
-        transition: color 0.3s;
+        transition: color 0.3s ease;
         position: relative;
     }
 
@@ -91,18 +103,28 @@
         bottom: -4px;
         left: 0;
         background-color: var(--accent);
-        transition: width 0.3s;
+        transition: width 0.3s ease;
     }
 
-    nav a:hover { color: var(--primary); }
-    nav a:hover::after { width: 100%; }
+    nav a:hover {
+        color: var(--primary);
+    }
 
-    /* ─── HEADER ─── */
+    nav a:hover::after {
+        width: 100%;
+    }
+
+
+    /* ============================================================
+       HERO HEADER
+    ============================================================ */
+
     header {
         min-height: 100vh;
         min-height: 100dvh;
-        background: linear-gradient(rgba(0,0,0,0.38), rgba(0,0,0,0.38)),
-                    url('Images/13.jpeg') no-repeat center center / cover;
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
+            url('Images/13.jpeg') no-repeat center center / cover;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -123,14 +145,14 @@
 
     .heart {
         position: absolute;
-        color: rgba(255,255,255,0.6);
+        color: rgba(255, 255, 255, 0.6);
         animation: float 15s linear infinite;
         font-size: 1.3rem;
         will-change: transform, opacity;
     }
 
     @keyframes float {
-        0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+        0%   { transform: translateY(100vh) scale(0);   opacity: 0; }
         10%  { opacity: 1; }
         90%  { opacity: 1; }
         100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
@@ -151,7 +173,7 @@
     h1 {
         font-size: clamp(2.2rem, 8vw, 4.5rem);
         margin-bottom: 0.8rem;
-        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         line-height: 1.15;
     }
 
@@ -183,7 +205,9 @@
         to   { opacity: 1; transform: translateY(0); }
     }
 
-    .countdown-item { text-align: center; }
+    .countdown-item {
+        text-align: center;
+    }
 
     .countdown-number {
         font-size: clamp(1.5rem, 6vw, 2.8rem);
@@ -200,7 +224,11 @@
         letter-spacing: 2px;
     }
 
-    /* ─── SECTIONS ─── */
+
+    /* ============================================================
+       SHARED SECTION STYLES
+    ============================================================ */
+
     section {
         padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
         max-width: 1200px;
@@ -233,7 +261,11 @@
         z-index: 1;
     }
 
-    /* ─── STORY ─── */
+
+    /* ============================================================
+       OUR STORY
+    ============================================================ */
+
     .story-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -270,29 +302,47 @@
     .story-image img {
         width: 100%;
         border-radius: 6px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
         display: block;
     }
 
     .story-image::before {
         content: '';
         position: absolute;
-        inset: 0;
         border: 2px solid var(--primary);
         border-radius: 6px;
         top: -12px;
         left: -12px;
+        right: 12px;
+        bottom: 12px;
         z-index: -1;
     }
 
-    /* reverse second row */
-    .story-container:nth-child(even) .story-text { order: 2; transform: translateX(20px); }
-    .story-container:nth-child(even) .story-image { order: 1; transform: translateX(-20px); }
-    .story-container:nth-child(even) .story-image::before { left: auto; right: -12px; }
-    .story-container:nth-child(even) .story-text.visible,
-    .story-container:nth-child(even) .story-image.visible { transform: translateX(0); }
+    .story-container:nth-child(even) .story-text {
+        order: 2;
+        transform: translateX(20px);
+    }
 
-    /* ─── PREWEDDING CARDS ─── */
+    .story-container:nth-child(even) .story-image {
+        order: 1;
+        transform: translateX(-20px);
+    }
+
+    .story-container:nth-child(even) .story-image::before {
+        left: 12px;
+        right: -12px;
+    }
+
+    .story-container:nth-child(even) .story-text.visible,
+    .story-container:nth-child(even) .story-image.visible {
+        transform: translateX(0);
+    }
+
+
+    /* ============================================================
+       PRE-WEDDING CARDS
+    ============================================================ */
+
     .cards-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
@@ -304,7 +354,7 @@
         background: white;
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         transition: transform 0.35s ease, box-shadow 0.35s ease;
         cursor: pointer;
         position: relative;
@@ -312,14 +362,13 @@
 
     .event-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.15);
     }
 
-    /* ── Cover face (always visible) ── */
     .event-card-cover {
         position: relative;
         width: 100%;
-        aspect-ratio: 3/2;
+        aspect-ratio: 3 / 2;
         overflow: hidden;
     }
 
@@ -338,12 +387,12 @@
     .event-card-cover-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 55%);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 55%);
         transition: background 0.4s ease;
     }
 
     .event-card.is-open .event-card-cover-overlay {
-        background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 55%);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.05) 55%);
     }
 
     .event-card-cover-text {
@@ -361,19 +410,18 @@
         color: white;
         font-family: 'Playfair Display', serif;
         font-size: clamp(1.6rem, 4.5vw, 2.1rem);
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         line-height: 1.1;
     }
 
-    /* Tap-to-open pill badge */
     .event-card-tap-hint {
         display: flex;
         align-items: center;
         gap: 0.4rem;
-        background: rgba(255,255,255,0.22);
+        background: rgba(255, 255, 255, 0.22);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-        border: 1px solid rgba(255,255,255,0.35);
+        border: 1px solid rgba(255, 255, 255, 0.35);
         border-radius: 50px;
         padding: 0.4rem 0.85rem;
         color: white;
@@ -381,7 +429,6 @@
         font-weight: 600;
         letter-spacing: 0.5px;
         white-space: nowrap;
-        transition: opacity 0.4s ease, transform 0.4s ease;
         flex-shrink: 0;
     }
 
@@ -394,18 +441,23 @@
         transform: rotate(180deg);
     }
 
-    .event-card.is-open .event-card-tap-hint span { display: none; }
-    .event-card.is-open .event-card-tap-hint::after { content: 'Close'; font-size: clamp(0.7rem, 2vw, 0.8rem); font-weight: 600; }
+    .event-card.is-open .event-card-tap-hint .hint-text {
+        display: none;
+    }
 
-    /* ── Expandable body ── */
+    .event-card.is-open .event-card-tap-hint::before {
+        content: 'Close';
+    }
+
     .event-card-body {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1),
-                    padding 0.4s ease,
-                    opacity 0.4s ease;
         padding: 0 clamp(1.2rem, 4vw, 1.8rem);
         opacity: 0;
+        transition:
+            max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+            padding    0.4s ease,
+            opacity    0.4s ease;
     }
 
     .event-card.is-open .event-card-body {
@@ -438,24 +490,24 @@
         margin-top: 0.18rem;
     }
 
-    /* animated entrance for detail rows */
     .event-card.is-open .event-detail-row {
         animation: rowSlideIn 0.4s ease both;
     }
+
     .event-card.is-open .event-detail-row:nth-child(2) { animation-delay: 0.07s; }
     .event-card.is-open .event-detail-row:nth-child(3) { animation-delay: 0.14s; }
     .event-card.is-open .event-detail-row:nth-child(4) { animation-delay: 0.21s; }
+    .event-card.is-open .event-detail-row:nth-child(5) { animation-delay: 0.28s; }
 
     @keyframes rowSlideIn {
         from { opacity: 0; transform: translateY(10px); }
         to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ripple ring on open */
     .event-card-ripple {
         position: absolute;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(212,163,115,0.35) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(212, 163, 115, 0.35) 0%, transparent 70%);
         transform: scale(0);
         animation: rippleOut 0.7s ease-out forwards;
         pointer-events: none;
@@ -466,7 +518,11 @@
         to { transform: scale(4); opacity: 0; }
     }
 
-    /* ─── DETAILS GRID ─── */
+
+    /* ============================================================
+       WEDDING DETAILS GRID
+    ============================================================ */
+
     .details-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
@@ -478,8 +534,8 @@
         background: white;
         padding: clamp(1.5rem, 4vw, 2rem);
         border-radius: 10px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         opacity: 0;
         transform: translateY(20px);
     }
@@ -491,7 +547,7 @@
 
     .detail-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
     }
 
     .detail-icon {
@@ -518,7 +574,11 @@
         font-size: clamp(0.82rem, 2.2vw, 0.95rem);
     }
 
-    /* ─── GALLERY ─── */
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+
     .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
@@ -533,7 +593,7 @@
         aspect-ratio: 1 / 1;
         opacity: 0;
         transform: scale(0.92);
-        transition: all 0.5s ease;
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .gallery-item.visible {
@@ -545,27 +605,36 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s;
+        transition: transform 0.5s ease;
         display: block;
     }
 
-    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item:hover img {
+        transform: scale(1.08);
+    }
 
     .gallery-item::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
         opacity: 0;
-        transition: opacity 0.3s;
+        transition: opacity 0.3s ease;
     }
 
-    .gallery-item:hover::after { opacity: 1; }
+    .gallery-item:hover::after {
+        opacity: 1;
+    }
 
-    /* ─── RSVP ─── */
+
+    /* ============================================================
+       RSVP SECTION
+    ============================================================ */
+
     .rsvp-section {
-        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                    url('Images/rsvp1.jpeg') no-repeat center center / cover;
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            url('Images/rsvp1.jpeg') no-repeat center center / cover;
         color: white;
         text-align: center;
         padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 2rem);
@@ -577,22 +646,22 @@
     }
 
     .rsvp-section .section-title::after {
-        background-color: rgba(255,255,255,0.3);
+        background-color: rgba(255, 255, 255, 0.3);
     }
 
     .rsvp-form {
         max-width: 600px;
         margin: 0 auto;
-        background: rgba(255,255,255,0.1);
+        background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         padding: clamp(1.5rem, 5vw, 3rem);
         border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: left;
         opacity: 0;
         transform: translateY(20px);
-        transition: all 0.6s ease;
-        text-align: left;
+        transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .rsvp-form.visible {
@@ -616,9 +685,9 @@
     .form-group textarea {
         width: 100%;
         padding: 0.85rem 1rem;
-        border: 1px solid rgba(255,255,255,0.3);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 6px;
-        background: rgba(255,255,255,0.15);
+        background: rgba(255, 255, 255, 0.15);
         color: white;
         font-family: inherit;
         font-size: clamp(0.85rem, 2.5vw, 1rem);
@@ -626,25 +695,30 @@
         appearance: none;
     }
 
-    .form-group select option { color: var(--dark); background: white; }
+    .form-group select option {
+        color: var(--dark);
+        background: white;
+    }
 
     .form-group input::placeholder,
-    .form-group textarea::placeholder { color: rgba(255,255,255,0.65); }
+    .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.65);
+    }
 
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
         outline: none;
         border-color: var(--primary);
-        background: rgba(255,255,255,0.2);
+        background: rgba(255, 255, 255, 0.2);
     }
 
     .event-checkbox-block {
-        background: rgba(255,255,255,0.1);
+        background: rgba(255, 255, 255, 0.1);
         padding: clamp(1rem, 3vw, 1.5rem);
         border-radius: 8px;
         margin-bottom: 0.75rem;
-        border: 1px solid rgba(255,255,255,0.15);
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .event-checkbox-row {
@@ -661,7 +735,6 @@
         cursor: pointer;
         accent-color: var(--accent);
         padding: 0;
-        border-radius: 4px;
     }
 
     .event-checkbox-row label {
@@ -670,8 +743,15 @@
         flex: 1;
     }
 
-    .event-checkbox-row label strong { display: block; margin-bottom: 0.2rem; }
-    .event-checkbox-row label span { font-size: clamp(0.78rem, 2vw, 0.88rem); opacity: 0.85; }
+    .event-checkbox-row label strong {
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    .event-checkbox-row label span {
+        font-size: clamp(0.78rem, 2vw, 0.88rem);
+        opacity: 0.85;
+    }
 
     .guest-count-row {
         display: none;
@@ -682,7 +762,9 @@
         flex-wrap: wrap;
     }
 
-    .guest-count-row.visible { display: flex; }
+    .guest-count-row.visible {
+        display: flex;
+    }
 
     .guest-count-row label {
         font-size: clamp(0.82rem, 2.2vw, 0.92rem);
@@ -705,7 +787,7 @@
         font-weight: 700;
         border-radius: 6px;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
         text-transform: uppercase;
         letter-spacing: 1.5px;
         margin-top: 0.5rem;
@@ -715,12 +797,18 @@
     .submit-btn:hover {
         background: white;
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:active {
+        transform: translateY(0);
+    }
 
-    /* ─── FOOTER ─── */
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+
     footer {
         background-color: var(--dark);
         color: white;
@@ -734,7 +822,10 @@
         font-family: 'Playfair Display', serif;
     }
 
-    .footer-date { font-size: clamp(0.85rem, 2.5vw, 1rem); opacity: 0.8; }
+    .footer-date {
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+        opacity: 0.8;
+    }
 
     .social-links {
         display: flex;
@@ -746,10 +837,12 @@
     .social-links a {
         color: white;
         font-size: 1.5rem;
-        transition: color 0.3s;
+        transition: color 0.3s ease;
     }
 
-    .social-links a:hover { color: var(--primary); }
+    .social-links a:hover {
+        color: var(--primary);
+    }
 
     .copyright {
         margin-top: 1.5rem;
@@ -758,7 +851,11 @@
         line-height: 1.6;
     }
 
-    /* ─── HEART CONFETTI ─── */
+
+    /* ============================================================
+       HEART CONFETTI ANIMATION
+    ============================================================ */
+
     .heart-confetti {
         position: fixed;
         pointer-events: none;
@@ -768,32 +865,67 @@
     }
 
     @keyframes heartBurst {
-        0%   { opacity: 1; transform: translate(0,0) scale(0) rotate(0deg); }
-        20%  { opacity: 1; transform: translate(calc(var(--tx)*0.3), calc(var(--ty)*0.3)) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); }
-        50%  { opacity: 1; }
-        70%  { opacity: 0.8; }
-        100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(calc(var(--scale)*1.5)) rotate(var(--rotation)); }
+        0% {
+            opacity: 1;
+            transform: translate(0, 0) scale(0) rotate(0deg);
+        }
+        20% {
+            opacity: 1;
+            transform:
+                translate(calc(var(--tx) * 0.3), calc(var(--ty) * 0.3))
+                scale(var(--scale))
+                rotate(calc(var(--rotation) * 0.3));
+        }
+        50% {
+            opacity: 1;
+        }
+        70% {
+            opacity: 0.8;
+        }
+        100% {
+            opacity: 0;
+            transform:
+                translate(var(--tx), var(--ty))
+                scale(calc(var(--scale) * 1.5))
+                rotate(var(--rotation));
+        }
     }
 
-    /* ─── MOBILE OVERRIDES ─── */
+
+    /* ============================================================
+       RESPONSIVE - MOBILE (max 640px)
+    ============================================================ */
+
     @media (max-width: 640px) {
-        nav ul { gap: 0.5rem 1.2rem; }
-        nav a  { font-size: 0.75rem; letter-spacing: 0.5px; }
+
+        nav ul {
+            gap: 0.5rem 1.2rem;
+        }
+
+        nav a {
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
 
         .story-container {
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
 
-        .story-container:nth-child(even) .story-text { order: unset; }
-        .story-container:nth-child(even) .story-image { order: unset; }
-        .story-image::before { display: none; }
+        .story-container:nth-child(even) .story-text,
+        .story-container:nth-child(even) .story-image {
+            order: unset;
+        }
 
-        /* On mobile, fade in from below instead of from sides */
+        .story-image::before {
+            display: none;
+        }
+
         .story-text,
         .story-image {
             transform: translateY(15px) !important;
         }
+
         .story-text.visible,
         .story-image.visible {
             transform: translateY(0) !important;
@@ -802,26 +934,50 @@
         .gallery {
             grid-template-columns: repeat(2, 1fr);
         }
+
     }
 
+
+    /* ============================================================
+       RESPONSIVE - SMALL MOBILE (max 380px)
+    ============================================================ */
+
     @media (max-width: 380px) {
-        nav ul { gap: 0.4rem 0.8rem; }
-        nav a  { font-size: 0.68rem; }
-        .countdown { gap: 0.6rem; }
+
+        nav ul {
+            gap: 0.4rem 0.8rem;
+        }
+
+        nav a {
+            font-size: 0.68rem;
+        }
+
+        .countdown {
+            gap: 0.6rem;
+        }
+
     }
+
 </style>
 ```
 
 </head>
+
 <body>
 
+```
 <!-- Background Music -->
-
 <audio id="bgMusic" loop preload="auto">
     <source src="Music/Love.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Floating hearts in hero -->
 <div class="floating-hearts" id="hearts-container"></div>
+
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
 
 <nav id="navbar">
     <ul>
@@ -834,7 +990,10 @@
     </ul>
 </nav>
 
-<!-- ─── HEADER ─── -->
+
+<!-- ============================================================
+     HERO HEADER
+============================================================ -->
 
 <header id="home">
     <div class="header-content">
@@ -862,283 +1021,313 @@
     </div>
 </header>
 
-<!-- ─── STORY ─── -->
+
+<!-- ============================================================
+     OUR STORY
+============================================================ -->
 
 <section id="story">
-    <div class="section-title"><h2>Jab We Met</h2></div>
+    <div class="section-title">
+        <h2>Jab We Met</h2>
+    </div>
 
-```
-<div class="story-container">
-    <div class="story-text">
-        <p>A simple "Hi," a message on a screen,<br>
-        A friendship bloomed, the best I've ever seen.<br>
-        From pixels shared, a love began to grow,<br>
-        A perfect start, so long ago.</p>
+    <div class="story-container">
+        <div class="story-text">
+            <p>
+                A simple "Hi," a message on a screen,<br>
+                A friendship bloomed, the best I've ever seen.<br>
+                From pixels shared, a love began to grow,<br>
+                A perfect start, so long ago.
+            </p>
+        </div>
+        <div class="story-image">
+            <img src="Images/12.jpeg" alt="Yadhir and Ashwari">
+        </div>
     </div>
-    <div class="story-image">
-        <img src="Images/12.jpeg" alt="Yadhir &amp; Ashwari">
-    </div>
-</div>
 
-<div class="story-container">
-    <div class="story-image">
-        <img src="Images/airplane.jpeg" alt="Proposal">
+    <div class="story-container">
+        <div class="story-image">
+            <img src="Images/airplane.jpeg" alt="Together on a plane">
+        </div>
+        <div class="story-text">
+            <p>
+                Love knows no bounds, though miles divide,<br>
+                Our shared sky, where whispered promises hide.<br>
+                Souls intertwined, on Cloud 9, side by side.
+            </p>
+        </div>
     </div>
-    <div class="story-text">
-        <p>Love knows no bounds, though miles divide,<br>
-        Our shared sky, where whispered promises hide.<br>
-        Souls intertwined, on Cloud 9, side by side.</p>
-    </div>
-</div>
-```
-
 </section>
 
-<!-- ─── PRE-WEDDING ─── -->
+
+<!-- ============================================================
+     PRE-WEDDING
+============================================================ -->
 
 <section id="prewedding">
-    <div class="section-title"><h2>Pre-Wedding</h2></div>
+    <div class="section-title">
+        <h2>Pre-Wedding</h2>
+    </div>
 
-```
-<div class="cards-container">
+    <div class="cards-container">
 
-    <!-- Mehendi Card -->
-    <div class="event-card" id="card-mehendi" role="button" tabindex="0" aria-expanded="false">
-        <div class="event-card-cover">
-            <img src="Images/12.jpeg" alt="Mehendi Ceremony">
-            <div class="event-card-cover-overlay"></div>
-            <div class="event-card-cover-text">
-                <div class="event-card-title">Mehendi</div>
-                <div class="event-card-tap-hint">
-                    <span>Tap to open</span>
-                    <i class="fas fa-chevron-down"></i>
+        <!-- Mehendi Card -->
+        <div class="event-card" id="card-mehendi" role="button" tabindex="0" aria-expanded="false">
+            <div class="event-card-cover">
+                <img src="Images/12.jpeg" alt="Mehendi Ceremony">
+                <div class="event-card-cover-overlay"></div>
+                <div class="event-card-cover-text">
+                    <div class="event-card-title">Mehendi</div>
+                    <div class="event-card-tap-hint">
+                        <span class="hint-text">Tap to open</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="event-card-body">
+                <h4>Mehendi Ceremony</h4>
+                <div class="event-detail-row">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>December 17, 2026</span>
+                </div>
+                <div class="event-detail-row">
+                    <i class="fas fa-clock"></i>
+                    <span>6:00 PM</span>
+                </div>
+                <div class="event-detail-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>The White Boxx, 369 Peter Mokaba Ridge, Berea</span>
+                </div>
+                <div class="event-detail-row">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Vibrant traditional attire — colorful lehengas, sarees &amp; kurtas!</span>
                 </div>
             </div>
         </div>
-        <div class="event-card-body">
-            <h4>Mehendi Ceremony</h4>
-            <div class="event-detail-row">
-                <i class="fas fa-calendar-alt"></i>
-                <span>December 17, 2026</span>
-            </div>
-            <div class="event-detail-row">
-                <i class="fas fa-clock"></i>
-                <span>6:00 PM</span>
-            </div>
-            <div class="event-detail-row">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>The White Boxx, 369 Peter Mokaba Ridge, Berea</span>
-            </div>
-            <div class="event-detail-row">
-                <i class="fas fa-tshirt"></i>
-                <span>Vibrant traditional attire — colorful lehengas, sarees &amp; kurtas!</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- Hurdhee Card -->
-    <div class="event-card" id="card-hurdhee" role="button" tabindex="0" aria-expanded="false">
-        <div class="event-card-cover">
-            <img src="Images/11.jpeg" alt="Hurdhee Celebration">
-            <div class="event-card-cover-overlay"></div>
-            <div class="event-card-cover-text">
-                <div class="event-card-title">Hurdhee</div>
-                <div class="event-card-tap-hint">
-                    <span>Tap to open</span>
-                    <i class="fas fa-chevron-down"></i>
+        <!-- Hurdhee Card -->
+        <div class="event-card" id="card-hurdhee" role="button" tabindex="0" aria-expanded="false">
+            <div class="event-card-cover">
+                <img src="Images/11.jpeg" alt="Hurdhee Celebration">
+                <div class="event-card-cover-overlay"></div>
+                <div class="event-card-cover-text">
+                    <div class="event-card-title">Hurdhee</div>
+                    <div class="event-card-tap-hint">
+                        <span class="hint-text">Tap to open</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="event-card-body">
+                <h4>Hurdhee Celebration</h4>
+                <div class="event-detail-row">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>December 18, 2026</span>
+                </div>
+                <div class="event-detail-row">
+                    <i class="fas fa-clock"></i>
+                    <span>5:00 PM</span>
+                </div>
+                <div class="event-detail-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</span>
+                </div>
+                <div class="event-detail-row">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Vibrant traditional attire — colorful lehengas, sarees &amp; kurtas!</span>
                 </div>
             </div>
         </div>
-        <div class="event-card-body">
-            <h4>Hurdhee Celebration</h4>
-            <div class="event-detail-row">
-                <i class="fas fa-calendar-alt"></i>
-                <span>December 18, 2026</span>
-            </div>
-            <div class="event-detail-row">
-                <i class="fas fa-clock"></i>
-                <span>5:00 PM</span>
-            </div>
-            <div class="event-detail-row">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</span>
-            </div>
-            <div class="event-detail-row">
-                <i class="fas fa-tshirt"></i>
-                <span>Vibrant traditional attire — colorful lehengas, sarees &amp; kurtas!</span>
-            </div>
-        </div>
+
     </div>
-
-</div>
-```
-
 </section>
 
-<!-- ─── WEDDING DETAILS ─── -->
+
+<!-- ============================================================
+     WEDDING DETAILS
+============================================================ -->
 
 <section id="details">
-    <div class="section-title"><h2>Wedding Reception</h2></div>
-
-```
-<div class="details-grid">
-    <div class="detail-card">
-        <div class="detail-icon"><i class="fas fa-calendar-alt"></i></div>
-        <h3>When</h3>
-        <p>Saturday, December 19, 2026</p>
-        <p>Time: 5:30 PM for 6 PM</p>
+    <div class="section-title">
+        <h2>Wedding Reception</h2>
     </div>
 
-    <div class="detail-card">
-        <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
-        <h3>Where</h3>
-        <p>King Protea</p>
-        <p>The Capital Zimbali Resort, Zimbali</p>
-        <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z" target="_blank" rel="noopener">View on map</a>
-    </div>
+    <div class="details-grid">
 
-    <div class="detail-card">
-        <div class="detail-icon"><i class="fas fa-heart"></i></div>
-        <h3>Dress Code</h3>
-        <p>Black Tie Event</p>
-    </div>
+        <div class="detail-card">
+            <div class="detail-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h3>When</h3>
+            <p>Saturday, December 19, 2026</p>
+            <p>Time: 5:30 PM for 6 PM</p>
+        </div>
 
-    <div class="detail-card">
-        <div class="detail-icon"><i class="fas fa-gift"></i></div>
-        <h3>Registry</h3>
-        <p>Your presence is present enough!</p>
-        <p>For those who insist, please give us cash.</p>
-    </div>
+        <div class="detail-card">
+            <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <h3>Where</h3>
+            <p>King Protea</p>
+            <p>The Capital Zimbali Resort, Zimbali</p>
+            <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z" target="_blank" rel="noopener">View on map</a>
+        </div>
 
-    <div class="detail-card">
-        <div class="detail-icon"><i class="fas fa-question-circle"></i></div>
-        <h3>Questions?</h3>
-        <p>Contact our wedding planner:</p>
-        <p>Prathika Asrai</p>
-        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="74150706151d15071c0315061d341319151d185a171b19">[email&#160;protected]</a> | (082) 811-5166</p>
-    </div>
-</div>
-```
+        <div class="detail-card">
+            <div class="detail-icon"><i class="fas fa-heart"></i></div>
+            <h3>Dress Code</h3>
+            <p>Black Tie Event</p>
+        </div>
 
+        <div class="detail-card">
+            <div class="detail-icon"><i class="fas fa-gift"></i></div>
+            <h3>Registry</h3>
+            <p>Your presence is present enough!</p>
+            <p>For those who insist, please give us cash.</p>
+        </div>
+
+        <div class="detail-card">
+            <div class="detail-icon"><i class="fas fa-question-circle"></i></div>
+            <h3>Questions?</h3>
+            <p>Contact our wedding planner:</p>
+            <p>Prathika Asrai</p>
+            <p>asraiashwari@gmail.com | (082) 811-5166</p>
+        </div>
+
+    </div>
 </section>
 
-<!-- ─── GALLERY ─── -->
+
+<!-- ============================================================
+     GALLERY
+============================================================ -->
 
 <section id="gallery">
-    <div class="section-title"><h2>Our Gallery</h2></div>
+    <div class="section-title">
+        <h2>Our Gallery</h2>
+    </div>
     <div class="gallery">
-        <div class="gallery-item"><img src="Images/1.jpeg" alt="Photo 1" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/2.jpeg" alt="Photo 2" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/3.jpeg" alt="Photo 3" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/4.jpeg" alt="Photo 4" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/5.jpeg" alt="Photo 5" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/6.jpeg" alt="Photo 6" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/7.jpeg" alt="Photo 7" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/8.jpeg" alt="Photo 8" loading="lazy"></div>
-        <div class="gallery-item"><img src="Images/9.jpeg" alt="Photo 9" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/1.jpeg"  alt="Photo 1"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/2.jpeg"  alt="Photo 2"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/3.jpeg"  alt="Photo 3"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/4.jpeg"  alt="Photo 4"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/5.jpeg"  alt="Photo 5"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/6.jpeg"  alt="Photo 6"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/7.jpeg"  alt="Photo 7"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/8.jpeg"  alt="Photo 8"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/9.jpeg"  alt="Photo 9"  loading="lazy"></div>
         <div class="gallery-item"><img src="Images/10.jpeg" alt="Photo 10" loading="lazy"></div>
         <div class="gallery-item"><img src="Images/11.jpeg" alt="Photo 11" loading="lazy"></div>
     </div>
 </section>
 
-<!-- ─── RSVP ─── -->
+
+<!-- ============================================================
+     RSVP
+============================================================ -->
 
 <section class="rsvp-section" id="rsvp">
-    <div class="section-title"><h2>RSVP</h2></div>
+    <div class="section-title">
+        <h2>RSVP</h2>
+    </div>
 
-```
-<div class="rsvp-form">
-    <form id="wedding-rsvp" novalidate>
+    <div class="rsvp-form">
+        <form id="wedding-rsvp" novalidate>
 
-        <div class="form-group">
-            <label for="name">Your Name(s)</label>
-            <input type="text" id="name" name="name" placeholder="John &amp; Jane Doe" required autocomplete="name">
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
-        </div>
-
-        <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+27 123 456 7890" required autocomplete="tel">
-        </div>
-
-        <div class="form-group">
-            <label style="font-size: clamp(0.9rem,2.5vw,1.05rem); margin-bottom: 1rem;">Which events will you be attending?</label>
-
-            <!-- Mehendi -->
-            <div class="event-checkbox-block">
-                <div class="event-checkbox-row">
-                    <input type="checkbox" id="mehendi" name="mehendi">
-                    <label for="mehendi">
-                        <strong>Mehendi Ceremony</strong>
-                        <span>December 17, 2026 at 6:00 PM</span>
-                    </label>
-                </div>
-                <div class="guest-count-row" id="mehendi-guests">
-                    <label for="mehendi-count">Number of guests:</label>
-                    <select id="mehendi-count" name="mehendi-count">
-                        <option value="1">1</option><option value="2">2</option>
-                        <option value="3">3</option><option value="4">4</option>
-                        <option value="5">5</option><option value="6">6</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="name">Your Name(s)</label>
+                <input type="text" id="name" name="name" placeholder="John &amp; Jane Doe" required autocomplete="name">
             </div>
 
-            <!-- Hurdhee -->
-            <div class="event-checkbox-block">
-                <div class="event-checkbox-row">
-                    <input type="checkbox" id="hurdhee" name="hurdhee">
-                    <label for="hurdhee">
-                        <strong>Hurdhee Celebration</strong>
-                        <span>December 18, 2026 at 5:00 PM</span>
-                    </label>
-                </div>
-                <div class="guest-count-row" id="hurdhee-guests">
-                    <label for="hurdhee-count">Number of guests:</label>
-                    <select id="hurdhee-count" name="hurdhee-count">
-                        <option value="1">1</option><option value="2">2</option>
-                        <option value="3">3</option><option value="4">4</option>
-                        <option value="5">5</option><option value="6">6</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
             </div>
 
-            <!-- Reception -->
-            <div class="event-checkbox-block">
-                <div class="event-checkbox-row">
-                    <input type="checkbox" id="reception" name="reception">
-                    <label for="reception">
-                        <strong>Wedding Reception</strong>
-                        <span>December 19, 2026 at 5:30 PM</span>
-                    </label>
-                </div>
-                <div class="guest-count-row" id="reception-guests">
-                    <label for="reception-count">Number of guests:</label>
-                    <select id="reception-count" name="reception-count">
-                        <option value="1">1</option><option value="2">2</option>
-                        <option value="3">3</option><option value="4">4</option>
-                        <option value="5">5</option><option value="6">6</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+27 123 456 7890" required autocomplete="tel">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="message">Message for the couple</label>
-            <textarea id="message" name="message" rows="3" placeholder="We're so happy for you!"></textarea>
-        </div>
+            <div class="form-group">
+                <label>Which events will you be attending?</label>
 
-        <button type="submit" class="submit-btn" id="submit-rsvp">Submit RSVP</button>
-    </form>
-</div>
-```
+                <div class="event-checkbox-block">
+                    <div class="event-checkbox-row">
+                        <input type="checkbox" id="mehendi" name="mehendi">
+                        <label for="mehendi">
+                            <strong>Mehendi Ceremony</strong>
+                            <span>December 17, 2026 at 6:00 PM</span>
+                        </label>
+                    </div>
+                    <div class="guest-count-row" id="mehendi-guests">
+                        <label for="mehendi-count">Number of guests:</label>
+                        <select id="mehendi-count" name="mehendi-count">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="event-checkbox-block">
+                    <div class="event-checkbox-row">
+                        <input type="checkbox" id="hurdhee" name="hurdhee">
+                        <label for="hurdhee">
+                            <strong>Hurdhee Celebration</strong>
+                            <span>December 18, 2026 at 5:00 PM</span>
+                        </label>
+                    </div>
+                    <div class="guest-count-row" id="hurdhee-guests">
+                        <label for="hurdhee-count">Number of guests:</label>
+                        <select id="hurdhee-count" name="hurdhee-count">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="event-checkbox-block">
+                    <div class="event-checkbox-row">
+                        <input type="checkbox" id="reception" name="reception">
+                        <label for="reception">
+                            <strong>Wedding Reception</strong>
+                            <span>December 19, 2026 at 5:30 PM</span>
+                        </label>
+                    </div>
+                    <div class="guest-count-row" id="reception-guests">
+                        <label for="reception-count">Number of guests:</label>
+                        <select id="reception-count" name="reception-count">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message for the couple</label>
+                <textarea id="message" name="message" rows="3" placeholder="We're so happy for you!"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-rsvp">Submit RSVP</button>
+
+        </form>
+    </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
 
 <footer>
     <div class="footer-logo">Ashwari &amp; Yadhir</div>
@@ -1149,278 +1338,412 @@
         <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
     </div>
     <div class="copyright">
-        &copy; 2026 Ashwari &amp; Yadhir. Designed &amp; programmed by Yadhir Inderparsad. All rights reserved.
+        &copy; 2026 Ashwari &amp; Yadhir.
+        Designed &amp; programmed by Yadhir Inderparsad. All rights reserved.
     </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
-/* ── Floating hearts in header ── */
-function createHearts() {
-const container = document.getElementById(‘hearts-container’);
-for (let i = 0; i < 12; i++) {
-const h = document.createElement(‘div’);
-h.className = ‘heart’;
-h.innerHTML = ‘❤’;
-h.style.left = Math.random() * 100 + ‘vw’;
-h.style.animationDuration = (10 + Math.random() * 18) + ‘s’;
-h.style.animationDelay = (Math.random() * 6) + ‘s’;
-h.style.opacity = 0.3 + Math.random() * 0.5;
-container.appendChild(h);
-}
-}
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
 
-/* ── Countdown ── */
-function updateCountdown() {
-const target = new Date(‘December 19, 2026 17:30:00’).getTime();
-const diff   = target - Date.now();
-if (diff <= 0) return;
-const pad = n => String(Math.floor(n)).padStart(2,‘0’);
-document.getElementById(‘days’).textContent    = pad(diff / 86400000);
-document.getElementById(‘hours’).textContent   = pad((diff % 86400000) / 3600000);
-document.getElementById(‘minutes’).textContent = pad((diff % 3600000) / 60000);
-document.getElementById(‘seconds’).textContent = pad((diff % 60000) / 1000);
-}
+<script>
 
-/* ── Scroll animations ── */
-function checkScroll() {
-const threshold = window.innerHeight * 1.02; // slightly beyond viewport edge catches everything
-document.querySelectorAll(
-‘.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form’
-).forEach(el => {
-if (el.getBoundingClientRect().top < threshold) el.classList.add(‘visible’);
-});
-}
+    /* ============================================================
+       Floating hearts in hero
+    ============================================================ */
 
-/* ── Navbar ── */
-function handleScroll() {
-document.getElementById(‘navbar’).classList.toggle(‘scrolled’, window.scrollY > 80);
-}
-
-/* ── Heart burst (card open) ── */
-function createHeartBurst(originEl, count = 55) {
-const rect = originEl.getBoundingClientRect();
-const cx = rect.left + rect.width  / 2;
-const cy = rect.top  + rect.height / 2;
-
-```
-// ripple ring on the card itself
-const ripple = document.createElement('div');
-ripple.className = 'event-card-ripple';
-ripple.style.cssText = `width:${rect.width}px;height:${rect.height}px;
-    left:0;top:0;transform-origin:center center;`;
-originEl.style.position = 'relative';
-originEl.appendChild(ripple);
-setTimeout(() => ripple.remove(), 800);
-
-const syms   = ['♥','❤','♡','💕','💗'];
-const colors = ['#ffffff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec','#ffebee','#e91e63','#ff4081'];
-const layers = 3;
-
-for (let l = 0; l < layers; l++) {
-    setTimeout(() => {
-        const perLayer = Math.floor(count / layers);
-        for (let i = 0; i < perLayer; i++) {
-            const el    = document.createElement('div');
-            el.className = 'heart-confetti';
-            el.textContent = syms[Math.floor(Math.random() * syms.length)];
-            const size  = 14 + Math.random() * 28;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const angle = (Math.PI * 2 * i) / perLayer + (Math.random() * 0.35 - 0.175);
-            const dist  = 120 + Math.random() * 200 + l * 55;
-            el.style.cssText = `
-                font-size:${size}px;color:${color};
-                left:${cx}px;top:${cy}px;position:fixed;
-                text-shadow:0 0 12px ${color},2px 2px 4px rgba(0,0,0,.2);
-                filter:drop-shadow(0 0 7px ${color});
-                pointer-events:none;z-index:9999;
-                animation:heartBurst 2.6s ease-out forwards;
-                animation-delay:${Math.random() * 0.22}s;
-            `;
-            el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
-            el.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 60) + 'px');
-            el.style.setProperty('--rotation', (Math.random() * 1080 - 540) + 'deg');
-            el.style.setProperty('--scale', (0.35 + Math.random() * 0.75).toString());
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 3000);
+    function createHearts() {
+        var container = document.getElementById('hearts-container');
+        for (var i = 0; i < 12; i++) {
+            var h = document.createElement('div');
+            h.className = 'heart';
+            h.innerHTML = '&#10084;';
+            h.style.left              = (Math.random() * 100) + 'vw';
+            h.style.animationDuration = (10 + Math.random() * 18) + 's';
+            h.style.animationDelay    = (Math.random() * 6) + 's';
+            h.style.opacity           = String(0.3 + Math.random() * 0.5);
+            container.appendChild(h);
         }
-    }, l * 120);
-}
-```
-
-}
-
-/* ── Event card tap-to-open ── */
-function toggleEventCard(card, e) {
-const isOpening = !card.classList.contains(‘is-open’);
-
-```
-// close any other open card first
-document.querySelectorAll('.event-card.is-open').forEach(c => {
-    if (c !== card) {
-        c.classList.remove('is-open');
-        c.setAttribute('aria-expanded', 'false');
     }
-});
 
-card.classList.toggle('is-open', isOpening);
-card.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
 
-if (isOpening) {
-    createHeartBurst(card);
-    // smooth scroll so the expanded card stays in view on mobile
-    setTimeout(() => {
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 200);
-}
-```
+    /* ============================================================
+       Countdown timer
+    ============================================================ */
 
-}
+    function updateCountdown() {
+        var target = new Date('December 19, 2026 17:30:00').getTime();
+        var diff   = target - Date.now();
+        if (diff <= 0) return;
 
-function createRSVPCelebration(element) {
-const rect = element.getBoundingClientRect();
-const cx = rect.left + rect.width / 2;
-const cy = rect.top  + rect.height / 2;
-const syms   = [‘♥’,‘❤’,‘♡’];
-const colors = [’#fff’,’#ffebee’,’#ff0000’,’#dc143c’,’#ff1744’,’#f44336’,’#c62828’];
-const waves = 5, perWave = 28;
-
-```
-for (let w = 0; w < waves; w++) {
-    setTimeout(() => {
-        for (let b = 0; b < 3; b++) {
-            setTimeout(() => {
-                for (let i = 0; i < perWave; i++) {
-                    const el    = document.createElement('div');
-                    el.className = 'heart-confetti';
-                    el.textContent = syms[Math.floor(Math.random() * syms.length)];
-                    const size  = 14 + Math.random() * 30;
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    const angle = (Math.PI * 2 * i) / perWave + (Math.random() * 0.5 - 0.25);
-                    const dist  = 200 + Math.random() * 280 + w * 35;
-                    el.style.cssText = `
-                        font-size:${size}px;color:${color};left:${cx}px;top:${cy}px;
-                        text-shadow:0 0 15px ${color},0 0 30px ${color},3px 3px 6px rgba(0,0,0,.35);
-                        filter:drop-shadow(0 0 10px ${color});
-                        animation-delay:${Math.random() * 0.3}s;
-                    `;
-                    el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
-                    el.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 80) + 'px');
-                    el.style.setProperty('--rotation', (Math.random() * 1440 - 720) + 'deg');
-                    el.style.setProperty('--scale', (0.4 + Math.random() * 0.8).toString());
-                    document.body.appendChild(el);
-                    setTimeout(() => el.remove(), 3100);
-                }
-            }, b * 150);
+        function pad(n) {
+            return String(Math.floor(n)).padStart(2, '0');
         }
-    }, w * 200);
-}
-```
 
-}
+        document.getElementById('days').textContent    = pad(diff / 86400000);
+        document.getElementById('hours').textContent   = pad((diff % 86400000) / 3600000);
+        document.getElementById('minutes').textContent = pad((diff % 3600000)  / 60000);
+        document.getElementById('seconds').textContent = pad((diff % 60000)    / 1000);
+    }
 
-/* ── Smooth anchor scrolling ── */
-document.querySelectorAll(‘nav a’).forEach(a => {
-a.addEventListener(‘click’, e => {
-e.preventDefault();
-const target = document.querySelector(a.getAttribute(‘href’));
-if (target) target.scrollIntoView({ behavior: ‘smooth’ });
-});
-});
 
-/* ── Checkbox guest-count toggles ── */
-[‘mehendi’,‘hurdhee’,‘reception’].forEach(id => {
-document.getElementById(id).addEventListener(‘change’, function () {
-document.getElementById(id + ‘-guests’).classList.toggle(‘visible’, this.checked);
-});
-});
+    /* ============================================================
+       Scroll-triggered reveal animations
+    ============================================================ */
 
-/* ── RSVP submit ── */
-document.getElementById(‘wedding-rsvp’).addEventListener(‘submit’, async function (e) {
-e.preventDefault();
-
-```
-const m = document.getElementById('mehendi').checked;
-const h = document.getElementById('hurdhee').checked;
-const r = document.getElementById('reception').checked;
-if (!m && !h && !r) { alert('Please select at least one event to attend.'); return; }
-
-const btn = document.getElementById('submit-rsvp');
-btn.textContent = 'Sending…';
-btn.disabled = true;
-
-const payload = {
-    name:               document.getElementById('name').value,
-    email:              document.getElementById('email').value,
-    phone:              document.getElementById('phone').value,
-    mehendi_attending:  m ? 'Yes' : 'No',
-    mehendi_guests:     m ? document.getElementById('mehendi-count').value : '0',
-    hurdhee_attending:  h ? 'Yes' : 'No',
-    hurdhee_guests:     h ? document.getElementById('hurdhee-count').value : '0',
-    reception_attending:r ? 'Yes' : 'No',
-    reception_guests:   r ? document.getElementById('reception-count').value : '0',
-    message:            document.getElementById('message').value,
-    timestamp:          new Date().toLocaleString()
-};
-
-try {
-    await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec', {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-    createRSVPCelebration(btn);
-    setTimeout(() => {
-        alert('Thank you for your RSVP! We look forward to celebrating with you.');
-        this.reset();
-        ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(id => {
-            document.getElementById(id).classList.remove('visible');
+    function checkScroll() {
+        var threshold = window.innerHeight * 1.02;
+        var targets = document.querySelectorAll(
+            '.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form'
+        );
+        targets.forEach(function(el) {
+            if (el.getBoundingClientRect().top < threshold) {
+                el.classList.add('visible');
+            }
         });
-    }, 350);
-} catch (err) {
-    console.error(err);
-    alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
-} finally {
-    btn.textContent = 'Submit RSVP';
-    btn.disabled = false;
-}
-```
+    }
 
-});
 
-/* ── Music autoplay with interaction fallback ── */
-window.addEventListener(‘load’, () => {
-createHearts();
-updateCountdown();
-setInterval(updateCountdown, 1000);
+    /* ============================================================
+       Navbar scroll style
+    ============================================================ */
 
-```
-// Force-check scroll so items already in view on load become visible immediately
-checkScroll();
-// Also run after a short delay to catch anything that needs layout to settle
-setTimeout(checkScroll, 300);
+    function handleScroll() {
+        document.getElementById('navbar')
+            .classList.toggle('scrolled', window.scrollY > 80);
+    }
 
-// Wire up tap-to-open event cards
-document.querySelectorAll('.event-card').forEach(card => {
-    card.addEventListener('click', e => toggleEventCard(card, e));
-    card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleEventCard(card, e); }
+
+    /* ============================================================
+       Heart burst fireworks — fires when a card is opened
+    ============================================================ */
+
+    function createHeartBurst(originEl) {
+        var rect = originEl.getBoundingClientRect();
+        var cx   = rect.left + rect.width  / 2;
+        var cy   = rect.top  + rect.height / 2;
+
+        /* Ripple ring */
+        var ripple = document.createElement('div');
+        ripple.className         = 'event-card-ripple';
+        ripple.style.width       = rect.width  + 'px';
+        ripple.style.height      = rect.height + 'px';
+        ripple.style.left        = '0';
+        ripple.style.top         = '0';
+        ripple.style.transformOrigin = 'center center';
+        originEl.appendChild(ripple);
+        setTimeout(function() { ripple.remove(); }, 800);
+
+        /* Particle settings */
+        var syms   = ['\u2665', '\u2764', '\u2661', '\uD83D\uDC95', '\uD83D\uDC97'];
+        var colors = [
+            '#ffffff', '#ffc0cb', '#ff69b4', '#ff1744',
+            '#f8bbd0', '#ec407a', '#fce4ec', '#ffebee',
+            '#e91e63', '#ff4081'
+        ];
+        var layers   = 3;
+        var perLayer = 18;
+
+        for (var l = 0; l < layers; l++) {
+            (function(layer) {
+                setTimeout(function() {
+                    for (var i = 0; i < perLayer; i++) {
+                        var el    = document.createElement('div');
+                        el.className = 'heart-confetti';
+                        el.textContent = syms[Math.floor(Math.random() * syms.length)];
+
+                        var size  = 14 + Math.random() * 28;
+                        var color = colors[Math.floor(Math.random() * colors.length)];
+                        var angle = (Math.PI * 2 * i) / perLayer + (Math.random() * 0.35 - 0.175);
+                        var dist  = 120 + Math.random() * 200 + layer * 55;
+                        var tx    = Math.cos(angle) * dist;
+                        var ty    = Math.sin(angle) * dist - Math.random() * 60;
+                        var rot   = Math.random() * 1080 - 540;
+                        var scale = 0.35 + Math.random() * 0.75;
+                        var delay = Math.random() * 0.22;
+
+                        el.style.fontSize        = size + 'px';
+                        el.style.color           = color;
+                        el.style.left            = cx + 'px';
+                        el.style.top             = cy + 'px';
+                        el.style.position        = 'fixed';
+                        el.style.textShadow      = '0 0 12px ' + color + ', 2px 2px 4px rgba(0,0,0,0.2)';
+                        el.style.filter          = 'drop-shadow(0 0 7px ' + color + ')';
+                        el.style.pointerEvents   = 'none';
+                        el.style.zIndex          = '9999';
+                        el.style.animation       = 'heartBurst 2.6s ease-out forwards';
+                        el.style.animationDelay  = delay + 's';
+
+                        el.style.setProperty('--tx',       tx    + 'px');
+                        el.style.setProperty('--ty',       ty    + 'px');
+                        el.style.setProperty('--rotation', rot   + 'deg');
+                        el.style.setProperty('--scale',    scale + '');
+
+                        document.body.appendChild(el);
+                        setTimeout(function() { el.remove(); }, 3000);
+                    }
+                }, layer * 120);
+            }(l));
+        }
+    }
+
+
+    /* ============================================================
+       RSVP celebration burst (bigger, red and white)
+    ============================================================ */
+
+    function createRSVPCelebration(element) {
+        var rect   = element.getBoundingClientRect();
+        var cx     = rect.left + rect.width  / 2;
+        var cy     = rect.top  + rect.height / 2;
+        var syms   = ['\u2665', '\u2764', '\u2661'];
+        var colors = [
+            '#ffffff', '#ffebee', '#ff0000',
+            '#dc143c', '#ff1744', '#f44336', '#c62828'
+        ];
+        var waves   = 5;
+        var perWave = 28;
+
+        for (var w = 0; w < waves; w++) {
+            (function(wave) {
+                setTimeout(function() {
+                    for (var b = 0; b < 3; b++) {
+                        (function(burst) {
+                            setTimeout(function() {
+                                for (var i = 0; i < perWave; i++) {
+                                    var el = document.createElement('div');
+                                    el.className   = 'heart-confetti';
+                                    el.textContent = syms[Math.floor(Math.random() * syms.length)];
+
+                                    var size  = 14 + Math.random() * 30;
+                                    var color = colors[Math.floor(Math.random() * colors.length)];
+                                    var angle = (Math.PI * 2 * i) / perWave + (Math.random() * 0.5 - 0.25);
+                                    var dist  = 200 + Math.random() * 280 + wave * 35;
+                                    var tx    = Math.cos(angle) * dist;
+                                    var ty    = Math.sin(angle) * dist - Math.random() * 80;
+                                    var rot   = Math.random() * 1440 - 720;
+                                    var scale = 0.4 + Math.random() * 0.8;
+                                    var delay = Math.random() * 0.3;
+
+                                    el.style.fontSize       = size + 'px';
+                                    el.style.color          = color;
+                                    el.style.left           = cx + 'px';
+                                    el.style.top            = cy + 'px';
+                                    el.style.position       = 'fixed';
+                                    el.style.textShadow     =
+                                        '0 0 15px ' + color +
+                                        ', 0 0 30px ' + color +
+                                        ', 3px 3px 6px rgba(0,0,0,0.35)';
+                                    el.style.filter         = 'drop-shadow(0 0 10px ' + color + ')';
+                                    el.style.pointerEvents  = 'none';
+                                    el.style.zIndex         = '9999';
+                                    el.style.animation      = 'heartBurst 2.5s ease-out forwards';
+                                    el.style.animationDelay = delay + 's';
+
+                                    el.style.setProperty('--tx',       tx    + 'px');
+                                    el.style.setProperty('--ty',       ty    + 'px');
+                                    el.style.setProperty('--rotation', rot   + 'deg');
+                                    el.style.setProperty('--scale',    scale + '');
+
+                                    document.body.appendChild(el);
+                                    setTimeout(function() { el.remove(); }, 3100);
+                                }
+                            }, burst * 150);
+                        }(b));
+                    }
+                }, wave * 200);
+            }(w));
+        }
+    }
+
+
+    /* ============================================================
+       Toggle pre-wedding event card open / closed
+    ============================================================ */
+
+    function toggleEventCard(card) {
+        var isOpening = !card.classList.contains('is-open');
+
+        /* Close any other open card first */
+        document.querySelectorAll('.event-card.is-open').forEach(function(c) {
+            if (c !== card) {
+                c.classList.remove('is-open');
+                c.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        card.classList.toggle('is-open', isOpening);
+        card.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
+
+        if (isOpening) {
+            createHeartBurst(card);
+            setTimeout(function() {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 220);
+        }
+    }
+
+
+    /* ============================================================
+       Smooth anchor navigation
+    ============================================================ */
+
+    document.querySelectorAll('nav a').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(anchor.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
-});
 
-const music = document.getElementById('bgMusic');
-music.volume = 0.5;
-let played = false;
-const play = () => { if (!played) { music.play().then(() => played = true).catch(() => {}); } };
-play();
-['click','touchstart','scroll','keydown'].forEach(ev => document.addEventListener(ev, play, { once: true, passive: true }));
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') play(); }, { once: true });
-```
 
-});
+    /* ============================================================
+       RSVP checkbox guest-count toggles
+    ============================================================ */
 
-window.addEventListener(‘scroll’, () => { handleScroll(); checkScroll(); }, { passive: true });
+    ['mehendi', 'hurdhee', 'reception'].forEach(function(id) {
+        document.getElementById(id).addEventListener('change', function() {
+            document.getElementById(id + '-guests')
+                .classList.toggle('visible', this.checked);
+        });
+    });
+
+
+    /* ============================================================
+       RSVP form submission
+    ============================================================ */
+
+    document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        var m = document.getElementById('mehendi').checked;
+        var h = document.getElementById('hurdhee').checked;
+        var r = document.getElementById('reception').checked;
+
+        if (!m && !h && !r) {
+            alert('Please select at least one event to attend.');
+            return;
+        }
+
+        var btn         = document.getElementById('submit-rsvp');
+        btn.textContent = 'Sending\u2026';
+        btn.disabled    = true;
+
+        var payload = {
+            name:                document.getElementById('name').value,
+            email:               document.getElementById('email').value,
+            phone:               document.getElementById('phone').value,
+            mehendi_attending:   m ? 'Yes' : 'No',
+            mehendi_guests:      m ? document.getElementById('mehendi-count').value   : '0',
+            hurdhee_attending:   h ? 'Yes' : 'No',
+            hurdhee_guests:      h ? document.getElementById('hurdhee-count').value   : '0',
+            reception_attending: r ? 'Yes' : 'No',
+            reception_guests:    r ? document.getElementById('reception-count').value : '0',
+            message:             document.getElementById('message').value,
+            timestamp:           new Date().toLocaleString()
+        };
+
+        try {
+            await fetch(
+                'https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
+                {
+                    method:  'POST',
+                    mode:    'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify(payload)
+                }
+            );
+
+            createRSVPCelebration(btn);
+
+            setTimeout(function() {
+                alert('Thank you for your RSVP! We look forward to celebrating with you.');
+                document.getElementById('wedding-rsvp').reset();
+                ['mehendi-guests', 'hurdhee-guests', 'reception-guests'].forEach(function(gid) {
+                    document.getElementById(gid).classList.remove('visible');
+                });
+            }, 350);
+
+        } catch (err) {
+            console.error(err);
+            alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
+        } finally {
+            btn.textContent = 'Submit RSVP';
+            btn.disabled    = false;
+        }
+    });
+
+
+    /* ============================================================
+       Page load initialisation
+    ============================================================ */
+
+    window.addEventListener('load', function() {
+
+        createHearts();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        /* Reveal elements already in the viewport on load */
+        checkScroll();
+        setTimeout(checkScroll, 400);
+
+        /* Wire up tap-to-open event cards */
+        document.querySelectorAll('.event-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                toggleEventCard(card);
+            });
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleEventCard(card);
+                }
+            });
+        });
+
+        /* Background music — autoplay with interaction fallback */
+        var music  = document.getElementById('bgMusic');
+        music.volume = 0.5;
+        var played = false;
+
+        function tryPlay() {
+            if (!played) {
+                music.play()
+                    .then(function()  { played = true; })
+                    .catch(function() { /* blocked — wait for user gesture */ });
+            }
+        }
+
+        tryPlay();
+
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(ev) {
+            document.addEventListener(ev, tryPlay, { once: true, passive: true });
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                tryPlay();
+            }
+        }, { once: true });
+
+    });
+
+
+    /* ============================================================
+       Scroll event listeners
+    ============================================================ */
+
+    window.addEventListener('scroll', function() {
+        handleScroll();
+        checkScroll();
+    }, { passive: true });
+
 </script>
+```
 
 </body>
 </html>
