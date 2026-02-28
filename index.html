@@ -1187,7 +1187,7 @@
             <h3>Questions?</h3>
             <p>Contact our wedding planner:</p>
             <p>Prathika Asrai</p>
-            <p>asraiashwari@gmail.com | (082) 811-5166</p>
+            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="12736160737b73617a6573607b52757f737b7e3c717d7f">[email&#160;protected]</a> | (082) 811-5166</p>
         </div>
 
     </div>
@@ -1333,9 +1333,9 @@
     <div class="footer-logo">Ashwari &amp; Yadhir</div>
     <div class="footer-date">December 19, 2026</div>
     <div class="social-links">
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
-        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.instagram.com/ashwari.asrai/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#gallery" aria-label="Our Gallery"><i class="fab fa-pinterest"></i></a>
+        <a href="mailto:ashwariasrai@gmail.com" aria-label="Email us"><i class="fas fa-envelope"></i></a>
     </div>
     <div class="copyright">
         &copy; 2026 Ashwari &amp; Yadhir.
@@ -1348,7 +1348,7 @@
      JAVASCRIPT
 ============================================================ -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
     /* ============================================================
        Floating hearts in hero
@@ -1590,7 +1590,7 @@
        Smooth anchor navigation
     ============================================================ */
 
-    document.querySelectorAll('nav a').forEach(function(anchor) {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             var target = document.querySelector(anchor.getAttribute('href'));
@@ -1735,15 +1735,5 @@
 
     /* ============================================================
        Scroll event listeners
-    ============================================================ */
-
-    window.addEventListener('scroll', function() {
-        handleScroll();
-        checkScroll();
-    }, { passive: true });
-
-</script>
+    =====
 ```
-
-</body>
-</html>
