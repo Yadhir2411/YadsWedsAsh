@@ -1343,397 +1343,139 @@
     </div>
 </footer>
 
-
-<!-- ============================================================
+<!-- ==========================================================
      JAVASCRIPT
-============================================================ -->
+============================================================== -->
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false"
+        src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+</script>
 
-    /* ============================================================
-       Floating hearts in hero
-    ============================================================ */
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-    function createHearts() {
-        var container = document.getElementById('hearts-container');
-        for (var i = 0; i < 12; i++) {
-            var h = document.createElement('div');
-            h.className = 'heart';
-            h.innerHTML = '&#10084;';
-            h.style.left              = (Math.random() * 100) + 'vw';
-            h.style.animationDuration = (10 + Math.random() * 18) + 's';
-            h.style.animationDelay    = (Math.random() * 6) + 's';
-            h.style.opacity           = String(0.3 + Math.random() * 0.5);
-            container.appendChild(h);
-        }
-    }
+    /* ==========================================================
+       COUNTDOWN TIMER
+    ========================================================== */
 
-
-    /* ============================================================
-       Countdown timer
-    ============================================================ */
+    const weddingDate = new Date("2026-12-20T00:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
 
     function updateCountdown() {
-        var target = new Date('December 19, 2026 17:30:00').getTime();
-        var diff   = target - Date.now();
-        if (diff <= 0) return;
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
 
-        function pad(n) {
-            return String(Math.floor(n)).padStart(2, '0');
-        }
-
-        document.getElementById('days').textContent    = pad(diff / 86400000);
-        document.getElementById('hours').textContent   = pad((diff % 86400000) / 3600000);
-        document.getElementById('minutes').textContent = pad((diff % 3600000)  / 60000);
-        document.getElementById('seconds').textContent = pad((diff % 60000)    / 1000);
-    }
-
-
-    /* ============================================================
-       Scroll-triggered reveal animations
-    ============================================================ */
-
-    function checkScroll() {
-        var threshold = window.innerHeight * 1.02;
-        var targets = document.querySelectorAll(
-            '.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form'
-        );
-        targets.forEach(function(el) {
-            if (el.getBoundingClientRect().top < threshold) {
-                el.classList.add('visible');
-            }
-        });
-    }
-
-
-    /* ============================================================
-       Navbar scroll style
-    ============================================================ */
-
-    function handleScroll() {
-        document.getElementById('navbar')
-            .classList.toggle('scrolled', window.scrollY > 80);
-    }
-
-
-    /* ============================================================
-       Heart burst fireworks — fires when a card is opened
-    ============================================================ */
-
-    function createHeartBurst(originEl) {
-        var rect = originEl.getBoundingClientRect();
-        var cx   = rect.left + rect.width  / 2;
-        var cy   = rect.top  + rect.height / 2;
-
-        /* Ripple ring */
-        var ripple = document.createElement('div');
-        ripple.className         = 'event-card-ripple';
-        ripple.style.width       = rect.width  + 'px';
-        ripple.style.height      = rect.height + 'px';
-        ripple.style.left        = '0';
-        ripple.style.top         = '0';
-        ripple.style.transformOrigin = 'center center';
-        originEl.appendChild(ripple);
-        setTimeout(function() { ripple.remove(); }, 800);
-
-        /* Particle settings */
-        var syms   = ['\u2665', '\u2764', '\u2661', '\uD83D\uDC95', '\uD83D\uDC97'];
-        var colors = [
-            '#ffffff', '#ffc0cb', '#ff69b4', '#ff1744',
-            '#f8bbd0', '#ec407a', '#fce4ec', '#ffebee',
-            '#e91e63', '#ff4081'
-        ];
-        var layers   = 3;
-        var perLayer = 18;
-
-        for (var l = 0; l < layers; l++) {
-            (function(layer) {
-                setTimeout(function() {
-                    for (var i = 0; i < perLayer; i++) {
-                        var el    = document.createElement('div');
-                        el.className = 'heart-confetti';
-                        el.textContent = syms[Math.floor(Math.random() * syms.length)];
-
-                        var size  = 14 + Math.random() * 28;
-                        var color = colors[Math.floor(Math.random() * colors.length)];
-                        var angle = (Math.PI * 2 * i) / perLayer + (Math.random() * 0.35 - 0.175);
-                        var dist  = 120 + Math.random() * 200 + layer * 55;
-                        var tx    = Math.cos(angle) * dist;
-                        var ty    = Math.sin(angle) * dist - Math.random() * 60;
-                        var rot   = Math.random() * 1080 - 540;
-                        var scale = 0.35 + Math.random() * 0.75;
-                        var delay = Math.random() * 0.22;
-
-                        el.style.fontSize        = size + 'px';
-                        el.style.color           = color;
-                        el.style.left            = cx + 'px';
-                        el.style.top             = cy + 'px';
-                        el.style.position        = 'fixed';
-                        el.style.textShadow      = '0 0 12px ' + color + ', 2px 2px 4px rgba(0,0,0,0.2)';
-                        el.style.filter          = 'drop-shadow(0 0 7px ' + color + ')';
-                        el.style.pointerEvents   = 'none';
-                        el.style.zIndex          = '9999';
-                        el.style.animation       = 'heartBurst 2.6s ease-out forwards';
-                        el.style.animationDelay  = delay + 's';
-
-                        el.style.setProperty('--tx',       tx    + 'px');
-                        el.style.setProperty('--ty',       ty    + 'px');
-                        el.style.setProperty('--rotation', rot   + 'deg');
-                        el.style.setProperty('--scale',    scale + '');
-
-                        document.body.appendChild(el);
-                        setTimeout(function() { el.remove(); }, 3000);
-                    }
-                }, layer * 120);
-            }(l));
-        }
-    }
-
-
-    /* ============================================================
-       RSVP celebration burst (bigger, red and white)
-    ============================================================ */
-
-    function createRSVPCelebration(element) {
-        var rect   = element.getBoundingClientRect();
-        var cx     = rect.left + rect.width  / 2;
-        var cy     = rect.top  + rect.height / 2;
-        var syms   = ['\u2665', '\u2764', '\u2661'];
-        var colors = [
-            '#ffffff', '#ffebee', '#ff0000',
-            '#dc143c', '#ff1744', '#f44336', '#c62828'
-        ];
-        var waves   = 5;
-        var perWave = 28;
-
-        for (var w = 0; w < waves; w++) {
-            (function(wave) {
-                setTimeout(function() {
-                    for (var b = 0; b < 3; b++) {
-                        (function(burst) {
-                            setTimeout(function() {
-                                for (var i = 0; i < perWave; i++) {
-                                    var el = document.createElement('div');
-                                    el.className   = 'heart-confetti';
-                                    el.textContent = syms[Math.floor(Math.random() * syms.length)];
-
-                                    var size  = 14 + Math.random() * 30;
-                                    var color = colors[Math.floor(Math.random() * colors.length)];
-                                    var angle = (Math.PI * 2 * i) / perWave + (Math.random() * 0.5 - 0.25);
-                                    var dist  = 200 + Math.random() * 280 + wave * 35;
-                                    var tx    = Math.cos(angle) * dist;
-                                    var ty    = Math.sin(angle) * dist - Math.random() * 80;
-                                    var rot   = Math.random() * 1440 - 720;
-                                    var scale = 0.4 + Math.random() * 0.8;
-                                    var delay = Math.random() * 0.3;
-
-                                    el.style.fontSize       = size + 'px';
-                                    el.style.color          = color;
-                                    el.style.left           = cx + 'px';
-                                    el.style.top            = cy + 'px';
-                                    el.style.position       = 'fixed';
-                                    el.style.textShadow     =
-                                        '0 0 15px ' + color +
-                                        ', 0 0 30px ' + color +
-                                        ', 3px 3px 6px rgba(0,0,0,0.35)';
-                                    el.style.filter         = 'drop-shadow(0 0 10px ' + color + ')';
-                                    el.style.pointerEvents  = 'none';
-                                    el.style.zIndex         = '9999';
-                                    el.style.animation      = 'heartBurst 2.5s ease-out forwards';
-                                    el.style.animationDelay = delay + 's';
-
-                                    el.style.setProperty('--tx',       tx    + 'px');
-                                    el.style.setProperty('--ty',       ty    + 'px');
-                                    el.style.setProperty('--rotation', rot   + 'deg');
-                                    el.style.setProperty('--scale',    scale + '');
-
-                                    document.body.appendChild(el);
-                                    setTimeout(function() { el.remove(); }, 3100);
-                                }
-                            }, burst * 150);
-                        }(b));
-                    }
-                }, wave * 200);
-            }(w));
-        }
-    }
-
-
-    /* ============================================================
-       Toggle pre-wedding event card open / closed
-    ============================================================ */
-
-    function toggleEventCard(card) {
-        var isOpening = !card.classList.contains('is-open');
-
-        /* Close any other open card first */
-        document.querySelectorAll('.event-card.is-open').forEach(function(c) {
-            if (c !== card) {
-                c.classList.remove('is-open');
-                c.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        card.classList.toggle('is-open', isOpening);
-        card.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
-
-        if (isOpening) {
-            createHeartBurst(card);
-            setTimeout(function() {
-                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 220);
-        }
-    }
-
-
-    /* ============================================================
-       Smooth anchor navigation
-    ============================================================ */
-
-    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            var target = document.querySelector(anchor.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-
-    /* ============================================================
-       RSVP checkbox guest-count toggles
-    ============================================================ */
-
-    ['mehendi', 'hurdhee', 'reception'].forEach(function(id) {
-        document.getElementById(id).addEventListener('change', function() {
-            document.getElementById(id + '-guests')
-                .classList.toggle('visible', this.checked);
-        });
-    });
-
-
-    /* ============================================================
-       RSVP form submission
-    ============================================================ */
-
-    document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        var m = document.getElementById('mehendi').checked;
-        var h = document.getElementById('hurdhee').checked;
-        var r = document.getElementById('reception').checked;
-
-        if (!m && !h && !r) {
-            alert('Please select at least one event to attend.');
+        if (distance <= 0) {
+            countdownEl.innerHTML = "We're Married! 🎉";
+            clearInterval(countdownInterval);
             return;
         }
 
-        var btn         = document.getElementById('submit-rsvp');
-        btn.textContent = 'Sending\u2026';
-        btn.disabled    = true;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((distance / (1000 * 60)) % 60);
+        const seconds = Math.floor((distance / 1000) % 60);
 
-        var payload = {
-            name:                document.getElementById('name').value,
-            email:               document.getElementById('email').value,
-            phone:               document.getElementById('phone').value,
-            mehendi_attending:   m ? 'Yes' : 'No',
-            mehendi_guests:      m ? document.getElementById('mehendi-count').value   : '0',
-            hurdhee_attending:   h ? 'Yes' : 'No',
-            hurdhee_guests:      h ? document.getElementById('hurdhee-count').value   : '0',
-            reception_attending: r ? 'Yes' : 'No',
-            reception_guests:    r ? document.getElementById('reception-count').value : '0',
-            message:             document.getElementById('message').value,
-            timestamp:           new Date().toLocaleString()
-        };
+        countdownEl.innerHTML = `
+            <div>${days}<span>Days</span></div>
+            <div>${hours}<span>Hours</span></div>
+            <div>${minutes}<span>Minutes</span></div>
+            <div>${seconds}<span>Seconds</span></div>
+        `;
+    }
 
-        try {
-            await fetch(
-                'https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
-                {
-                    method:  'POST',
-                    mode:    'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body:    JSON.stringify(payload)
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+
+    /* ==========================================================
+       RSVP FORM HANDLER
+    ========================================================== */
+
+    const rsvpForm = document.getElementById("rsvp-form");
+
+    if (rsvpForm) {
+        rsvpForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(rsvpForm);
+
+            fetch(rsvpForm.action, {
+                method: "POST",
+                body: formData,
+                headers: { "Accept": "application/json" }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Thank you for your RSVP! 💕");
+                    rsvpForm.reset();
+                } else {
+                    alert("Oops! Something went wrong. Please try again.");
                 }
-            );
+            })
+            .catch(() => {
+                alert("Network error. Please try again.");
+            });
+        });
+    }
 
-            createRSVPCelebration(btn);
 
-            setTimeout(function() {
-                alert('Thank you for your RSVP! We look forward to celebrating with you.');
-                document.getElementById('wedding-rsvp').reset();
-                ['mehendi-guests', 'hurdhee-guests', 'reception-guests'].forEach(function(gid) {
-                    document.getElementById(gid).classList.remove('visible');
-                });
-            }, 350);
+    /* ==========================================================
+       FLOATING HEARTS ANIMATION
+    ========================================================== */
 
-        } catch (err) {
-            console.error(err);
-            alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
-        } finally {
-            btn.textContent = 'Submit RSVP';
-            btn.disabled    = false;
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    setInterval(createHeart, 1500);
+
+
+    /* ==========================================================
+       BACKGROUND MUSIC CONTROL
+    ========================================================== */
+
+    const audio = document.getElementById("bg-music");
+    let musicStarted = false;
+
+    function tryPlay() {
+        if (!audio || musicStarted) return;
+
+        audio.play()
+            .then(() => {
+                musicStarted = true;
+                console.log("Music started 🎵");
+            })
+            .catch(() => {
+                console.log("Autoplay blocked. Waiting for user interaction.");
+            });
+    }
+
+    // Attempt autoplay
+    tryPlay();
+
+    // Fallback: user interaction
+    document.addEventListener("click", tryPlay, { once: true });
+    document.addEventListener("touchstart", tryPlay, { once: true });
+
+    // If tab becomes visible
+    document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+            tryPlay();
         }
     });
 
+});
+</script>
 
-    /* ============================================================
-       Page load initialisation
-    ============================================================ */
-
-    window.addEventListener('load', function() {
-
-        createHearts();
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        /* Reveal elements already in the viewport on load */
-        checkScroll();
-        setTimeout(checkScroll, 400);
-
-        /* Wire up tap-to-open event cards */
-        document.querySelectorAll('.event-card').forEach(function(card) {
-            card.addEventListener('click', function() {
-                toggleEventCard(card);
-            });
-            card.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleEventCard(card);
-                }
-            });
-        });
-
-        /* Background music — autoplay with interaction fallback */
-        var music  = document.getElementById('bgMusic');
-        music.volume = 0.5;
-        var played = false;
-
-        function tryPlay() {
-            if (!played) {
-                music.play()
-                    .then(function()  { played = true; })
-                    .catch(function() { /* blocked — wait for user gesture */ });
-            }
-        }
-
-        tryPlay();
-
-        ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(ev) {
-            document.addEventListener(ev, tryPlay, { once: true, passive: true });
-        });
-
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'visible') {
-                tryPlay();
-            }
-        }, { once: true });
-
-    });
-
-
-    /* ============================================================
-       Scroll event listeners
-    =====
-```
+</body>
+</html>
