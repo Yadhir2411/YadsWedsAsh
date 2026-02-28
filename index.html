@@ -302,59 +302,120 @@
 
     .event-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         transition: transform 0.35s ease, box-shadow 0.35s ease;
         cursor: pointer;
+        position: relative;
     }
 
     .event-card:hover {
-        transform: translateY(-6px);
+        transform: translateY(-4px);
         box-shadow: 0 18px 45px rgba(0,0,0,0.15);
     }
 
-    .event-card-image {
+    /* ── Cover face (always visible) ── */
+    .event-card-cover {
         position: relative;
         width: 100%;
-        aspect-ratio: 4/3;
+        aspect-ratio: 3/2;
         overflow: hidden;
     }
 
-    .event-card-image img {
+    .event-card-cover img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
+        transition: transform 0.55s ease;
         display: block;
     }
 
-    .event-card:hover .event-card-image img {
-        transform: scale(1.06);
+    .event-card:hover .event-card-cover img {
+        transform: scale(1.05);
     }
 
-    .event-card-image-overlay {
+    .event-card-cover-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+        background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 55%);
+        transition: background 0.4s ease;
     }
 
-    .event-card-image-title {
+    .event-card.is-open .event-card-cover-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 55%);
+    }
+
+    .event-card-cover-text {
         position: absolute;
-        bottom: 1.2rem;
-        left: 1.5rem;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.4rem 1.5rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .event-card-title {
         color: white;
         font-family: 'Playfair Display', serif;
-        font-size: clamp(1.5rem, 4vw, 2rem);
-        text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        line-height: 1.1;
     }
 
+    /* Tap-to-open pill badge */
+    .event-card-tap-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(255,255,255,0.22);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255,255,255,0.35);
+        border-radius: 50px;
+        padding: 0.4rem 0.85rem;
+        color: white;
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        flex-shrink: 0;
+    }
+
+    .event-card-tap-hint i {
+        font-size: 0.75rem;
+        transition: transform 0.4s ease;
+    }
+
+    .event-card.is-open .event-card-tap-hint i {
+        transform: rotate(180deg);
+    }
+
+    .event-card.is-open .event-card-tap-hint span { display: none; }
+    .event-card.is-open .event-card-tap-hint::after { content: 'Close'; font-size: clamp(0.7rem, 2vw, 0.8rem); font-weight: 600; }
+
+    /* ── Expandable body ── */
     .event-card-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+                    padding 0.4s ease,
+                    opacity 0.4s ease;
+        padding: 0 clamp(1.2rem, 4vw, 1.8rem);
+        opacity: 0;
+    }
+
+    .event-card.is-open .event-card-body {
+        max-height: 600px;
         padding: clamp(1.2rem, 4vw, 1.8rem);
+        opacity: 1;
     }
 
     .event-card-body h4 {
-        font-size: clamp(1rem, 3vw, 1.3rem);
+        font-size: clamp(1rem, 3vw, 1.25rem);
         color: var(--accent);
         margin-bottom: 1rem;
         padding-bottom: 0.6rem;
@@ -365,16 +426,44 @@
         display: flex;
         align-items: flex-start;
         gap: 0.75rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.8rem;
         font-size: clamp(0.82rem, 2.2vw, 0.95rem);
-        line-height: 1.5;
+        line-height: 1.55;
     }
 
     .event-detail-row i {
         color: var(--accent);
         width: 16px;
         flex-shrink: 0;
-        margin-top: 0.15rem;
+        margin-top: 0.18rem;
+    }
+
+    /* animated entrance for detail rows */
+    .event-card.is-open .event-detail-row {
+        animation: rowSlideIn 0.4s ease both;
+    }
+    .event-card.is-open .event-detail-row:nth-child(2) { animation-delay: 0.07s; }
+    .event-card.is-open .event-detail-row:nth-child(3) { animation-delay: 0.14s; }
+    .event-card.is-open .event-detail-row:nth-child(4) { animation-delay: 0.21s; }
+
+    @keyframes rowSlideIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ripple ring on open */
+    .event-card-ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(212,163,115,0.35) 0%, transparent 70%);
+        transform: scale(0);
+        animation: rippleOut 0.7s ease-out forwards;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    @keyframes rippleOut {
+        to { transform: scale(4); opacity: 0; }
     }
 
     /* ─── DETAILS GRID ─── */
@@ -808,11 +897,17 @@
 <div class="cards-container">
 
     <!-- Mehendi Card -->
-    <div class="event-card">
-        <div class="event-card-image">
+    <div class="event-card" id="card-mehendi" role="button" tabindex="0" aria-expanded="false">
+        <div class="event-card-cover">
             <img src="Images/12.jpeg" alt="Mehendi Ceremony">
-            <div class="event-card-image-overlay"></div>
-            <div class="event-card-image-title">Mehendi</div>
+            <div class="event-card-cover-overlay"></div>
+            <div class="event-card-cover-text">
+                <div class="event-card-title">Mehendi</div>
+                <div class="event-card-tap-hint">
+                    <span>Tap to open</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
         </div>
         <div class="event-card-body">
             <h4>Mehendi Ceremony</h4>
@@ -836,11 +931,17 @@
     </div>
 
     <!-- Hurdhee Card -->
-    <div class="event-card">
-        <div class="event-card-image">
+    <div class="event-card" id="card-hurdhee" role="button" tabindex="0" aria-expanded="false">
+        <div class="event-card-cover">
             <img src="Images/11.jpeg" alt="Hurdhee Celebration">
-            <div class="event-card-image-overlay"></div>
-            <div class="event-card-image-title">Hurdhee</div>
+            <div class="event-card-cover-overlay"></div>
+            <div class="event-card-cover-text">
+                <div class="event-card-title">Hurdhee</div>
+                <div class="event-card-tap-hint">
+                    <span>Tap to open</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
         </div>
         <div class="event-card-body">
             <h4>Hurdhee Celebration</h4>
@@ -908,7 +1009,7 @@
         <h3>Questions?</h3>
         <p>Contact our wedding planner:</p>
         <p>Prathika Asrai</p>
-        <p>asraiashwari@gmail.com | (082) 811-5166</p>
+        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="74150706151d15071c0315061d341319151d185a171b19">[email&#160;protected]</a> | (082) 811-5166</p>
     </div>
 </div>
 ```
@@ -1046,209 +1147,262 @@
     </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
 /* ── Floating hearts in header ── */
 function createHearts() {
-    const container = document.getElementById('hearts-container');
-    for (let i = 0; i < 12; i++) {
-        const h = document.createElement('div');
-        h.className = 'heart';
-        h.innerHTML = '❤';
-        h.style.left = Math.random() * 100 + 'vw';
-        h.style.animationDuration = (10 + Math.random() * 18) + 's';
-        h.style.animationDelay = (Math.random() * 6) + 's';
-        h.style.opacity = 0.3 + Math.random() * 0.5;
-        container.appendChild(h);
-    }
+const container = document.getElementById(‘hearts-container’);
+for (let i = 0; i < 12; i++) {
+const h = document.createElement(‘div’);
+h.className = ‘heart’;
+h.innerHTML = ‘❤’;
+h.style.left = Math.random() * 100 + ‘vw’;
+h.style.animationDuration = (10 + Math.random() * 18) + ‘s’;
+h.style.animationDelay = (Math.random() * 6) + ‘s’;
+h.style.opacity = 0.3 + Math.random() * 0.5;
+container.appendChild(h);
+}
 }
 
 /* ── Countdown ── */
 function updateCountdown() {
-    const target = new Date('December 19, 2026 17:30:00').getTime();
-    const diff   = target - Date.now();
-    if (diff <= 0) return;
-    const pad = n => String(Math.floor(n)).padStart(2,'0');
-    document.getElementById('days').textContent    = pad(diff / 86400000);
-    document.getElementById('hours').textContent   = pad((diff % 86400000) / 3600000);
-    document.getElementById('minutes').textContent = pad((diff % 3600000) / 60000);
-    document.getElementById('seconds').textContent = pad((diff % 60000) / 1000);
+const target = new Date(‘December 19, 2026 17:30:00’).getTime();
+const diff   = target - Date.now();
+if (diff <= 0) return;
+const pad = n => String(Math.floor(n)).padStart(2,‘0’);
+document.getElementById(‘days’).textContent    = pad(diff / 86400000);
+document.getElementById(‘hours’).textContent   = pad((diff % 86400000) / 3600000);
+document.getElementById(‘minutes’).textContent = pad((diff % 3600000) / 60000);
+document.getElementById(‘seconds’).textContent = pad((diff % 60000) / 1000);
 }
 
 /* ── Scroll animations ── */
 function checkScroll() {
-    const threshold = window.innerHeight * 0.88;
-    document.querySelectorAll(
-        '.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form'
-    ).forEach(el => {
-        if (el.getBoundingClientRect().top < threshold) el.classList.add('visible');
-    });
+const threshold = window.innerHeight * 0.88;
+document.querySelectorAll(
+‘.story-text, .story-image, .detail-card, .gallery-item, .rsvp-form’
+).forEach(el => {
+if (el.getBoundingClientRect().top < threshold) el.classList.add(‘visible’);
+});
 }
 
 /* ── Navbar ── */
 function handleScroll() {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+document.getElementById(‘navbar’).classList.toggle(‘scrolled’, window.scrollY > 80);
 }
 
-/* ── Heart burst ── */
-function createHeartBurst(element, count = 45) {
-    const rect = element.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top  + rect.height / 2;
-    const syms   = ['♥','❤','♡'];
-    const colors = ['#fff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec'];
-    const layers = 3;
+/* ── Heart burst (card open) ── */
+function createHeartBurst(originEl, count = 55) {
+const rect = originEl.getBoundingClientRect();
+const cx = rect.left + rect.width  / 2;
+const cy = rect.top  + rect.height / 2;
 
-    for (let l = 0; l < layers; l++) {
-        setTimeout(() => {
-            const perLayer = Math.floor(count / layers);
-            for (let i = 0; i < perLayer; i++) {
-                const el = document.createElement('div');
-                el.className = 'heart-confetti';
-                el.textContent = syms[Math.floor(Math.random() * syms.length)];
-                const size  = 12 + Math.random() * 26;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const angle = (Math.PI * 2 * i) / perLayer + (Math.random() * 0.3 - 0.15);
-                const dist  = 130 + Math.random() * 180 + l * 45;
-                el.style.cssText = `
-                    font-size:${size}px;color:${color};left:${cx}px;top:${cy}px;
-                    text-shadow:0 0 10px ${color},2px 2px 4px rgba(0,0,0,.25);
-                    filter:drop-shadow(0 0 6px ${color});
-                    animation-delay:${Math.random() * 0.2}s;
-                `;
-                el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
-                el.style.setProperty('--ty', (Math.sin(angle) * dist) + 'px');
-                el.style.setProperty('--rotation', (Math.random() * 1080 - 540) + 'deg');
-                el.style.setProperty('--scale', (0.3 + Math.random() * 0.7).toString());
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 2800);
-            }
-        }, l * 110);
+```
+// ripple ring on the card itself
+const ripple = document.createElement('div');
+ripple.className = 'event-card-ripple';
+ripple.style.cssText = `width:${rect.width}px;height:${rect.height}px;
+    left:0;top:0;transform-origin:center center;`;
+originEl.style.position = 'relative';
+originEl.appendChild(ripple);
+setTimeout(() => ripple.remove(), 800);
+
+const syms   = ['♥','❤','♡','💕','💗'];
+const colors = ['#ffffff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec','#ffebee','#e91e63','#ff4081'];
+const layers = 3;
+
+for (let l = 0; l < layers; l++) {
+    setTimeout(() => {
+        const perLayer = Math.floor(count / layers);
+        for (let i = 0; i < perLayer; i++) {
+            const el    = document.createElement('div');
+            el.className = 'heart-confetti';
+            el.textContent = syms[Math.floor(Math.random() * syms.length)];
+            const size  = 14 + Math.random() * 28;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const angle = (Math.PI * 2 * i) / perLayer + (Math.random() * 0.35 - 0.175);
+            const dist  = 120 + Math.random() * 200 + l * 55;
+            el.style.cssText = `
+                font-size:${size}px;color:${color};
+                left:${cx}px;top:${cy}px;position:fixed;
+                text-shadow:0 0 12px ${color},2px 2px 4px rgba(0,0,0,.2);
+                filter:drop-shadow(0 0 7px ${color});
+                pointer-events:none;z-index:9999;
+                animation:heartBurst 2.6s ease-out forwards;
+                animation-delay:${Math.random() * 0.22}s;
+            `;
+            el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+            el.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 60) + 'px');
+            el.style.setProperty('--rotation', (Math.random() * 1080 - 540) + 'deg');
+            el.style.setProperty('--scale', (0.35 + Math.random() * 0.75).toString());
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 3000);
+        }
+    }, l * 120);
+}
+```
+
+}
+
+/* ── Event card tap-to-open ── */
+function toggleEventCard(card, e) {
+const isOpening = !card.classList.contains(‘is-open’);
+
+```
+// close any other open card first
+document.querySelectorAll('.event-card.is-open').forEach(c => {
+    if (c !== card) {
+        c.classList.remove('is-open');
+        c.setAttribute('aria-expanded', 'false');
     }
+});
+
+card.classList.toggle('is-open', isOpening);
+card.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
+
+if (isOpening) {
+    createHeartBurst(card);
+    // smooth scroll so the expanded card stays in view on mobile
+    setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 200);
+}
+```
+
 }
 
 function createRSVPCelebration(element) {
-    const rect = element.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top  + rect.height / 2;
-    const syms   = ['♥','❤','♡'];
-    const colors = ['#fff','#ffebee','#ff0000','#dc143c','#ff1744','#f44336','#c62828'];
-    const waves = 5, perWave = 28;
+const rect = element.getBoundingClientRect();
+const cx = rect.left + rect.width / 2;
+const cy = rect.top  + rect.height / 2;
+const syms   = [‘♥’,‘❤’,‘♡’];
+const colors = [’#fff’,’#ffebee’,’#ff0000’,’#dc143c’,’#ff1744’,’#f44336’,’#c62828’];
+const waves = 5, perWave = 28;
 
-    for (let w = 0; w < waves; w++) {
-        setTimeout(() => {
-            for (let b = 0; b < 3; b++) {
-                setTimeout(() => {
-                    for (let i = 0; i < perWave; i++) {
-                        const el    = document.createElement('div');
-                        el.className = 'heart-confetti';
-                        el.textContent = syms[Math.floor(Math.random() * syms.length)];
-                        const size  = 14 + Math.random() * 30;
-                        const color = colors[Math.floor(Math.random() * colors.length)];
-                        const angle = (Math.PI * 2 * i) / perWave + (Math.random() * 0.5 - 0.25);
-                        const dist  = 200 + Math.random() * 280 + w * 35;
-                        el.style.cssText = `
-                            font-size:${size}px;color:${color};left:${cx}px;top:${cy}px;
-                            text-shadow:0 0 15px ${color},0 0 30px ${color},3px 3px 6px rgba(0,0,0,.35);
-                            filter:drop-shadow(0 0 10px ${color});
-                            animation-delay:${Math.random() * 0.3}s;
-                        `;
-                        el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
-                        el.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 80) + 'px');
-                        el.style.setProperty('--rotation', (Math.random() * 1440 - 720) + 'deg');
-                        el.style.setProperty('--scale', (0.4 + Math.random() * 0.8).toString());
-                        document.body.appendChild(el);
-                        setTimeout(() => el.remove(), 3100);
-                    }
-                }, b * 150);
-            }
-        }, w * 200);
-    }
+```
+for (let w = 0; w < waves; w++) {
+    setTimeout(() => {
+        for (let b = 0; b < 3; b++) {
+            setTimeout(() => {
+                for (let i = 0; i < perWave; i++) {
+                    const el    = document.createElement('div');
+                    el.className = 'heart-confetti';
+                    el.textContent = syms[Math.floor(Math.random() * syms.length)];
+                    const size  = 14 + Math.random() * 30;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const angle = (Math.PI * 2 * i) / perWave + (Math.random() * 0.5 - 0.25);
+                    const dist  = 200 + Math.random() * 280 + w * 35;
+                    el.style.cssText = `
+                        font-size:${size}px;color:${color};left:${cx}px;top:${cy}px;
+                        text-shadow:0 0 15px ${color},0 0 30px ${color},3px 3px 6px rgba(0,0,0,.35);
+                        filter:drop-shadow(0 0 10px ${color});
+                        animation-delay:${Math.random() * 0.3}s;
+                    `;
+                    el.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+                    el.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 80) + 'px');
+                    el.style.setProperty('--rotation', (Math.random() * 1440 - 720) + 'deg');
+                    el.style.setProperty('--scale', (0.4 + Math.random() * 0.8).toString());
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 3100);
+                }
+            }, b * 150);
+        }
+    }, w * 200);
+}
+```
+
 }
 
 /* ── Smooth anchor scrolling ── */
-document.querySelectorAll('nav a').forEach(a => {
-    a.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
+document.querySelectorAll(‘nav a’).forEach(a => {
+a.addEventListener(‘click’, e => {
+e.preventDefault();
+const target = document.querySelector(a.getAttribute(‘href’));
+if (target) target.scrollIntoView({ behavior: ‘smooth’ });
+});
 });
 
 /* ── Checkbox guest-count toggles ── */
-['mehendi','hurdhee','reception'].forEach(id => {
-    document.getElementById(id).addEventListener('change', function () {
-        document.getElementById(id + '-guests').classList.toggle('visible', this.checked);
-    });
+[‘mehendi’,‘hurdhee’,‘reception’].forEach(id => {
+document.getElementById(id).addEventListener(‘change’, function () {
+document.getElementById(id + ‘-guests’).classList.toggle(‘visible’, this.checked);
+});
 });
 
 /* ── RSVP submit ── */
-document.getElementById('wedding-rsvp').addEventListener('submit', async function (e) {
-    e.preventDefault();
+document.getElementById(‘wedding-rsvp’).addEventListener(‘submit’, async function (e) {
+e.preventDefault();
 
-    const m = document.getElementById('mehendi').checked;
-    const h = document.getElementById('hurdhee').checked;
-    const r = document.getElementById('reception').checked;
-    if (!m && !h && !r) { alert('Please select at least one event to attend.'); return; }
+```
+const m = document.getElementById('mehendi').checked;
+const h = document.getElementById('hurdhee').checked;
+const r = document.getElementById('reception').checked;
+if (!m && !h && !r) { alert('Please select at least one event to attend.'); return; }
 
-    const btn = document.getElementById('submit-rsvp');
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
+const btn = document.getElementById('submit-rsvp');
+btn.textContent = 'Sending…';
+btn.disabled = true;
 
-    const payload = {
-        name:               document.getElementById('name').value,
-        email:              document.getElementById('email').value,
-        phone:              document.getElementById('phone').value,
-        mehendi_attending:  m ? 'Yes' : 'No',
-        mehendi_guests:     m ? document.getElementById('mehendi-count').value : '0',
-        hurdhee_attending:  h ? 'Yes' : 'No',
-        hurdhee_guests:     h ? document.getElementById('hurdhee-count').value : '0',
-        reception_attending:r ? 'Yes' : 'No',
-        reception_guests:   r ? document.getElementById('reception-count').value : '0',
-        message:            document.getElementById('message').value,
-        timestamp:          new Date().toLocaleString()
-    };
+const payload = {
+    name:               document.getElementById('name').value,
+    email:              document.getElementById('email').value,
+    phone:              document.getElementById('phone').value,
+    mehendi_attending:  m ? 'Yes' : 'No',
+    mehendi_guests:     m ? document.getElementById('mehendi-count').value : '0',
+    hurdhee_attending:  h ? 'Yes' : 'No',
+    hurdhee_guests:     h ? document.getElementById('hurdhee-count').value : '0',
+    reception_attending:r ? 'Yes' : 'No',
+    reception_guests:   r ? document.getElementById('reception-count').value : '0',
+    message:            document.getElementById('message').value,
+    timestamp:          new Date().toLocaleString()
+};
 
-    try {
-        await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec', {
-            method: 'POST', mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+try {
+    await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec', {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    createRSVPCelebration(btn);
+    setTimeout(() => {
+        alert('Thank you for your RSVP! We look forward to celebrating with you.');
+        this.reset();
+        ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(id => {
+            document.getElementById(id).classList.remove('visible');
         });
-        createRSVPCelebration(btn);
-        setTimeout(() => {
-            alert('Thank you for your RSVP! We look forward to celebrating with you.');
-            this.reset();
-            ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(id => {
-                document.getElementById(id).classList.remove('visible');
-            });
-        }, 350);
-    } catch (err) {
-        console.error(err);
-        alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
-    } finally {
-        btn.textContent = 'Submit RSVP';
-        btn.disabled = false;
-    }
+    }, 350);
+} catch (err) {
+    console.error(err);
+    alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
+} finally {
+    btn.textContent = 'Submit RSVP';
+    btn.disabled = false;
+}
+```
+
 });
 
 /* ── Music autoplay with interaction fallback ── */
-window.addEventListener('load', () => {
-    createHearts();
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    checkScroll();
+window.addEventListener(‘load’, () => {
+createHearts();
+updateCountdown();
+setInterval(updateCountdown, 1000);
+checkScroll();
 
-    const music = document.getElementById('bgMusic');
-    music.volume = 0.5;
-    let played = false;
-    const play = () => { if (!played) { music.play().then(() => played = true).catch(() => {}); } };
-    play();
-    ['click','touchstart','scroll','keydown'].forEach(ev => document.addEventListener(ev, play, { once: true, passive: true }));
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') play(); }, { once: true });
+```
+// Wire up tap-to-open event cards
+document.querySelectorAll('.event-card').forEach(card => {
+    card.addEventListener('click', e => toggleEventCard(card, e));
+    card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleEventCard(card, e); }
+    });
 });
 
-window.addEventListener('scroll', () => { handleScroll(); checkScroll(); }, { passive: true });
-</script>
-
-</body>
-</html>
+const music = document.getElementById('bgMusic');
+music.volume = 0.5;
+let played = false;
+const play = () => { if (!played) { music.play().then(() => played = true).catch(() => {}); } };
+play();
+['click','touchstart','scroll','keydown'].forEach(ev => document.addEventListener(ev, play, { once: true, passive: true }));
+document.addEventLis
+```
