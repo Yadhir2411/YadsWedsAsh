@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Yadhir &amp; Ashwari | Wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,7 @@
             --accent:#d4a373; 
             --light:#f8f1e9; 
             --dark:#333333; 
+            --app-height: 100vh;
         }
         
         *,*::before,*::after { 
@@ -28,6 +29,7 @@
             scroll-behavior:smooth; 
             font-size:16px; 
             -webkit-text-size-adjust:100%;
+            height: -webkit-fill-available;
         }
         
         body { 
@@ -37,6 +39,9 @@
             overflow-x:hidden; 
             -webkit-font-smoothing:antialiased;
             line-height:1.6;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            min-height: 100dvh; /* Dynamic viewport height for modern browsers */
         }
         
         h1,h2,h3,h4 { 
@@ -107,10 +112,11 @@
             width:100%; 
         }
 
-        /* Header - Responsive improvements */
+        /* Header - Mobile Optimized with svh/dvh */
         header { 
-            min-height:100vh; 
-            min-height:100dvh; 
+            min-height:100svh; /* Small viewport height - accounts for mobile browser chrome */
+            min-height:100dvh; /* Dynamic viewport height */
+            min-height:calc(var(--app-height) - env(safe-area-inset-top)); /* iOS safe area support */
             background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; 
             display:flex; 
             flex-direction:column; 
@@ -121,6 +127,29 @@
             position:relative; 
             overflow:hidden; 
             padding:6rem 1rem 3rem; 
+            /* Ensure background covers properly on mobile */
+            background-position: center center;
+            background-size: cover;
+            background-attachment: scroll; /* Fixed causes issues on mobile */
+        }
+        
+        /* Mobile-specific background fix */
+        @media (max-width: 768px) {
+            header {
+                background-position: center top; /* Anchor to top on mobile */
+                background-size: cover;
+                min-height: 100svh;
+                min-height: -webkit-fill-available;
+                /* Fix for iOS Safari viewport issues */
+                height: -webkit-fill-available;
+            }
+        }
+        
+        /* iOS specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            header {
+                min-height: -webkit-fill-available;
+            }
         }
         
         .floating-hearts { 
@@ -128,6 +157,7 @@
             inset:0; 
             pointer-events:none; 
             z-index:1; 
+            overflow: hidden; /* Ensure hearts don't cause scroll */
         }
         
         .heart { 
@@ -136,6 +166,8 @@
             animation:float 15s linear infinite; 
             font-size:1.3rem; 
             will-change:transform,opacity; 
+            /* Ensure hearts are visible on mobile */
+            z-index: 1;
         }
         
         @keyframes float { 
@@ -145,12 +177,26 @@
             100%{transform:translateY(-10vh) scale(1.5);opacity:0} 
         }
         
+        /* Mobile animation fix - use shorter distance */
+        @media (max-width: 768px) {
+            @keyframes float { 
+                0%{transform:translateY(100%) scale(0);opacity:0} 
+                10%{opacity:1} 
+                90%{opacity:1} 
+                100%{transform:translateY(-100px) scale(1.5);opacity:0} 
+            }
+            .heart {
+                font-size: 1rem;
+            }
+        }
+        
         .header-content { 
             z-index:2; 
             animation:fadeIn 2s ease-out; 
             width:100%; 
             max-width:700px; 
             padding:0 1rem;
+            position: relative; /* Ensure proper stacking */
         }
         
         @keyframes fadeIn { 
@@ -247,7 +293,7 @@
             z-index:1; 
         }
 
-        /* Story Section - Improved Grid */
+        /* Story Section */
         .story-container { 
             display:grid; 
             grid-template-columns:1fr; 
@@ -305,7 +351,7 @@
             display:none;
         }
 
-        /* Event Cards - Container Queries for better responsiveness */
+        /* Event Cards */
         .cards-container { 
             display:grid; 
             grid-template-columns:1fr; 
@@ -328,11 +374,18 @@
             cursor:pointer; 
             position:relative; 
             width:100%;
+            /* Ensure proper touch handling */
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .event-card:hover { 
             transform:translateY(-4px); 
             box-shadow:0 18px 45px rgba(0,0,0,0.15); 
+        }
+        
+        .event-card:active {
+            transform:scale(0.98);
         }
         
         .event-card-cover { 
@@ -552,7 +605,7 @@
             word-break:break-all;
         }
 
-        /* Gallery - Performance Optimized */
+        /* Gallery */
         .gallery { 
             display:grid; 
             grid-template-columns:repeat(2, 1fr); 
@@ -852,13 +905,16 @@
             line-height:1.6; 
         }
 
-        /* Animations */
+        /* Heart Confetti - Mobile Optimized */
         .heart-confetti { 
             position:fixed; 
             pointer-events:none; 
             z-index:9999; 
             animation:heartBurst 2.5s ease-out forwards; 
             will-change:transform,opacity; 
+            /* Ensure hearts are visible above all content */
+            top: 0;
+            left: 0;
         }
         
         @keyframes heartBurst {
@@ -867,6 +923,20 @@
             50%  { opacity:1; }
             70%  { opacity:0.8; }
             100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(calc(var(--scale)*1.5)) rotate(var(--rotation)); }
+        }
+        
+        /* Mobile heart burst optimization */
+        @media (max-width: 768px) {
+            @keyframes heartBurst {
+                0%   { opacity:1; transform:translate(0,0) scale(0) rotate(0deg); }
+                20%  { opacity:1; transform:translate(calc(var(--tx)*0.3),calc(var(--ty)*0.3)) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); }
+                50%  { opacity:1; }
+                70%  { opacity:0.8; }
+                100% { opacity:0; transform:translate(calc(var(--tx)*0.8),calc(var(--ty)*0.8)) scale(calc(var(--scale)*1.2)) rotate(var(--rotation)); }
+            }
+            .heart-confetti {
+                font-size: 16px !important; /* Smaller hearts on mobile */
+            }
         }
 
         /* Tablet Breakpoint */
@@ -1217,17 +1287,35 @@
         if (el) { el.href = ['mai','lto:ashwariasrai','@gmail.com'].join(''); }
     }());
 
-    // Floating hearts animation
+    // Set app height variable for iOS Safari fix
+    const appHeight = () => {
+        const doc = document.documentElement;
+        doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+    };
+    window.addEventListener('resize', appHeight);
+    appHeight();
+
+    // Floating hearts animation - Mobile optimized
     function createHearts() {
         var c = document.getElementById('hearts-container');
-        for (var i = 0; i < 12; i++) {
+        // Clear existing hearts first
+        c.innerHTML = '';
+        
+        // Detect mobile
+        var isMobile = window.matchMedia('(max-width: 768px)').matches;
+        var heartCount = isMobile ? 8 : 12; // Fewer hearts on mobile
+        
+        for (var i = 0; i < heartCount; i++) {
             var h = document.createElement('div');
             h.className = 'heart'; 
             h.innerHTML = '&#10084;';
             h.style.left = (Math.random()*100)+'vw';
-            h.style.animationDuration = (10+Math.random()*18)+'s';
+            // Use shorter animation on mobile for better performance
+            h.style.animationDuration = (isMobile ? 8 : 10) + Math.random()*10+'s';
             h.style.animationDelay = (Math.random()*6)+'s';
             h.style.opacity = String(0.3+Math.random()*0.5);
+            // Ensure hearts start below viewport
+            h.style.top = '100%';
             c.appendChild(h);
         }
     }
@@ -1275,22 +1363,30 @@
         }
     }
 
-    // Heart burst animation
+    // Heart burst animation - Mobile optimized
     function spawnHearts(cx, cy, count, colors, duration) {
+        var isMobile = window.matchMedia('(max-width: 768px)').matches;
         var syms = ['\u2665','\u2764','\u2661'];
-        for (var l = 0; l < 3; l++) {
+        
+        // Adjust count for mobile
+        var actualCount = isMobile ? Math.floor(count * 0.6) : count;
+        
+        for (var l = 0; l < (isMobile ? 2 : 3); l++) {
             (function(layer) {
                 setTimeout(function() {
-                    for (var i = 0; i < count; i++) {
+                    for (var i = 0; i < actualCount; i++) {
                         var el = document.createElement('div');
                         el.className = 'heart-confetti';
                         el.textContent = syms[Math.floor(Math.random()*syms.length)];
-                        var size  = 14 + Math.random()*28;
+                        
+                        var size  = isMobile ? (14 + Math.random()*16) : (14 + Math.random()*28);
                         var color = colors[Math.floor(Math.random()*colors.length)];
-                        var angle = (Math.PI*2*i)/count + (Math.random()*0.4-0.2);
-                        var dist  = 100 + Math.random()*180 + layer*50;
+                        var angle = (Math.PI*2*i)/actualCount + (Math.random()*0.4-0.2);
+                        var dist  = isMobile ? (50 + Math.random()*100) : (100 + Math.random()*180 + layer*50);
+                        
                         var tx = Math.cos(angle)*dist;
                         var ty = Math.sin(angle)*dist - Math.random()*60;
+                        
                         el.style.fontSize      = size+'px';
                         el.style.color         = color;
                         el.style.left          = cx+'px';
@@ -1306,6 +1402,7 @@
                         el.style.setProperty('--ty', ty+'px');
                         el.style.setProperty('--rotation', (Math.random()*1080-540)+'deg');
                         el.style.setProperty('--scale', String(0.35+Math.random()*0.75));
+                        
                         document.body.appendChild(el);
                         setTimeout(function() { el.remove(); }, (duration+0.5)*1000);
                     }
@@ -1315,14 +1412,17 @@
     }
 
     function createHeartBurst(card) {
+        // Get click coordinates if available, otherwise use card center
         var rect = card.getBoundingClientRect();
         var cx = rect.left + rect.width/2;
         var cy = rect.top  + rect.height/2;
+        
         var ripple = document.createElement('div');
         ripple.className = 'event-card-ripple';
         ripple.style.cssText = 'width:'+rect.width+'px;height:'+rect.height+'px;left:0;top:0;transform-origin:center;';
         card.appendChild(ripple);
         setTimeout(function() { ripple.remove(); }, 800);
+        
         var colors = ['#ffffff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec','#e91e63'];
         spawnHearts(cx, cy, 18, colors, 2.6);
     }
@@ -1332,10 +1432,15 @@
         var cx = rect.left + rect.width/2;
         var cy = rect.top  + rect.height/2;
         var colors = ['#ffffff','#ffebee','#ff0000','#dc143c','#ff1744','#f44336'];
-        for (var w = 0; w < 5; w++) {
+        
+        var isMobile = window.matchMedia('(max-width: 768px)').matches;
+        var waves = isMobile ? 3 : 5;
+        
+        for (var w = 0; w < waves; w++) {
             (function(wave) {
                 setTimeout(function() {
-                    for (var b = 0; b < 3; b++) {
+                    var bursts = isMobile ? 2 : 3;
+                    for (var b = 0; b < bursts; b++) {
                         (function(burst) {
                             setTimeout(function() { spawnHearts(cx, cy, 20, colors, 2.5); }, burst*150);
                         }(b));
@@ -1438,9 +1543,27 @@
         setupScrollAnimations();
         handleScroll();
         
-        // Event card handlers
+        // Event card handlers - with both click and touch support
         document.querySelectorAll('.event-card').forEach(function(card) {
-            card.addEventListener('click', function() { toggleEventCard(card); });
+            // Use touchend for mobile to avoid scroll issues
+            var isTouch = false;
+            
+            card.addEventListener('touchstart', function() {
+                isTouch = true;
+            }, {passive: true});
+            
+            card.addEventListener('touchend', function(e) {
+                e.preventDefault(); // Prevent mouse emulation
+                toggleEventCard(card);
+            });
+            
+            card.addEventListener('click', function(e) {
+                if (!isTouch) { // Only handle click if not from touch
+                    toggleEventCard(card);
+                }
+                isTouch = false; // Reset
+            });
+            
             card.addEventListener('keydown', function(e) {
                 if (e.key==='Enter'||e.key===' ') { 
                     e.preventDefault(); 
@@ -1471,6 +1594,15 @@
     window.addEventListener('scroll', function() { 
         handleScroll(); 
     }, {passive:true});
+    
+    // Recreate hearts on resize (orientation change)
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            createHearts();
+        }, 250);
+    });
 </script>
 
 </body>
