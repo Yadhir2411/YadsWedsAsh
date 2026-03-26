@@ -173,15 +173,8 @@
     .social-links a:hover { color:var(--primary); }
     .copyright { margin-top:1.5rem; font-size:clamp(0.72rem,2vw,0.85rem); opacity:0.6; line-height:1.6; }
 
-    /* Heart confetti — iOS Safari requires setProperty, NOT cssText for custom props */
-    .heart-confetti { position:fixed; pointer-events:none; z-index:99999; will-change:transform,opacity; }
-    @keyframes heartBurst {
-        0%   { opacity:1; transform:translate(0,0) scale(0) rotate(0deg); }
-        20%  { opacity:1; transform:translate(calc(var(--tx)*0.3),calc(var(--ty)*0.3)) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); }
-        50%  { opacity:1; }
-        70%  { opacity:0.8; }
-        100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(calc(var(--scale)*1.5)) rotate(var(--rotation)); }
-    }
+    /* Heart confetti — pure JS animation, no CSS variables, works on all iOS */
+    .heart-confetti { position:fixed; pointer-events:none; z-index:99999; }
 
     @media (min-width:768px) {
         nav ul { gap:1.5rem; }
@@ -509,58 +502,57 @@
         document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
     }
 
-    // ── Heart burst — FIXED for iOS Safari ───────────────────────
-    // iOS Safari does NOT support setting CSS custom properties
-    // via el.style.cssText. They MUST be set with el.style.setProperty().
+    // ── Heart burst — pure requestAnimationFrame, works on ALL iOS versions ──
+    function animateHeart(el, tx, ty, rot, sc, dur) {
+        var startTime = null;
+        function frame(ts) {
+            if (!startTime) startTime = ts;
+            var p    = Math.min((ts - startTime) / (dur * 1000), 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            var s    = p < 0.12 ? (p / 0.12) * sc : sc + ease * sc * 0.4;
+            var op   = p < 0.08 ? p / 0.08 : (p < 0.65 ? 1 : Math.max(0, 1 - (p - 0.65) / 0.35));
+            el.style.transform = 'translate(' + (tx * ease) + 'px,' + (ty * ease) + 'px) scale(' + s + ') rotate(' + (rot * ease) + 'deg)';
+            el.style.opacity   = String(op);
+            if (p < 1) { requestAnimationFrame(frame); }
+            else { if (el.parentNode) el.parentNode.removeChild(el); }
+        }
+        requestAnimationFrame(frame);
+    }
+
     function spawnHearts(x, y, count, colors, duration) {
         var isMobile = window.innerWidth <= 768;
-        var n = isMobile ? Math.max(8, Math.floor(count * 0.65)) : count;
-        var dur = isMobile ? 2.0 : 2.5;
-        var syms = ['\u2665', '\u2764', '\u2661'];
-
+        var n   = isMobile ? Math.max(8, Math.floor(count * 0.65)) : count;
+        var dur = isMobile ? 1.8 : 2.4;
+        var syms = ['♥', '❤', '♡'];
         for (var i = 0; i < n; i++) {
             (function(idx) {
                 setTimeout(function() {
-                    var el = document.createElement('div');
-                    el.className = 'heart-confetti';
+                    var el    = document.createElement('div');
+                    el.className   = 'heart-confetti';
                     el.textContent = syms[idx % syms.length];
-
                     var size  = (isMobile ? 14 : 18) + Math.random() * 12;
                     var color = colors[Math.floor(Math.random() * colors.length)];
                     var angle = (Math.PI * 2 * idx / n) + (Math.random() * 0.5 - 0.25);
-                    var dist  = (isMobile ? 60 : 90) + Math.random() * (isMobile ? 80 : 120);
+                    var dist  = (isMobile ? 65 : 100) + Math.random() * (isMobile ? 85 : 120);
                     var tx    = Math.cos(angle) * dist;
                     var ty    = Math.sin(angle) * dist - Math.random() * 60;
                     var rot   = Math.random() * 720 - 360;
-                    var sc    = 0.4 + Math.random() * 0.7;
-                    var delay = Math.random() * 0.12;
-
-                    // Base styles — set individually (NOT via cssText for custom props)
-                    el.style.position       = 'fixed';
-                    el.style.left           = x + 'px';
-                    el.style.top            = y + 'px';
-                    el.style.fontSize       = size + 'px';
-                    el.style.color          = color;
-                    el.style.zIndex         = '99999';
-                    el.style.pointerEvents  = 'none';
-                    el.style.willChange     = 'transform, opacity';
-                    el.style.animation      = 'heartBurst ' + dur + 's ease-out ' + delay + 's forwards';
-                    el.style.textShadow     = '0 0 8px ' + color;
-
-                    // CSS custom properties MUST use setProperty on iOS Safari
-                    el.style.setProperty('--tx',       tx  + 'px');
-                    el.style.setProperty('--ty',       ty  + 'px');
-                    el.style.setProperty('--rotation', rot + 'deg');
-                    el.style.setProperty('--scale',    String(sc));
-
+                    var sc    = 0.5 + Math.random() * 0.7;
+                    el.style.position   = 'fixed';
+                    el.style.left       = x + 'px';
+                    el.style.top        = y + 'px';
+                    el.style.fontSize   = size + 'px';
+                    el.style.color      = color;
+                    el.style.textShadow = '0 0 8px ' + color;
+                    el.style.opacity    = '0';
+                    el.style.transform  = 'scale(0)';
                     document.body.appendChild(el);
-                    setTimeout(function() {
-                        if (el.parentNode) el.parentNode.removeChild(el);
-                    }, (dur + delay + 0.4) * 1000);
-                }, idx * 20);
+                    requestAnimationFrame(function() { animateHeart(el, tx, ty, rot, sc, dur); });
+                }, idx * 18);
             })(i);
         }
     }
+
 
     function createHeartBurst(card) {
         var rect = card.getBoundingClientRect();
