@@ -15,7 +15,6 @@
             --accent:#d4a373; 
             --light:#f8f1e9; 
             --dark:#333333; 
-            --app-height: 100vh;
         }
         
         *,*::before,*::after { 
@@ -29,7 +28,7 @@
             scroll-behavior:smooth; 
             font-size:16px; 
             -webkit-text-size-adjust:100%;
-            height: -webkit-fill-available;
+            height: 100%;
         }
         
         body { 
@@ -39,9 +38,7 @@
             overflow-x:hidden; 
             -webkit-font-smoothing:antialiased;
             line-height:1.6;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            min-height: 100dvh; /* Dynamic viewport height for modern browsers */
+            height: 100%;
         }
         
         h1,h2,h3,h4 { 
@@ -49,7 +46,7 @@
             font-weight:700; 
         }
 
-        /* Navigation - Mobile First */
+        /* Navigation */
         nav { 
             position:fixed; 
             top:0; 
@@ -112,11 +109,13 @@
             width:100%; 
         }
 
-        /* Header - Mobile Optimized with svh/dvh */
+        /* Header - CRITICAL FIX for mobile viewport */
         header { 
-            min-height:100svh; /* Small viewport height - accounts for mobile browser chrome */
-            min-height:100dvh; /* Dynamic viewport height */
-            min-height:calc(var(--app-height) - env(safe-area-inset-top)); /* iOS safe area support */
+            position: relative;
+            height: 100%; /* Use percentage instead of vh */
+            min-height: 100vh; /* Fallback */
+            min-height: 100svh; /* Small viewport height */
+            min-height: -webkit-fill-available; /* iOS Safari */
             background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; 
             display:flex; 
             flex-direction:column; 
@@ -124,79 +123,94 @@
             align-items:center; 
             text-align:center; 
             color:white; 
-            position:relative; 
             overflow:hidden; 
             padding:6rem 1rem 3rem; 
-            /* Ensure background covers properly on mobile */
-            background-position: center center;
+            background-position: center top; /* Anchor to top */
             background-size: cover;
-            background-attachment: scroll; /* Fixed causes issues on mobile */
+            background-attachment: scroll;
         }
         
-        /* Mobile-specific background fix */
-        @media (max-width: 768px) {
-            header {
-                background-position: center top; /* Anchor to top on mobile */
-                background-size: cover;
-                min-height: 100svh;
-                min-height: -webkit-fill-available;
-                /* Fix for iOS Safari viewport issues */
-                height: -webkit-fill-available;
-            }
-        }
-        
-        /* iOS specific fixes */
+        /* iOS specific fix */
         @supports (-webkit-touch-callout: none) {
             header {
                 min-height: -webkit-fill-available;
             }
         }
-        
+
+        /* Floating Hearts Container - CRITICAL FIX */
         .floating-hearts { 
-            position:absolute; 
-            inset:0; 
-            pointer-events:none; 
-            z-index:1; 
-            overflow: hidden; /* Ensure hearts don't cause scroll */
+            position: absolute; /* Changed from fixed to absolute within header */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; 
+            z-index: 1; 
+            overflow: hidden;
         }
         
+        /* Heart Animation - GPU Accelerated */
         .heart { 
-            position:absolute; 
-            color:rgba(255,255,255,0.6); 
-            animation:float 15s linear infinite; 
-            font-size:1.3rem; 
-            will-change:transform,opacity; 
-            /* Ensure hearts are visible on mobile */
-            z-index: 1;
+            position: absolute; 
+            color:rgba(255,255,255,0.7); 
+            font-size: 20px;
+            will-change: transform, opacity;
+            /* Force GPU acceleration */
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            z-index: 2;
         }
         
-        @keyframes float { 
-            0%{transform:translateY(100vh) scale(0);opacity:0} 
-            10%{opacity:1} 
-            90%{opacity:1} 
-            100%{transform:translateY(-10vh) scale(1.5);opacity:0} 
+        /* Animation keyframes - using translate3d for GPU */
+        @keyframes floatUp { 
+            0% {
+                transform: translate3d(0, 100vh, 0) scale(0.5);
+                opacity: 0;
+            } 
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            } 
+            100% {
+                transform: translate3d(0, -100vh, 0) scale(1.2);
+                opacity: 0;
+            } 
         }
         
-        /* Mobile animation fix - use shorter distance */
+        /* Mobile-specific animation with shorter distance */
         @media (max-width: 768px) {
-            @keyframes float { 
-                0%{transform:translateY(100%) scale(0);opacity:0} 
-                10%{opacity:1} 
-                90%{opacity:1} 
-                100%{transform:translateY(-100px) scale(1.5);opacity:0} 
+            @keyframes floatUp { 
+                0% {
+                    transform: translate3d(0, 100%, 0) scale(0.5);
+                    opacity: 0;
+                } 
+                10% {
+                    opacity: 0.8;
+                }
+                90% {
+                    opacity: 0.8;
+                } 
+                100% {
+                    transform: translate3d(0, -100vh, 0) scale(1.2);
+                    opacity: 0;
+                } 
             }
             .heart {
-                font-size: 1rem;
+                font-size: 16px;
             }
         }
         
         .header-content { 
-            z-index:2; 
+            position: relative;
+            z-index:3; 
             animation:fadeIn 2s ease-out; 
             width:100%; 
             max-width:700px; 
             padding:0 1rem;
-            position: relative; /* Ensure proper stacking */
         }
         
         @keyframes fadeIn { 
@@ -351,7 +365,7 @@
             display:none;
         }
 
-        /* Event Cards */
+        /* Event Cards - CRITICAL FIX for touch */
         .cards-container { 
             display:grid; 
             grid-template-columns:1fr; 
@@ -374,9 +388,13 @@
             cursor:pointer; 
             position:relative; 
             width:100%;
-            /* Ensure proper touch handling */
+            /* Critical for mobile touch */
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            /* Ensure clickability */
+            z-index: 10;
         }
         
         .event-card:hover { 
@@ -393,6 +411,7 @@
             width:100%; 
             aspect-ratio:16/9; 
             overflow:hidden; 
+            pointer-events: none; /* Let clicks pass through to card */
         }
         
         .event-card-cover img { 
@@ -401,6 +420,7 @@
             object-fit:cover; 
             transition:transform 0.55s ease; 
             display:block; 
+            pointer-events: none;
         }
         
         .event-card:hover .event-card-cover img { 
@@ -412,6 +432,7 @@
             inset:0; 
             background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%); 
             transition:background 0.4s ease; 
+            pointer-events: none;
         }
         
         .event-card.is-open .event-card-cover-overlay { 
@@ -429,6 +450,7 @@
             justify-content:space-between;
             flex-wrap:wrap;
             gap:0.5rem;
+            pointer-events: none;
         }
         
         .event-card-title { 
@@ -455,6 +477,7 @@
             letter-spacing:0.5px; 
             white-space:nowrap; 
             flex-shrink:0; 
+            pointer-events: none;
         }
         
         .event-card-tap-hint i { 
@@ -905,37 +928,39 @@
             line-height:1.6; 
         }
 
-        /* Heart Confetti - Mobile Optimized */
+        /* Heart Confetti - CRITICAL FIX for mobile */
         .heart-confetti { 
-            position:fixed; 
-            pointer-events:none; 
-            z-index:9999; 
-            animation:heartBurst 2.5s ease-out forwards; 
-            will-change:transform,opacity; 
-            /* Ensure hearts are visible above all content */
+            position: fixed; 
             top: 0;
             left: 0;
+            pointer-events:none; 
+            z-index:9999; 
+            will-change: transform, opacity;
+            /* Force GPU acceleration */
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         @keyframes heartBurst {
-            0%   { opacity:1; transform:translate(0,0) scale(0) rotate(0deg); }
-            20%  { opacity:1; transform:translate(calc(var(--tx)*0.3),calc(var(--ty)*0.3)) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); }
-            50%  { opacity:1; }
-            70%  { opacity:0.8; }
-            100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(calc(var(--scale)*1.5)) rotate(var(--rotation)); }
-        }
-        
-        /* Mobile heart burst optimization */
-        @media (max-width: 768px) {
-            @keyframes heartBurst {
-                0%   { opacity:1; transform:translate(0,0) scale(0) rotate(0deg); }
-                20%  { opacity:1; transform:translate(calc(var(--tx)*0.3),calc(var(--ty)*0.3)) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); }
-                50%  { opacity:1; }
-                70%  { opacity:0.8; }
-                100% { opacity:0; transform:translate(calc(var(--tx)*0.8),calc(var(--ty)*0.8)) scale(calc(var(--scale)*1.2)) rotate(var(--rotation)); }
+            0%   { 
+                opacity:1; 
+                transform:translate3d(0,0,0) scale(0) rotate(0deg); 
             }
-            .heart-confetti {
-                font-size: 16px !important; /* Smaller hearts on mobile */
+            20%  { 
+                opacity:1; 
+                transform:translate3d(calc(var(--tx)*0.3),calc(var(--ty)*0.3),0) scale(var(--scale)) rotate(calc(var(--rotation)*0.3)); 
+            }
+            50%  { 
+                opacity:1; 
+            }
+            70%  { 
+                opacity:0.8; 
+            }
+            100% { 
+                opacity:0; 
+                transform:translate3d(var(--tx),var(--ty),0) scale(calc(var(--scale)*1.5)) rotate(var(--rotation)); 
             }
         }
 
@@ -1035,21 +1060,9 @@
                 animation-iteration-count:1 !important;
                 transition-duration:0.01ms !important;
             }
-            .heart {
-                animation:none;
+            .heart, .heart-confetti {
+                animation:none !important;
             }
-        }
-
-        /* Loading state for images */
-        .image-placeholder {
-            background:linear-gradient(90deg, var(--primary) 25%, var(--light) 50%, var(--primary) 75%);
-            background-size:200% 100%;
-            animation:loading 1.5s infinite;
-        }
-        
-        @keyframes loading {
-            0% { background-position:200% 0; }
-            100% { background-position:-200% 0; }
         }
     </style>
 </head>
@@ -1277,7 +1290,7 @@
     </div>
 </footer>
 
-<!-- LazySizes Library for efficient lazy loading -->
+<!-- LazySizes Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
 <script>
@@ -1287,37 +1300,85 @@
         if (el) { el.href = ['mai','lto:ashwariasrai','@gmail.com'].join(''); }
     }());
 
-    // Set app height variable for iOS Safari fix
-    const appHeight = () => {
-        const doc = document.documentElement;
-        doc.style.setProperty('--app-height', `${window.innerHeight}px`);
-    };
-    window.addEventListener('resize', appHeight);
-    appHeight();
-
-    // Floating hearts animation - Mobile optimized
+    // Floating hearts animation - COMPLETELY REWRITTEN for mobile
     function createHearts() {
-        var c = document.getElementById('hearts-container');
-        // Clear existing hearts first
-        c.innerHTML = '';
+        var container = document.getElementById('hearts-container');
+        if (!container) return;
+        
+        // Clear existing
+        container.innerHTML = '';
         
         // Detect mobile
         var isMobile = window.matchMedia('(max-width: 768px)').matches;
-        var heartCount = isMobile ? 8 : 12; // Fewer hearts on mobile
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        var heartCount = isMobile ? 12 : 18;
         
+        // Create hearts
         for (var i = 0; i < heartCount; i++) {
-            var h = document.createElement('div');
-            h.className = 'heart'; 
-            h.innerHTML = '&#10084;';
-            h.style.left = (Math.random()*100)+'vw';
-            // Use shorter animation on mobile for better performance
-            h.style.animationDuration = (isMobile ? 8 : 10) + Math.random()*10+'s';
-            h.style.animationDelay = (Math.random()*6)+'s';
-            h.style.opacity = String(0.3+Math.random()*0.5);
-            // Ensure hearts start below viewport
-            h.style.top = '100%';
-            c.appendChild(h);
+            (function(index) {
+                setTimeout(function() {
+                    var heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '&#10084;';
+                    
+                    // Random properties
+                    var leftPos = Math.random() * 90 + 5; // 5% to 95%
+                    var duration = 8 + Math.random() * 8;
+                    var delay = Math.random() * 3;
+                    var scale = 0.5 + Math.random() * 0.8;
+                    
+                    // Apply styles
+                    heart.style.left = leftPos + '%';
+                    heart.style.bottom = '-50px'; // Start below
+                    heart.style.animation = 'floatUp ' + duration + 's linear infinite';
+                    heart.style.animationDelay = delay + 's';
+                    heart.style.opacity = String(0.4 + Math.random() * 0.4);
+                    heart.style.transform = 'scale(' + scale + ')';
+                    
+                    container.appendChild(heart);
+                    
+                    // Remove and recreate for continuous flow
+                    setTimeout(function() {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                        // Create replacement
+                        createSingleHeart();
+                    }, (duration + delay) * 1000);
+                    
+                }, i * 300); // Stagger creation
+            })(i);
         }
+    }
+    
+    // Create a single replacement heart
+    function createSingleHeart() {
+        var container = document.getElementById('hearts-container');
+        if (!container) return;
+        
+        var heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '&#10084;';
+        
+        var leftPos = Math.random() * 90 + 5;
+        var duration = 8 + Math.random() * 8;
+        var scale = 0.5 + Math.random() * 0.8;
+        
+        heart.style.left = leftPos + '%';
+        heart.style.bottom = '-50px';
+        heart.style.animation = 'floatUp ' + duration + 's linear infinite';
+        heart.style.opacity = String(0.4 + Math.random() * 0.4);
+        heart.style.transform = 'scale(' + scale + ')';
+        
+        container.appendChild(heart);
+        
+        // Self-removing
+        setTimeout(function() {
+            if (heart.parentNode) {
+                heart.parentNode.removeChild(heart);
+            }
+            createSingleHeart();
+        }, duration * 1000);
     }
 
     // Countdown timer
@@ -1363,74 +1424,84 @@
         }
     }
 
-    // Heart burst animation - Mobile optimized
-    function spawnHearts(cx, cy, count, colors, duration) {
+    // Heart burst animation - OPTIMIZED for mobile
+    function spawnHearts(x, y, count, colors, duration) {
         var isMobile = window.matchMedia('(max-width: 768px)').matches;
         var syms = ['\u2665','\u2764','\u2661'];
         
-        // Adjust count for mobile
+        // Reduce count on mobile
         var actualCount = isMobile ? Math.floor(count * 0.6) : count;
         
-        for (var l = 0; l < (isMobile ? 2 : 3); l++) {
-            (function(layer) {
+        for (var i = 0; i < actualCount; i++) {
+            (function(index) {
                 setTimeout(function() {
-                    for (var i = 0; i < actualCount; i++) {
-                        var el = document.createElement('div');
-                        el.className = 'heart-confetti';
-                        el.textContent = syms[Math.floor(Math.random()*syms.length)];
-                        
-                        var size  = isMobile ? (14 + Math.random()*16) : (14 + Math.random()*28);
-                        var color = colors[Math.floor(Math.random()*colors.length)];
-                        var angle = (Math.PI*2*i)/actualCount + (Math.random()*0.4-0.2);
-                        var dist  = isMobile ? (50 + Math.random()*100) : (100 + Math.random()*180 + layer*50);
-                        
-                        var tx = Math.cos(angle)*dist;
-                        var ty = Math.sin(angle)*dist - Math.random()*60;
-                        
-                        el.style.fontSize      = size+'px';
-                        el.style.color         = color;
-                        el.style.left          = cx+'px';
-                        el.style.top           = cy+'px';
-                        el.style.position      = 'fixed';
-                        el.style.pointerEvents = 'none';
-                        el.style.zIndex        = '9999';
-                        el.style.animation     = 'heartBurst '+duration+'s ease-out forwards';
-                        el.style.animationDelay = (Math.random()*0.25)+'s';
-                        el.style.textShadow    = '0 0 10px '+color;
-                        el.style.filter        = 'drop-shadow(0 0 6px '+color+')';
-                        el.style.setProperty('--tx', tx+'px');
-                        el.style.setProperty('--ty', ty+'px');
-                        el.style.setProperty('--rotation', (Math.random()*1080-540)+'deg');
-                        el.style.setProperty('--scale', String(0.35+Math.random()*0.75));
-                        
-                        document.body.appendChild(el);
-                        setTimeout(function() { el.remove(); }, (duration+0.5)*1000);
-                    }
-                }, layer*120);
-            }(l));
+                    var el = document.createElement('div');
+                    el.className = 'heart-confetti';
+                    el.textContent = syms[Math.floor(Math.random() * syms.length)];
+                    
+                    var size = isMobile ? (14 + Math.random() * 12) : (18 + Math.random() * 16);
+                    var color = colors[Math.floor(Math.random() * colors.length)];
+                    var angle = (Math.PI * 2 * index) / actualCount;
+                    var dist = isMobile ? (60 + Math.random() * 80) : (100 + Math.random() * 120);
+                    
+                    var tx = Math.cos(angle) * dist;
+                    var ty = Math.sin(angle) * dist - 40;
+                    var rotation = Math.random() * 720 - 360;
+                    var scale = 0.4 + Math.random() * 0.6;
+                    
+                    // Apply all styles at once
+                    el.style.cssText = [
+                        'position: fixed',
+                        'left: ' + x + 'px',
+                        'top: ' + y + 'px',
+                        'font-size: ' + size + 'px',
+                        'color: ' + color,
+                        'z-index: 99999',
+                        'pointer-events: none',
+                        'will-change: transform, opacity',
+                        'transform: translate3d(0,0,0)',
+                        '-webkit-transform: translate3d(0,0,0)',
+                        'animation: heartBurst ' + (isMobile ? 2 : 2.5) + 's ease-out forwards',
+                        '--tx: ' + tx + 'px',
+                        '--ty: ' + ty + 'px',
+                        '--rotation: ' + rotation + 'deg',
+                        '--scale: ' + scale
+                    ].join(';');
+                    
+                    document.body.appendChild(el);
+                    
+                    // Cleanup
+                    setTimeout(function() {
+                        if (el.parentNode) el.parentNode.removeChild(el);
+                    }, 3000);
+                    
+                }, index * 30);
+            })(i);
         }
     }
 
     function createHeartBurst(card) {
-        // Get click coordinates if available, otherwise use card center
+        // Get position relative to viewport
         var rect = card.getBoundingClientRect();
-        var cx = rect.left + rect.width/2;
-        var cy = rect.top  + rect.height/2;
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
         
+        // Visual feedback - ripple
         var ripple = document.createElement('div');
         ripple.className = 'event-card-ripple';
-        ripple.style.cssText = 'width:'+rect.width+'px;height:'+rect.height+'px;left:0;top:0;transform-origin:center;';
+        ripple.style.cssText = 'width:' + rect.width + 'px;height:' + rect.height + 'px;left:0;top:0;';
         card.appendChild(ripple);
         setTimeout(function() { ripple.remove(); }, 800);
         
+        // Burst colors
         var colors = ['#ffffff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec','#e91e63'];
-        spawnHearts(cx, cy, 18, colors, 2.6);
+        spawnHearts(cx, cy, 24, colors, 2.5);
     }
 
     function createRSVPCelebration(btn) {
         var rect = btn.getBoundingClientRect();
-        var cx = rect.left + rect.width/2;
-        var cy = rect.top  + rect.height/2;
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
         var colors = ['#ffffff','#ffebee','#ff0000','#dc143c','#ff1744','#f44336'];
         
         var isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -1442,30 +1513,36 @@
                     var bursts = isMobile ? 2 : 3;
                     for (var b = 0; b < bursts; b++) {
                         (function(burst) {
-                            setTimeout(function() { spawnHearts(cx, cy, 20, colors, 2.5); }, burst*150);
-                        }(b));
+                            setTimeout(function() { 
+                                spawnHearts(cx, cy, 15, colors, 2.5); 
+                            }, burst * 100);
+                        })(b);
                     }
-                }, wave*200);
-            }(w));
+                }, wave * 150);
+            })(w);
         }
     }
 
     // Event card toggle
     function toggleEventCard(card) {
         var opening = !card.classList.contains('is-open');
+        
+        // Close others
         document.querySelectorAll('.event-card.is-open').forEach(function(c) {
             if (c !== card) { 
                 c.classList.remove('is-open'); 
                 c.setAttribute('aria-expanded','false'); 
             }
         });
+        
         card.classList.toggle('is-open', opening);
         card.setAttribute('aria-expanded', opening ? 'true' : 'false');
+        
         if (opening) {
             createHeartBurst(card);
             setTimeout(function() { 
                 card.scrollIntoView({behavior:'smooth',block:'nearest'}); 
-            }, 220);
+            }, 300);
         }
     }
 
@@ -1473,9 +1550,9 @@
     document.querySelectorAll('a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
             e.preventDefault();
-            var t = document.querySelector(a.getAttribute('href'));
-            if (t) { 
-                t.scrollIntoView({behavior:'smooth'}); 
+            var target = document.querySelector(a.getAttribute('href'));
+            if (target) { 
+                target.scrollIntoView({behavior:'smooth'}); 
             }
         });
     });
@@ -1485,7 +1562,7 @@
         var checkbox = document.getElementById(id);
         if (checkbox) {
             checkbox.addEventListener('change', function() {
-                document.getElementById(id+'-guests').classList.toggle('visible', this.checked);
+                document.getElementById(id + '-guests').classList.toggle('visible', this.checked);
             });
         }
     });
@@ -1503,22 +1580,24 @@
         var btn = document.getElementById('submit-rsvp');
         btn.textContent = 'Sending...'; 
         btn.disabled = true;
+        
         var payload = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
-            mehendi_attending: m?'Yes':'No', 
-            mehendi_guests: m?document.getElementById('mehendi-count').value:'0',
-            hurdhee_attending: h?'Yes':'No', 
-            hurdhee_guests: h?document.getElementById('hurdhee-count').value:'0',
-            reception_attending: r?'Yes':'No', 
-            reception_guests: r?document.getElementById('reception-count').value:'0',
+            mehendi_attending: m ? 'Yes' : 'No', 
+            mehendi_guests: m ? document.getElementById('mehendi-count').value : '0',
+            hurdhee_attending: h ? 'Yes' : 'No', 
+            hurdhee_guests: h ? document.getElementById('hurdhee-count').value : '0',
+            reception_attending: r ? 'Yes' : 'No', 
+            reception_guests: r ? document.getElementById('reception-count').value : '0',
             message: document.getElementById('message').value,
             timestamp: new Date().toLocaleString()
         };
+        
         try {
             await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
-                {method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+                {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
             createRSVPCelebration(btn);
             setTimeout(function() {
                 alert('Thank you for your RSVP! We look forward to celebrating with you.');
@@ -1535,37 +1614,33 @@
         }
     });
 
-    // Initialize
-    window.addEventListener('load', function() {
+    // Initialize - CRITICAL: Wait for DOM and use proper event handling
+    function init() {
         createHearts();
         updateCountdown();
         setInterval(updateCountdown, 1000);
         setupScrollAnimations();
         handleScroll();
         
-        // Event card handlers - with both click and touch support
+        // Event card handlers - CRITICAL FIX for mobile
         document.querySelectorAll('.event-card').forEach(function(card) {
-            // Use touchend for mobile to avoid scroll issues
-            var isTouch = false;
-            
-            card.addEventListener('touchstart', function() {
-                isTouch = true;
-            }, {passive: true});
-            
-            card.addEventListener('touchend', function(e) {
-                e.preventDefault(); // Prevent mouse emulation
+            // Use click for both desktop and mobile (with touch-action CSS)
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 toggleEventCard(card);
             });
             
-            card.addEventListener('click', function(e) {
-                if (!isTouch) { // Only handle click if not from touch
-                    toggleEventCard(card);
-                }
-                isTouch = false; // Reset
+            // Also handle touch explicitly for iOS
+            card.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleEventCard(card);
             });
             
+            // Keyboard accessibility
             card.addEventListener('keydown', function(e) {
-                if (e.key==='Enter'||e.key===' ') { 
+                if (e.key === 'Enter' || e.key === ' ') { 
                     e.preventDefault(); 
                     toggleEventCard(card); 
                 }
@@ -1583,25 +1658,30 @@
         }
         tryPlay();
         ['click','touchstart','scroll','keydown'].forEach(function(ev) {
-            document.addEventListener(ev, tryPlay, {once:true,passive:true});
+            document.addEventListener(ev, tryPlay, {once:true, passive:true});
         });
         document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState==='visible') { tryPlay(); }
+            if (document.visibilityState === 'visible') { tryPlay(); }
         }, {once:true});
-    });
+    }
 
-    // Scroll listener with passive flag for performance
+    // Run initialization
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    // Scroll listener
     window.addEventListener('scroll', function() { 
         handleScroll(); 
     }, {passive:true});
     
-    // Recreate hearts on resize (orientation change)
-    var resizeTimer;
+    // Handle resize
     window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            createHearts();
-        }, 250);
+        // Recreate hearts on orientation change
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(createHearts, 300);
     });
 </script>
 
