@@ -48,17 +48,12 @@
     @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
     /* FIX: fixed so hearts float over full viewport on all devices */
-    .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; overflow:hidden; }
+    .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
 
     .heart { position:absolute; color:rgba(255,255,255,0.7); font-size:18px; pointer-events:none; will-change:transform,opacity; }
 
     /* Single clean keyframe — works on all browsers including iOS Safari */
-    @keyframes floatUp {
-        0%   { transform:translateY(0)      scale(0.5); opacity:0;   }
-        10%  { opacity:0.8; }
-        90%  { opacity:0.8; }
-        100% { transform:translateY(-220vh) scale(1.2); opacity:0;   }
-    }
+    /* floatUp now handled via requestAnimationFrame for iOS Safari compatibility */
 
     .header-content { position:relative; z-index:4; animation:fadeIn 2s ease-out; width:100%; max-width:700px; padding:0 1rem; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
@@ -90,8 +85,8 @@
     .event-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.1); transition:transform 0.35s ease,box-shadow 0.35s ease; cursor:pointer; position:relative; width:100%; touch-action:manipulation; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
     .event-card:hover { transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.15); }
     .event-card:active { transform:scale(0.98); }
-    .event-card-cover { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; pointer-events:none; }
-    .event-card-cover img { width:100%; height:100%; object-fit:cover; object-position:center top; transition:transform 0.55s ease; display:block; pointer-events:none; }
+    .event-card-cover { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; pointer-events:none; background:#1a1008; }
+    .event-card-cover img { width:100%; height:100%; object-fit:contain; object-position:center center; transition:transform 0.55s ease; display:block; pointer-events:none; }
     .event-card:hover .event-card-cover img { transform:scale(1.05); }
     .event-card-cover-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%); transition:background 0.4s ease; pointer-events:none; }
     .event-card.is-open .event-card-cover-overlay { background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.05) 55%); }
@@ -187,7 +182,7 @@
         .story-image { transform:translateX(20px); }
         .story-text.visible,.story-image.visible { transform:translateX(0); }
         .story-image::before { display:block; }
-        .event-card-cover { aspect-ratio:3/2; }
+        .event-card-cover { aspect-ratio:3/2; background:#1a1008; }
     }
     @media (min-width:1200px) { nav a { font-size:0.92rem; } }
     @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
@@ -255,7 +250,7 @@
     <div class="cards-container">
         <div class="event-card" id="card-mehendi" role="button" tabindex="0" aria-expanded="false">
             <div class="event-card-cover">
-                <img src="Images/mendhi3.jpeg" alt="Mehendi Ceremony" loading="lazy" width="800" height="533">
+                <img src="Images/mendhi2.jpeg" alt="Mehendi Ceremony" loading="lazy" width="800" height="533">
                 <div class="event-card-cover-overlay"></div>
                 <div class="event-card-cover-text">
                     <div class="event-card-title">Mehendi</div>
@@ -433,36 +428,52 @@
     // ── Floating hearts — Home + Our Story sections only ─────────
     var heartsActive = true; // stops spawning new hearts after story section
 
-    // Watch when #prewedding enters the viewport — that's our cutoff
+    // Stop hearts once #story scrolls fully out of view (user is past it).
+    // Uses rootMargin to trigger slightly before story bottom leaves viewport.
     function setupHeartsObserver() {
         if (!('IntersectionObserver' in window)) return;
-        var cutoff = document.getElementById('prewedding');
-        if (!cutoff) return;
+        var storySection = document.getElementById('story');
+        if (!storySection) return;
+
+        function stopHearts() {
+            heartsActive = false;
+            var container = document.getElementById('hearts-container');
+            if (container) {
+                Array.prototype.forEach.call(container.children, function(h) {
+                    h.style.transition = 'opacity 0.5s ease';
+                    h.style.opacity = '0';
+                    setTimeout(function() { if (h.parentNode) h.parentNode.removeChild(h); }, 550);
+                });
+            }
+        }
+
+        function startHearts() {
+            if (!heartsActive) {
+                heartsActive = true;
+                createHearts();
+            }
+        }
+
+        // Observer fires when story section is/isn't intersecting the viewport
         var obs = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    // Pre-wedding is visible — stop hearts and clear container
-                    heartsActive = false;
-                    var container = document.getElementById('hearts-container');
-                    if (container) {
-                        // Fade out remaining hearts quickly
-                        Array.prototype.forEach.call(container.children, function(h) {
-                            h.style.transition = 'opacity 0.6s ease';
-                            h.style.opacity = '0';
-                            setTimeout(function() {
-                                if (h.parentNode) h.parentNode.removeChild(h);
-                            }, 650);
-                        });
-                    }
+                    startHearts();
                 } else {
-                    // Back in Home/Story — restart hearts
-                    var wasActive = heartsActive;
-                    heartsActive = true;
-                    if (!wasActive) { createHearts(); }
+                    // Only stop if user has scrolled PAST story (not above home)
+                    // boundingClientRect.top < 0 means section scrolled above viewport
+                    if (entry.boundingClientRect.top < 0) {
+                        stopHearts();
+                    }
                 }
             });
-        }, { threshold: 0.12 });
-        obs.observe(cutoff);
+        }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
+
+        obs.observe(storySection);
+
+        // Also watch home section so hearts restart when scrolling back up
+        var homeSection = document.getElementById('home');
+        if (homeSection) { obs.observe(homeSection); }
     }
 
     function createHearts() {
@@ -479,21 +490,41 @@
 
     function addHeart(container, isMobile, delay) {
         setTimeout(function() {
-            if (!heartsActive) return; // stop spawning if past story
+            if (!heartsActive) return;
             var h = document.createElement('div');
             h.className = 'heart';
             h.innerHTML = '&#10084;';
             var duration = 7 + Math.random() * 8;
-            h.style.left      = (5 + Math.random() * 90) + '%';
-            h.style.top       = '105vh';
-            h.style.fontSize  = (isMobile ? 12 : 16) + Math.floor(Math.random() * 8) + 'px';
-            h.style.opacity   = String(0.4 + Math.random() * 0.4);
-            h.style.animation = 'floatUp ' + duration + 's linear forwards';
+            var leftPct  = 5 + Math.random() * 90;
+            var size     = (isMobile ? 12 : 16) + Math.floor(Math.random() * 8);
+            h.style.left     = leftPct + '%';
+            h.style.top      = '100%';   // bottom of the fixed container
+            h.style.fontSize = size + 'px';
+            h.style.opacity  = '0';
             container.appendChild(h);
-            setTimeout(function() {
-                if (h.parentNode) h.parentNode.removeChild(h);
-                if (heartsActive) { addHeart(container, isMobile, 0); } // only recycle if still active
-            }, duration * 1000);
+            // Animate via RAF — avoids iOS Safari overflow/keyframe issues
+            var startTime = null;
+            var baseOpacity = 0.4 + Math.random() * 0.4;
+            var durationMs  = duration * 1000;
+            function frame(ts) {
+                if (!startTime) startTime = ts;
+                var p = Math.min((ts - startTime) / durationMs, 1);
+                // Move from bottom (100%) to top (-20%) of viewport
+                var yPct = 100 - p * 120;
+                var sc   = 0.5 + p * 0.7;
+                var op   = p < 0.08 ? p / 0.08 * baseOpacity
+                         : p > 0.85 ? baseOpacity * (1 - (p - 0.85) / 0.15)
+                         : baseOpacity;
+                h.style.transform = 'translateY(' + (yPct - 100) + 'vh) scale(' + sc + ')';
+                h.style.opacity   = String(Math.max(0, op));
+                if (p < 1) {
+                    requestAnimationFrame(frame);
+                } else {
+                    if (h.parentNode) h.parentNode.removeChild(h);
+                    if (heartsActive) { addHeart(container, isMobile, 0); }
+                }
+            }
+            requestAnimationFrame(frame);
         }, delay);
     }
 
