@@ -90,8 +90,8 @@
     .event-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.1); transition:transform 0.35s ease,box-shadow 0.35s ease; cursor:pointer; position:relative; width:100%; touch-action:manipulation; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
     .event-card:hover { transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.15); }
     .event-card:active { transform:scale(0.98); }
-    .event-card-cover { position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; pointer-events:none; }
-    .event-card-cover img { width:100%; height:100%; object-fit:cover; transition:transform 0.55s ease; display:block; pointer-events:none; }
+    .event-card-cover { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; pointer-events:none; }
+    .event-card-cover img { width:100%; height:100%; object-fit:cover; object-position:center top; transition:transform 0.55s ease; display:block; pointer-events:none; }
     .event-card:hover .event-card-cover img { transform:scale(1.05); }
     .event-card-cover-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%); transition:background 0.4s ease; pointer-events:none; }
     .event-card.is-open .event-card-cover-overlay { background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.05) 55%); }
@@ -139,7 +139,7 @@
     .gallery-item::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); opacity:0; transition:opacity 0.3s ease; }
     .gallery-item:hover::after { opacity:1; }
 
-    .rsvp-section { background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('Images/35.jpeg') no-repeat center center/cover; color:white; text-align:center; padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem); max-width:100%; }
+    .rsvp-section { background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('Images/rsvp1.jpeg') no-repeat center center/cover; color:white; text-align:center; padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem); max-width:100%; }
     .rsvp-section .section-title h2 { background-color:transparent; color:white; }
     .rsvp-section .section-title::after { background-color:rgba(255,255,255,0.3); }
     .rsvp-form { max-width:600px; margin:0 auto; background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:clamp(1.5rem,5vw,3rem); border-radius:12px; border:1px solid rgba(255,255,255,0.2); text-align:left; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; width:100%; }
@@ -325,11 +325,14 @@
         <div class="gallery-item"><img data-src="Images/1.jpeg"  alt="Photo 1"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/2.jpeg"  alt="Photo 2"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/3.jpeg"  alt="Photo 3"  class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/4.jpeg"  alt="Photo 4"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/5.jpeg"  alt="Photo 5"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/6.jpeg"  alt="Photo 6"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/7.jpeg"  alt="Photo 7"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/8.jpeg"  alt="Photo 8"  class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/9.jpeg"  alt="Photo 9"  class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/10.jpeg" alt="Photo 10" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/11.jpeg" alt="Photo 11" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/21.jpeg" alt="Photo 12" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/22.jpeg" alt="Photo 13" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/23.jpeg" alt="Photo 14" class="lazyload" width="400" height="400"></div>
@@ -338,12 +341,6 @@
         <div class="gallery-item"><img data-src="Images/26.jpeg" alt="Photo 17" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/27.jpeg" alt="Photo 18" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/28.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/29.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/30.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/31.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/32.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/33.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/34.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
     </div>
 </section>
 
@@ -361,7 +358,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+27 23 456 7890" required autocomplete="tel">
+                <input type="tel" id="phone" name="phone" placeholder="+27 123 456 7890" required autocomplete="tel">
             </div>
             <div class="form-group">
                 <label>Which events will you be attending?</label>
@@ -433,13 +430,46 @@
         if (el) { el.href = ['mai','lto:ashwariasrai','@gmail.com'].join(''); }
     }());
 
-    // ── Floating hearts ──────────────────────────────────────────
-    // Hearts sit in a position:fixed container so they float over
-    // the full viewport on every device including iPhone.
+    // ── Floating hearts — Home + Our Story sections only ─────────
+    var heartsActive = true; // stops spawning new hearts after story section
+
+    // Watch when #prewedding enters the viewport — that's our cutoff
+    function setupHeartsObserver() {
+        if (!('IntersectionObserver' in window)) return;
+        var cutoff = document.getElementById('prewedding');
+        if (!cutoff) return;
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    // Pre-wedding is visible — stop hearts and clear container
+                    heartsActive = false;
+                    var container = document.getElementById('hearts-container');
+                    if (container) {
+                        // Fade out remaining hearts quickly
+                        Array.prototype.forEach.call(container.children, function(h) {
+                            h.style.transition = 'opacity 0.6s ease';
+                            h.style.opacity = '0';
+                            setTimeout(function() {
+                                if (h.parentNode) h.parentNode.removeChild(h);
+                            }, 650);
+                        });
+                    }
+                } else {
+                    // Back in Home/Story — restart hearts
+                    var wasActive = heartsActive;
+                    heartsActive = true;
+                    if (!wasActive) { createHearts(); }
+                }
+            });
+        }, { threshold: 0.12 });
+        obs.observe(cutoff);
+    }
+
     function createHearts() {
         var container = document.getElementById('hearts-container');
         if (!container) return;
         container.innerHTML = '';
+        heartsActive = true;
         var isMobile = window.innerWidth <= 768;
         var count = isMobile ? 10 : 16;
         for (var i = 0; i < count; i++) {
@@ -449,20 +479,20 @@
 
     function addHeart(container, isMobile, delay) {
         setTimeout(function() {
+            if (!heartsActive) return; // stop spawning if past story
             var h = document.createElement('div');
             h.className = 'heart';
             h.innerHTML = '&#10084;';
             var duration = 7 + Math.random() * 8;
-            h.style.left          = (5 + Math.random() * 90) + '%';
-            h.style.top           = '105vh';
-            h.style.fontSize      = (isMobile ? 12 : 16) + Math.floor(Math.random() * 8) + 'px';
-            h.style.opacity       = String(0.4 + Math.random() * 0.4);
-            h.style.animation     = 'floatUp ' + duration + 's linear forwards';
+            h.style.left      = (5 + Math.random() * 90) + '%';
+            h.style.top       = '105vh';
+            h.style.fontSize  = (isMobile ? 12 : 16) + Math.floor(Math.random() * 8) + 'px';
+            h.style.opacity   = String(0.4 + Math.random() * 0.4);
+            h.style.animation = 'floatUp ' + duration + 's linear forwards';
             container.appendChild(h);
-            // Remove and recycle
             setTimeout(function() {
                 if (h.parentNode) h.parentNode.removeChild(h);
-                addHeart(container, isMobile, 0);
+                if (heartsActive) { addHeart(container, isMobile, 0); } // only recycle if still active
             }, duration * 1000);
         }, delay);
     }
@@ -666,6 +696,7 @@
     // ── Init ──────────────────────────────────────────────────────
     function init() {
         createHearts();
+        setupHeartsObserver();
         updateCountdown();
         setInterval(updateCountdown, 1000);
         setupScrollAnimations();
