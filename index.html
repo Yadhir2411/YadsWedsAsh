@@ -10,12 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root { 
-            --primary:#e8c8b0; 
-            --secondary:#7a6a5f; 
-            --accent:#d4a373; 
-            --light:#f8f1e9; 
-            --dark:#333333; 
+        :root {
+            --primary:#e8c8b0;
+            --secondary:#7a6a5f;
+            --accent:#d4a373;
+            --light:#f8f1e9;
+            --dark:#333333;
         }
         *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         html { scroll-behavior:smooth; font-size:16px; -webkit-text-size-adjust:100%; height:100%; }
@@ -23,14 +23,7 @@
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
 ```
-    nav {
-        position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000;
-        transition:all 0.3s ease;
-        background:rgba(248,241,233,0.97);
-        backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-        box-shadow:0 3px 16px rgba(0,0,0,0.18);
-        border-bottom:2px solid var(--accent);
-    }
+    nav { position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000; transition:all 0.3s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 3px 16px rgba(0,0,0,0.18); border-bottom:2px solid var(--accent); }
     nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
     nav ul { display:flex; justify-content:center; list-style:none; gap:1rem; padding:0 1rem; flex-wrap:wrap; max-width:100%; }
     nav a { color:#333333; text-decoration:none; font-weight:700; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; transition:color 0.3s ease; position:relative; padding:0.5rem 0.25rem; white-space:nowrap; }
@@ -38,22 +31,11 @@
     nav a:hover { color:#d4a373; }
     nav a:hover::after { width:100%; }
 
-    header {
-        position:relative; min-height:100vh; min-height:100svh;
-        background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover;
-        display:flex; flex-direction:column; justify-content:center; align-items:center;
-        text-align:center; color:white; overflow:hidden;
-        padding:6rem 1rem 3rem;
-    }
+    header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
     @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
-    /* FIX: fixed so hearts float over full viewport on all devices */
     .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
-
     .heart { position:absolute; color:rgba(255,255,255,0.7); font-size:18px; pointer-events:none; will-change:transform,opacity; }
-
-    /* Single clean keyframe — works on all browsers including iOS Safari */
-    /* floatUp now handled via requestAnimationFrame for iOS Safari compatibility */
 
     .header-content { position:relative; z-index:4; animation:fadeIn 2s ease-out; width:100%; max-width:700px; padding:0 1rem; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
@@ -80,8 +62,7 @@
     .story-image::before { content:''; position:absolute; border:2px solid var(--primary); border-radius:6px; top:-12px; left:-12px; right:12px; bottom:12px; z-index:-1; display:none; }
 
     .cards-container { display:grid; grid-template-columns:1fr; gap:clamp(1.5rem,4vw,2.5rem); margin-top:2rem; }
-
-@media (min-width:768px) { .cards-container { grid-template-columns:repeat(2,1fr); } }
+    @media (min-width:768px) { .cards-container { grid-template-columns:repeat(2,1fr); } }
 
     .event-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.1); transition:transform 0.35s ease,box-shadow 0.35s ease; cursor:pointer; position:relative; width:100%; touch-action:manipulation; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
     .event-card:hover { transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.15); }
@@ -128,25 +109,14 @@
     @media (min-width:1024px) { .gallery { grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); } }
     .gallery-item { position:relative; overflow:hidden; border-radius:6px; aspect-ratio:1/1; opacity:0; transform:scale(0.92); transition:opacity 0.5s ease,transform 0.5s ease; background-color:var(--primary); }
     .gallery-item.visible { opacity:1; transform:scale(1); }
-    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
     .gallery-item img.lazyload { opacity:0; transition:opacity 0.3s; }
     .gallery-item img.lazyloaded { opacity:1; }
     .gallery-item:hover img { transform:scale(1.08); transition:transform 0.5s ease; }
     .gallery-item::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); opacity:0; transition:opacity 0.3s ease; }
     .gallery-item:hover::after { opacity:1; }
 
-    /* RSVP section — single clean rule, mobile-first */
-    .rsvp-section {
-        color: white;
-        text-align: center;
-        padding: clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem);
-        background-color: #2a1f1a;
-        background-image: linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)), url('Images/rsvp4.jpeg');
-        background-repeat: no-repeat;
-        background-attachment: scroll;
-        background-size: cover;
-        background-position: center center;
-    }
+    .rsvp-section { color:white; text-align:center; padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem); background-color:#2a1f1a; background-image:linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)),url('Images/rsvp4.jpeg'); background-repeat:no-repeat; background-attachment:scroll; background-size:cover; background-position:center center; }
     .rsvp-section .section-title h2 { background-color:transparent; color:white; }
     .rsvp-section .section-title::after { background-color:rgba(255,255,255,0.3); }
     .rsvp-form { max-width:600px; margin:0 auto; background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:clamp(1.5rem,5vw,3rem); border-radius:12px; border:1px solid rgba(255,255,255,0.2); text-align:left; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; width:100%; }
@@ -180,7 +150,6 @@
     .social-links a:hover { color:var(--primary); }
     .copyright { margin-top:1.5rem; font-size:clamp(0.72rem,2vw,0.85rem); opacity:0.6; line-height:1.6; }
 
-    /* Heart confetti — pure JS animation, no CSS variables, works on all iOS */
     .heart-confetti { position:fixed; pointer-events:none; z-index:99999; }
 
     @media (min-width:768px) {
@@ -198,7 +167,6 @@
     }
     @media (min-width:1200px) { nav a { font-size:0.92rem; } }
     @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
-
     @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
 </style>
@@ -347,13 +315,13 @@
         <div class="gallery-item"><img data-src="Images/26.jpeg" alt="Photo 17" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/27.jpeg" alt="Photo 18" class="lazyload" width="400" height="400"></div>
         <div class="gallery-item"><img data-src="Images/28.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/29.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/30.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/31.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/32.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/33.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/34.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
-        <div class="gallery-item"><img data-src="Images/35.jpeg" alt="Photo 19" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/29.jpeg" alt="Photo 20" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/30.jpeg" alt="Photo 21" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/31.jpeg" alt="Photo 22" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/32.jpeg" alt="Photo 23" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/33.jpeg" alt="Photo 24" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/34.jpeg" alt="Photo 25" class="lazyload" width="400" height="400"></div>
+        <div class="gallery-item"><img data-src="Images/35.jpeg" alt="Photo 26" class="lazyload" width="400" height="400"></div>
     </div>
 </section>
 
@@ -437,24 +405,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
 <script>
-    // Email protection
     (function() {
         var el = document.getElementById('email-link');
         if (el) { el.href = ['mai','lto:ashwariasrai','@gmail.com'].join(''); }
     }());
 
-    // ── Floating hearts — Home + Our Story sections only ─────────
     var heartsActive = true;
     var heartsTimer  = null;
 
-    // Smoothly fade out all current hearts over 2 seconds, then stop spawning
     function stopHeartsSmoothly() {
         heartsActive = false;
         var container = document.getElementById('hearts-container');
         if (!container) return;
         var kids = Array.prototype.slice.call(container.children);
         kids.forEach(function(h) {
-            // Stagger the fade so they disappear gradually, not all at once
             var randomDelay = Math.random() * 800;
             setTimeout(function() {
                 if (!h.parentNode) return;
@@ -467,26 +431,17 @@
         });
     }
 
-    // Start the 6s countdown only once the page is actually visible.
-    // WhatsApp (and other in-app browsers) pre-render pages in the background
-    // so document.visibilityState is 'hidden' at load time — the timer would
-    // expire before the user even sees the page. We wait for 'visible' first.
     function setupHeartsObserver() {
         function beginCountdown() {
-            if (heartsTimer) return; // already started
+            if (heartsTimer) return;
             heartsTimer = setTimeout(stopHeartsSmoothly, 6000);
         }
-
         if (document.visibilityState === 'visible') {
-            // Page already visible (normal browser open / refresh)
             beginCountdown();
         } else {
-            // Page is hidden (WhatsApp in-app browser, background tab, etc.)
-            // Wait until it becomes visible, then start the 6s clock
             var onVisible = function() {
                 if (document.visibilityState === 'visible') {
                     document.removeEventListener('visibilitychange', onVisible);
-                    // Small delay so the user actually sees the hearts first
                     setTimeout(beginCountdown, 300);
                 }
             };
@@ -512,22 +467,20 @@
             var h = document.createElement('div');
             h.className = 'heart';
             h.innerHTML = '&#10084;';
-            var duration = 7 + Math.random() * 8;
-            var leftPct  = 5 + Math.random() * 90;
-            var size     = (isMobile ? 12 : 16) + Math.floor(Math.random() * 8);
-            h.style.left     = leftPct + '%';
-            h.style.top      = '100%';   // bottom of the fixed container
+            var duration    = 7 + Math.random() * 8;
+            var leftPct     = 5 + Math.random() * 90;
+            var size        = (isMobile ? 12 : 16) + Math.floor(Math.random() * 8);
+            h.style.left    = leftPct + '%';
+            h.style.top     = '100%';
             h.style.fontSize = size + 'px';
             h.style.opacity  = '0';
             container.appendChild(h);
-            // Animate via RAF — avoids iOS Safari overflow/keyframe issues
-            var startTime = null;
+            var startTime   = null;
             var baseOpacity = 0.4 + Math.random() * 0.4;
             var durationMs  = duration * 1000;
             function frame(ts) {
                 if (!startTime) startTime = ts;
-                var p = Math.min((ts - startTime) / durationMs, 1);
-                // Move from bottom (100%) to top (-20%) of viewport
+                var p  = Math.min((ts - startTime) / durationMs, 1);
                 var yPct = 100 - p * 120;
                 var sc   = 0.5 + p * 0.7;
                 var op   = p < 0.08 ? p / 0.08 * baseOpacity
@@ -546,7 +499,6 @@
         }, delay);
     }
 
-    // ── Countdown ────────────────────────────────────────────────
     function updateCountdown() {
         var diff = new Date('December 19, 2026 17:30:00').getTime() - Date.now();
         if (diff <= 0) { diff = 0; }
@@ -557,10 +509,8 @@
         document.getElementById('seconds').textContent = pad((diff % 60000)    / 1000);
     }
 
-    // ── Scroll reveal ────────────────────────────────────────────
     function setupScrollAnimations() {
         if (!('IntersectionObserver' in window)) {
-            // Fallback: show everything immediately
             document.querySelectorAll('.story-text,.story-image,.detail-card,.gallery-item,.rsvp-form').forEach(function(el) {
                 el.classList.add('visible');
             });
@@ -579,12 +529,10 @@
         });
     }
 
-    // ── Navbar ───────────────────────────────────────────────────
     function handleScroll() {
         document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
     }
 
-    // ── Heart burst — pure requestAnimationFrame, works on ALL iOS versions ──
     function animateHeart(el, tx, ty, rot, sc, dur) {
         var startTime = null;
         function frame(ts) {
@@ -635,12 +583,10 @@
         }
     }
 
-
     function createHeartBurst(card) {
         var rect = card.getBoundingClientRect();
         var cx   = rect.left + rect.width  / 2;
         var cy   = rect.top  + rect.height / 2;
-        // Ripple
         var ripple = document.createElement('div');
         ripple.className = 'event-card-ripple';
         ripple.style.width  = rect.width  + 'px';
@@ -649,7 +595,6 @@
         ripple.style.top    = '0';
         card.appendChild(ripple);
         setTimeout(function() { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 800);
-        // Hearts
         spawnHearts(cx, cy, 24, ['#ffffff','#ffc0cb','#ff69b4','#ff1744','#f8bbd0','#ec407a','#fce4ec','#e91e63'], 2.5);
     }
 
@@ -672,7 +617,6 @@
         }
     }
 
-    // ── Event card toggle ─────────────────────────────────────────
     function toggleEventCard(card) {
         var opening = !card.classList.contains('is-open');
         document.querySelectorAll('.event-card.is-open').forEach(function(c) {
@@ -686,7 +630,6 @@
         }
     }
 
-    // ── Smooth anchor scroll ──────────────────────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
             e.preventDefault();
@@ -695,7 +638,6 @@
         });
     });
 
-    // ── Guest count rows ──────────────────────────────────────────
     ['mehendi','hurdhee','reception'].forEach(function(id) {
         var cb = document.getElementById(id);
         if (cb) {
@@ -705,7 +647,6 @@
         }
     });
 
-    // ── RSVP submit ───────────────────────────────────────────────
     document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
         e.preventDefault();
         var m = document.getElementById('mehendi').checked;
@@ -742,7 +683,6 @@
         }
     });
 
-    // ── Init ──────────────────────────────────────────────────────
     function init() {
         createHearts();
         setupHeartsObserver();
@@ -753,13 +693,11 @@
 
         document.querySelectorAll('.event-card').forEach(function(card) {
             var tapped = false;
-            // touchend for iOS (preventDefault stops ghost click)
             card.addEventListener('touchend', function(e) {
                 e.preventDefault();
                 tapped = true;
                 toggleEventCard(card);
             }, {passive: false});
-            // click for desktop (guard against double-fire on iOS)
             card.addEventListener('click', function(e) {
                 if (tapped) { tapped = false; return; }
                 toggleEventCard(card);
@@ -789,7 +727,6 @@
     }
 
     window.addEventListener('scroll', handleScroll, {passive:true});
-
 </script>
 
 </body>
