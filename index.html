@@ -427,22 +427,53 @@
 
     // ── Floating hearts — Home + Our Story sections only ─────────
     var heartsActive = true;
+    var heartsTimer  = null;
 
-    // Hearts run for exactly 6 seconds from page load, then fade out and stop.
-    function setupHeartsObserver() {
-        setTimeout(function() {
-            heartsActive = false;
-            var container = document.getElementById('hearts-container');
-            if (!container) return;
-            // Fade out all existing hearts smoothly
-            Array.prototype.forEach.call(container.children, function(h) {
-                h.style.transition = 'opacity 1s ease';
-                h.style.opacity = '0';
+    // Smoothly fade out all current hearts over 2 seconds, then stop spawning
+    function stopHeartsSmoothly() {
+        heartsActive = false;
+        var container = document.getElementById('hearts-container');
+        if (!container) return;
+        var kids = Array.prototype.slice.call(container.children);
+        kids.forEach(function(h) {
+            // Stagger the fade so they disappear gradually, not all at once
+            var randomDelay = Math.random() * 800;
+            setTimeout(function() {
+                if (!h.parentNode) return;
+                h.style.transition = 'opacity 1.8s ease-out';
+                h.style.opacity    = '0';
                 setTimeout(function() {
                     if (h.parentNode) h.parentNode.removeChild(h);
-                }, 1050);
-            });
-        }, 6000);
+                }, 1900);
+            }, randomDelay);
+        });
+    }
+
+    // Start the 6s countdown only once the page is actually visible.
+    // WhatsApp (and other in-app browsers) pre-render pages in the background
+    // so document.visibilityState is 'hidden' at load time — the timer would
+    // expire before the user even sees the page. We wait for 'visible' first.
+    function setupHeartsObserver() {
+        function beginCountdown() {
+            if (heartsTimer) return; // already started
+            heartsTimer = setTimeout(stopHeartsSmoothly, 6000);
+        }
+
+        if (document.visibilityState === 'visible') {
+            // Page already visible (normal browser open / refresh)
+            beginCountdown();
+        } else {
+            // Page is hidden (WhatsApp in-app browser, background tab, etc.)
+            // Wait until it becomes visible, then start the 6s clock
+            var onVisible = function() {
+                if (document.visibilityState === 'visible') {
+                    document.removeEventListener('visibilitychange', onVisible);
+                    // Small delay so the user actually sees the hearts first
+                    setTimeout(beginCountdown, 300);
+                }
+            };
+            document.addEventListener('visibilitychange', onVisible);
+        }
     }
 
     function createHearts() {
