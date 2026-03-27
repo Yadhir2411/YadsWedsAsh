@@ -426,54 +426,23 @@
     }());
 
     // ── Floating hearts — Home + Our Story sections only ─────────
-    var heartsActive = true; // stops spawning new hearts after story section
+    var heartsActive = true;
 
-    // Stop hearts once #story scrolls fully out of view (user is past it).
-    // Uses rootMargin to trigger slightly before story bottom leaves viewport.
+    // Hearts run for exactly 6 seconds from page load, then fade out and stop.
     function setupHeartsObserver() {
-        if (!('IntersectionObserver' in window)) return;
-        var storySection = document.getElementById('story');
-        if (!storySection) return;
-
-        function stopHearts() {
+        setTimeout(function() {
             heartsActive = false;
             var container = document.getElementById('hearts-container');
-            if (container) {
-                Array.prototype.forEach.call(container.children, function(h) {
-                    h.style.transition = 'opacity 0.5s ease';
-                    h.style.opacity = '0';
-                    setTimeout(function() { if (h.parentNode) h.parentNode.removeChild(h); }, 550);
-                });
-            }
-        }
-
-        function startHearts() {
-            if (!heartsActive) {
-                heartsActive = true;
-                createHearts();
-            }
-        }
-
-        // Observer fires when story section is/isn't intersecting the viewport
-        var obs = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    startHearts();
-                } else {
-                    // Only stop if user has scrolled PAST story (not above home)
-                    // boundingClientRect.top < 0 means section scrolled above viewport
-                    if (entry.boundingClientRect.top < 0) {
-                        stopHearts();
-                    }
-                }
+            if (!container) return;
+            // Fade out all existing hearts smoothly
+            Array.prototype.forEach.call(container.children, function(h) {
+                h.style.transition = 'opacity 1s ease';
+                h.style.opacity = '0';
+                setTimeout(function() {
+                    if (h.parentNode) h.parentNode.removeChild(h);
+                }, 1050);
             });
-        }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
-
-        obs.observe(storySection);
-
-        // Also watch home section so hearts restart when scrolling back up
-        var homeSection = document.getElementById('home');
-        if (homeSection) { obs.observe(homeSection); }
+        }, 6000);
     }
 
     function createHearts() {
@@ -771,10 +740,7 @@
     }
 
     window.addEventListener('scroll', handleScroll, {passive:true});
-    window.addEventListener('resize', function() {
-        clearTimeout(window.resizeTimer);
-        window.resizeTimer = setTimeout(createHearts, 300);
-    });
+
 </script>
 
 </body>
