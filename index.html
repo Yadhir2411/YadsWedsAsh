@@ -104,173 +104,17 @@
     .detail-card p { font-size:clamp(0.85rem,2.2vw,0.95rem); line-height:1.6; margin-bottom:0.4rem; }
     .detail-card a { color:var(--accent); text-decoration:none; font-size:clamp(0.85rem,2.2vw,0.95rem); word-break:break-all; }
 
-    /* ── Cinematic Slideshow Gallery ── */
-    .gallery-slideshow {
-        position: relative;
-        width: 100%;
-        height: 85vh;
-        overflow: hidden;
-        background: #0a0a0a;
-        border-radius: 4px;
-        margin-top: 2rem;
-    }
-
-    .slide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 1.4s ease-in-out;
-        will-change: opacity;
-    }
-
-    .slide.active {
-        opacity: 1;
-    }
-
-    .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        display: block;
-        animation: kenBurns 8s ease-in-out forwards;
-    }
-
-    .slide.active img {
-        animation: kenBurns 8s ease-in-out forwards;
-    }
-
-    @keyframes kenBurns {
-        0%   { transform: scale(1.08) translate(0px, 0px); }
-        100% { transform: scale(1.0)  translate(-8px, -4px); }
-    }
-
-    /* Alternate Ken Burns directions for variety */
-    .slide:nth-child(even) img {
-        animation-name: kenBurns2;
-    }
-    @keyframes kenBurns2 {
-        0%   { transform: scale(1.0)  translate(0px, 0px); }
-        100% { transform: scale(1.08) translate(8px, 4px); }
-    }
-    .slide:nth-child(3n) img {
-        animation-name: kenBurns3;
-    }
-    @keyframes kenBurns3 {
-        0%   { transform: scale(1.05) translate(6px, -4px); }
-        100% { transform: scale(1.0)  translate(-4px, 4px); }
-    }
-
-    /* Slide overlay — subtle vignette */
-    .slide::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at center,
-            transparent 40%,
-            rgba(0,0,0,0.45) 100%);
-        pointer-events: none;
-    }
-
-    /* Counter badge */
-    .slideshow-counter {
-        position: absolute;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        color: rgba(255,255,255,0.7);
-        font-size: 0.78rem;
-        letter-spacing: 2px;
-        font-family: 'Montserrat', sans-serif;
-        z-index: 10;
-        pointer-events: none;
-    }
-
-    /* Navigation arrows */
-    .slideshow-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.25);
-        color: white;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.2s ease;
-        font-size: 1rem;
-        -webkit-tap-highlight-color: transparent;
-        user-select: none;
-    }
-    .slideshow-nav:hover { background: rgba(255,255,255,0.25); }
-    .slideshow-nav:active { transform: translateY(-50%) scale(0.92); }
-    .slideshow-nav.prev { left: 1.2rem; }
-    .slideshow-nav.next { right: 1.2rem; }
-
-    /* Dot indicators */
-    .slideshow-dots {
-        position: absolute;
-        bottom: 1.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-        z-index: 10;
-    }
-    .slideshow-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.35);
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .slideshow-dot.active {
-        background: white;
-        transform: scale(1.4);
-    }
-
-    /* Progress bar */
-    .slideshow-progress {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 3px;
-        background: var(--accent);
-        z-index: 10;
-        width: 0%;
-        transition: none;
-    }
-    .slideshow-progress.animating {
-        transition: width linear;
-    }
-
-    /* Pause indicator */
-    .slideshow-pause-hint {
-        position: absolute;
-        top: 1.2rem;
-        right: 1.2rem;
-        color: rgba(255,255,255,0.5);
-        font-size: 0.65rem;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        z-index: 10;
-        pointer-events: none;
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    @media (max-width: 640px) {
-        .gallery-slideshow { height: 70vw; min-height: 260px; }
-        .slideshow-nav { width: 38px; height: 38px; font-size: 0.85rem; }
-        .slideshow-nav.prev { left: 0.6rem; }
-        .slideshow-nav.next { right: 0.6rem; }
-    }
+    .gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(0.5rem,2vw,1rem); margin-top:2rem; }
+    @media (min-width:640px) { .gallery { grid-template-columns:repeat(3,1fr); } }
+    @media (min-width:1024px) { .gallery { grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); } }
+    .gallery-item { position:relative; overflow:hidden; border-radius:6px; aspect-ratio:1/1; opacity:0; transform:scale(0.92); transition:opacity 0.5s ease,transform 0.5s ease; background-color:var(--primary); }
+    .gallery-item.visible { opacity:1; transform:scale(1); }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+    .gallery-item img.lazyload { opacity:0; transition:opacity 0.3s; }
+    .gallery-item img.lazyloaded { opacity:1; }
+    .gallery-item:hover img { transform:scale(1.08); transition:transform 0.5s ease; }
+    .gallery-item::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); opacity:0; transition:opacity 0.3s ease; }
+    .gallery-item:hover::after { opacity:1; }
 
     .rsvp-section { color:white; text-align:center; padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem); background-color:#2a1f1a; background-image:linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)),url('Images/rsvp4.jpeg'); background-repeat:no-repeat; background-attachment:scroll; background-size:cover; background-position:center center; }
     .rsvp-section .section-title h2 { background-color:transparent; color:white; }
@@ -453,39 +297,43 @@
 
 <section id="gallery">
     <div class="section-title"><h2>Our Gallery</h2></div>
-    <div class="gallery-slideshow" id="gallery-slideshow">
+    <div class="gallery-masonry" id="gallery-grid">
+        <div class="gallery-item"><img src="Images/1.jpeg"  alt="Photo 1"  loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/21.jpeg" alt="Photo 11" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/22.jpeg" alt="Photo 12" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/23.jpeg" alt="Photo 13" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/24.jpeg" alt="Photo 14" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/25.jpeg" alt="Photo 15" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/26.jpeg" alt="Photo 16" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/27.jpeg" alt="Photo 17" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/28.jpeg" alt="Photo 18" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/29.jpeg" alt="Photo 19" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/30.jpeg" alt="Photo 20" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/31.jpeg" alt="Photo 21" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/32.jpeg" alt="Photo 22" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/33.jpeg" alt="Photo 23" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/34.jpeg" alt="Photo 24" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/35.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/36.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/37.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/38.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/39.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/40.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/41.jpeg" alt="Photo 25" loading="lazy"></div>
+        <div class="gallery-item"><img src="Images/42.jpeg" alt="Photo 25" loading="lazy"></div>
+    </div>
 
-``` <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
-    <div class="slide"><img src="Images/21.jpeg" alt="Photo 11"></div>
-    <div class="slide"><img src="Images/22.jpeg" alt="Photo 12"></div>
-    <div class="slide"><img src="Images/23.jpeg" alt="Photo 13"></div>
-    <div class="slide"><img src="Images/24.jpeg" alt="Photo 14"></div>
-    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
-    <div class="slide"><img src="Images/26.jpeg" alt="Photo 16"></div>
-    <div class="slide"><img src="Images/27.jpeg" alt="Photo 17"></div>
-    <div class="slide"><img src="Images/28.jpeg" alt="Photo 18"></div>
-    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
-    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
-    <div class="slide"><img src="Images/31.jpeg" alt="Photo 21"></div>
-    <div class="slide"><img src="Images/32.jpeg" alt="Photo 22"></div>
-    <div class="slide"><img src="Images/33.jpeg" alt="Photo 23"></div>
-    <div class="slide"><img src="Images/34.jpeg" alt="Photo 24"></div>
-    <div class="slide"><img src="Images/35.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/36.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/37.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/38.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/39.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/40.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/41.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/42.jpeg" alt="Photo 25"></div>
-
-    <button class="slideshow-nav prev" aria-label="Previous photo">&#8592;</button>
-    <button class="slideshow-nav next" aria-label="Next photo">&#8594;</button>
-
-    <div class="slideshow-dots" id="slideshow-dots"></div>
-    <div class="slideshow-counter" id="slideshow-counter">1 / 24</div>
-    <div class="slideshow-progress" id="slideshow-progress"></div>
-    <div class="slideshow-pause-hint" id="pause-hint">&#9646;&#9646; Tap to pause</div>
+```
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div class="lightbox-bg" id="lightbox-bg"></div>
+    <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+    <button class="lightbox-nav lb-prev" id="lb-prev" aria-label="Previous">&#8592;</button>
+    <button class="lightbox-nav lb-next" id="lb-next" aria-label="Next">&#8594;</button>
+    <button class="lightbox-close" id="lb-close" aria-label="Close">&#10005;</button>
+    <div class="lightbox-counter" id="lb-counter"></div>
 </div>
 ```
 
@@ -677,7 +525,7 @@
 
     function setupScrollAnimations() {
         if (!('IntersectionObserver' in window)) {
-            document.querySelectorAll('.story-text,.story-image,.detail-card,.rsvp-form').forEach(function(el) {
+            document.querySelectorAll('.story-text,.story-image,.detail-card,.gallery-item,.rsvp-form').forEach(function(el) {
                 el.classList.add('visible');
             });
             return;
@@ -690,7 +538,7 @@
                 }
             });
         }, { threshold: 0.08 });
-        document.querySelectorAll('.story-text,.story-image,.detail-card,.rsvp-form').forEach(function(el) {
+        document.querySelectorAll('.story-text,.story-image,.detail-card,.gallery-item,.rsvp-form').forEach(function(el) {
             obs.observe(el);
         });
     }
@@ -894,145 +742,117 @@
 
     window.addEventListener('scroll', handleScroll, {passive:true});
 
-    // ── Cinematic Slideshow ───────────────────────────────────────
+    // ── Masonry Lightbox ─────────────────────────────────────────
     (function() {
-        var container = document.getElementById('gallery-slideshow');
-        if (!container) return;
+        var items    = Array.prototype.slice.call(document.querySelectorAll('.gallery-item'));
+        var overlay  = document.getElementById('lightbox');
+        var bgEl     = document.getElementById('lightbox-bg');
+        var imgEl    = document.getElementById('lightbox-img');
+        var counter  = document.getElementById('lb-counter');
+        var current  = 0;
 
-        var slides      = Array.prototype.slice.call(container.querySelectorAll('.slide'));
-        var total       = slides.length;
-        var current     = 0;
-        var paused      = false;
-        var timer       = null;
-        var DURATION    = 5000; // ms per slide
-        var progressEl  = document.getElementById('slideshow-progress');
-        var counterEl   = document.getElementById('slideshow-counter');
-        var dotsWrap    = document.getElementById('slideshow-dots');
-        var pauseHint   = document.getElementById('pause-hint');
+        if (!overlay || items.length === 0) return;
 
-        // Build dots
-        slides.forEach(function(_, i) {
-            var d = document.createElement('div');
-            d.className = 'slideshow-dot' + (i === 0 ? ' active' : '');
-            d.addEventListener('click', function() { goTo(i); resetTimer(); });
-            dotsWrap.appendChild(d);
+        // Collect image sources
+        var srcs = items.map(function(item) {
+            return item.querySelector('img').src;
         });
 
-        function getDots() { return Array.prototype.slice.call(dotsWrap.querySelectorAll('.slideshow-dot')); }
-
-        function goTo(idx) {
-            slides[current].classList.remove('active');
-            // Reset Ken Burns by forcing reflow
-            var img = slides[current].querySelector('img');
-            img.style.animation = 'none';
-            void img.offsetWidth;
-            img.style.animation = '';
-
-            current = (idx + total) % total;
-            slides[current].classList.add('active');
-
-            // Restart Ken Burns on new active slide
-            var newImg = slides[current].querySelector('img');
-            newImg.style.animation = 'none';
-            void newImg.offsetWidth;
-            newImg.style.animation = '';
-
-            getDots().forEach(function(d, i) {
-                d.classList.toggle('active', i === current);
+        function openLightbox(idx) {
+            current = (idx + srcs.length) % srcs.length;
+            // Set blurred background first (instant)
+            bgEl.style.backgroundImage = 'url(' + srcs[current] + ')';
+            // Reset image so the scale-in animation re-triggers
+            imgEl.style.transition = 'none';
+            imgEl.style.transform  = 'scale(0.88)';
+            imgEl.style.opacity    = '0';
+            imgEl.src = srcs[current];
+            counter.textContent = (current + 1) + ' / ' + srcs.length;
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            // Trigger animation on next frame
+            requestAnimationFrame(function() {
+                imgEl.style.transition = '';
+                imgEl.style.transform  = '';
+                imgEl.style.opacity    = '';
             });
-            counterEl.textContent = (current + 1) + ' / ' + total;
         }
 
-        function startProgress() {
-            if (!progressEl) return;
-            progressEl.style.transition = 'none';
-            progressEl.style.width = '0%';
-            void progressEl.offsetWidth;
-            progressEl.classList.add('animating');
-            progressEl.style.transitionDuration = DURATION + 'ms';
-            progressEl.style.width = '100%';
+        function closeLightbox() {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+            setTimeout(function() { imgEl.src = ''; }, 420);
         }
 
-        function resetProgress() {
-            if (!progressEl) return;
-            progressEl.classList.remove('animating');
-            progressEl.style.transition = 'none';
-            progressEl.style.width = '0%';
+        function navigate(dir) {
+            var next = (current + dir + srcs.length) % srcs.length;
+            // Slide out current
+            imgEl.style.transition = 'transform 0.22s ease, opacity 0.22s ease';
+            imgEl.style.transform  = dir > 0 ? 'scale(0.88) translateX(-30px)' : 'scale(0.88) translateX(30px)';
+            imgEl.style.opacity    = '0';
+            setTimeout(function() {
+                current = next;
+                bgEl.style.backgroundImage = 'url(' + srcs[current] + ')';
+                imgEl.src = srcs[current];
+                counter.textContent = (current + 1) + ' / ' + srcs.length;
+                imgEl.style.transition = 'none';
+                imgEl.style.transform  = dir > 0 ? 'scale(0.88) translateX(30px)' : 'scale(0.88) translateX(-30px)';
+                imgEl.style.opacity    = '0';
+                requestAnimationFrame(function() {
+                    imgEl.style.transition = 'transform 0.32s cubic-bezier(0.34,1.56,0.64,1), opacity 0.28s ease';
+                    imgEl.style.transform  = 'scale(1) translateX(0)';
+                    imgEl.style.opacity    = '1';
+                });
+            }, 220);
         }
 
-        function resetTimer() {
-            clearTimeout(timer);
-            resetProgress();
-            if (!paused) {
-                startProgress();
-                timer = setTimeout(function() { goTo(current + 1); resetTimer(); }, DURATION);
-            }
-        }
-
-        function togglePause() {
-            paused = !paused;
-            if (paused) {
-                clearTimeout(timer);
-                resetProgress();
-                pauseHint.innerHTML = '&#9654; Tap to play';
-            } else {
-                pauseHint.innerHTML = '&#9646;&#9646; Tap to pause';
-                resetTimer();
-            }
-        }
-
-        // Arrow buttons
-        container.querySelector('.prev').addEventListener('click', function(e) {
-            e.stopPropagation();
-            goTo(current - 1);
-            resetTimer();
-        });
-        container.querySelector('.next').addEventListener('click', function(e) {
-            e.stopPropagation();
-            goTo(current + 1);
-            resetTimer();
+        // Open on click
+        items.forEach(function(item, i) {
+            item.addEventListener('click', function() { openLightbox(i); });
+            item.addEventListener('touchend', function(e) {
+                // Only open if it wasn't a scroll
+                if (Math.abs(touchDelta) < 8) { openLightbox(i); }
+            }, { passive: true });
         });
 
-        // Tap to pause/play (avoid triggering on arrow taps)
-        container.addEventListener('click', function(e) {
-            if (e.target.classList.contains('slideshow-nav') ||
-                e.target.classList.contains('slideshow-dot')) return;
-            togglePause();
-        });
-
-        // Touch swipe
-        var touchStartX = 0;
-        container.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
+        // Track touch to distinguish tap from scroll
+        var touchDelta = 0;
+        var touchY0 = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchY0 = e.touches[0].clientY;
+            touchDelta = 0;
         }, { passive: true });
-        container.addEventListener('touchend', function(e) {
-            var dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 40) {
-                goTo(dx < 0 ? current + 1 : current - 1);
-                resetTimer();
-            }
+        document.addEventListener('touchmove', function(e) {
+            touchDelta = Math.abs(e.touches[0].clientY - touchY0);
         }, { passive: true });
+
+        // Controls
+        document.getElementById('lb-prev').addEventListener('click', function(e) { e.stopPropagation(); navigate(-1); });
+        document.getElementById('lb-next').addEventListener('click', function(e) { e.stopPropagation(); navigate(1); });
+        document.getElementById('lb-close').addEventListener('click', function(e) { e.stopPropagation(); closeLightbox(); });
+
+        // Close on background click
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay || e.target === bgEl) { closeLightbox(); }
+        });
 
         // Keyboard
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight') { goTo(current + 1); resetTimer(); }
-            if (e.key === 'ArrowLeft')  { goTo(current - 1); resetTimer(); }
+            if (!overlay.classList.contains('open')) return;
+            if (e.key === 'ArrowRight') { navigate(1);  }
+            if (e.key === 'ArrowLeft')  { navigate(-1); }
+            if (e.key === 'Escape')     { closeLightbox(); }
         });
 
-        // Pause when tab is hidden, resume when visible
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') {
-                clearTimeout(timer);
-                resetProgress();
-            } else if (!paused) {
-                resetTimer();
-            }
-        });
-
-        // Start
-        startProgress();
-        timer = setTimeout(function() { goTo(1); resetTimer(); }, DURATION);
-        counterEl.textContent = '1 / ' + total;
+        // Swipe in lightbox
+        var lbTouchX = 0;
+        overlay.addEventListener('touchstart', function(e) {
+            lbTouchX = e.touches[0].clientX;
+        }, { passive: true });
+        overlay.addEventListener('touchend', function(e) {
+            var dx = e.changedTouches[0].clientX - lbTouchX;
+            if (Math.abs(dx) > 45) { navigate(dx < 0 ? 1 : -1); }
+        }, { passive: true });
 
     }());
 
