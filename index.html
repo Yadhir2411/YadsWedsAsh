@@ -31,7 +31,7 @@
     nav a:hover { color:#d4a373; }
     nav a:hover::after { width:100%; }
 
-    header { position:relative; min-height:100vh; min-height:100svh; background:transparent; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
+    header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
     @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
     .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
@@ -325,183 +325,11 @@
     @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
     @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
-
-    /* ── WOW 1: Cinematic Entrance ── */
-    .cinema-entrance {
-        position: fixed;
-        inset: 0;
-        z-index: 99998;
-        background: #0a0a0a;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        pointer-events: none;
-    }
-
-    .cinema-entrance.fade-out {
-        animation: entranceFadeOut 1.4s ease-in-out forwards;
-    }
-
-    @keyframes entranceFadeOut {
-        0%   { opacity: 1; }
-        100% { opacity: 0; pointer-events: none; }
-    }
-
-    .cinema-entrance-names {
-        font-family: 'Playfair Display', serif;
-        color: var(--primary);
-        font-size: clamp(2rem, 8vw, 5rem);
-        letter-spacing: 6px;
-        text-align: center;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    .cinema-entrance-names .char {
-        display: inline-block;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: charReveal 0.5s ease forwards;
-    }
-
-    @keyframes charReveal {
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .cinema-entrance-sub {
-        font-family: 'Montserrat', sans-serif;
-        color: rgba(255,255,255,0.5);
-        font-size: clamp(0.65rem, 2vw, 0.85rem);
-        letter-spacing: 5px;
-        text-transform: uppercase;
-        margin-top: 1rem;
-        opacity: 0;
-        animation: subReveal 0.8s ease 1.6s forwards;
-    }
-
-    @keyframes subReveal {
-        to { opacity: 1; }
-    }
-
-    .cinema-entrance-line {
-        width: 0;
-        height: 1px;
-        background: var(--accent);
-        margin-top: 1.5rem;
-        animation: lineExpand 0.8s ease 1.2s forwards;
-    }
-
-    @keyframes lineExpand {
-        to { width: clamp(120px, 30vw, 260px); }
-    }
-
-    /* Keep page invisible until entrance completes */
-    body.cinema-loading {
-        overflow: hidden;
-    }
-
-    /* ── WOW 3: RSVP Confirmation Overlay ── */
-    .rsvp-confirm-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 99997;
-        background: rgba(10,10,10,0.96);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.6s ease;
-    }
-
-    .rsvp-confirm-overlay.show {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .rsvp-confirm-hearts {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-        animation: confirmHeartPulse 1.2s ease infinite alternate;
-    }
-
-    @keyframes confirmHeartPulse {
-        from { transform: scale(1);    opacity: 0.8; }
-        to   { transform: scale(1.15); opacity: 1;   }
-    }
-
-    .rsvp-confirm-title {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(1.8rem, 6vw, 3.2rem);
-        color: var(--primary);
-        margin-bottom: 0.75rem;
-        line-height: 1.2;
-    }
-
-    .rsvp-confirm-name {
-        color: white;
-    }
-
-    .rsvp-confirm-message {
-        font-family: 'Montserrat', sans-serif;
-        color: rgba(255,255,255,0.65);
-        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-        max-width: 480px;
-        line-height: 1.8;
-        margin-bottom: 2rem;
-    }
-
-    .rsvp-confirm-line {
-        width: 60px;
-        height: 1px;
-        background: var(--accent);
-        margin: 0 auto 2rem;
-    }
-
-    .rsvp-confirm-close {
-        background: transparent;
-        border: 1px solid rgba(255,255,255,0.3);
-        color: white;
-        padding: 0.8rem 2.5rem;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.8rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        border-radius: 50px;
-        transition: all 0.3s ease;
-    }
-
-    .rsvp-confirm-close:hover {
-        background: var(--primary);
-        color: var(--dark);
-        border-color: var(--primary);
-    }
-
-    /* ── WOW 6: Parallax Hero ── */
-    .hero-parallax-bg {
-        position: absolute;
-        inset: -15%;
-        background: linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),
-                    url('Images/13.jpeg') no-repeat center center / cover;
-        will-change: transform;
-        z-index: 0;
-    }
 </style>
 ```
 
 </head>
 <body>
-
-<div class="cinema-entrance" id="cinema-entrance">
-    <div class="cinema-entrance-names" id="entrance-names"></div>
-    <div class="cinema-entrance-line"></div>
-    <div class="cinema-entrance-sub">Are Getting Married</div>
-</div>
 
 <audio id="bgMusic" loop preload="auto">
     <source src="Music/Love.mp3" type="audio/mpeg">
@@ -520,7 +348,6 @@
 </nav>
 
 <header id="home">
-    <div class="hero-parallax-bg" id="hero-bg"></div>
     <div class="header-content">
         <h1>Yadhir &amp; Ashwari</h1>
         <div class="subtitle">Are Getting Married</div>
@@ -629,30 +456,31 @@
     <div class="gallery-slideshow" id="gallery-slideshow">
 
 ```
-    <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
-    <div class="slide"><img src="Images/2.jpeg"  alt="Photo 2"></div>
-    <div class="slide"><img src="Images/3.jpeg"  alt="Photo 3"></div>
-    <div class="slide"><img src="Images/4.jpeg"  alt="Photo 4"></div>
-    <div class="slide"><img src="Images/5.jpeg"  alt="Photo 5"></div>
-    <div class="slide"><img src="Images/6.jpeg"  alt="Photo 6"></div>
-    <div class="slide"><img src="Images/8.jpeg"  alt="Photo 8"></div>
-    <div class="slide"><img src="Images/9.jpeg"  alt="Photo 9"></div>
-    <div class="slide"><img src="Images/10.jpeg" alt="Photo 10"></div>
+ <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
     <div class="slide"><img src="Images/21.jpeg" alt="Photo 11"></div>
     <div class="slide"><img src="Images/22.jpeg" alt="Photo 12"></div>
     <div class="slide"><img src="Images/23.jpeg" alt="Photo 13"></div>
     <div class="slide"><img src="Images/24.jpeg" alt="Photo 14"></div>
-    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
     <div class="slide"><img src="Images/26.jpeg" alt="Photo 16"></div>
+    <div class="slide"><img src="Images/44.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
     <div class="slide"><img src="Images/27.jpeg" alt="Photo 17"></div>
     <div class="slide"><img src="Images/28.jpeg" alt="Photo 18"></div>
-    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
-    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
     <div class="slide"><img src="Images/31.jpeg" alt="Photo 21"></div>
     <div class="slide"><img src="Images/32.jpeg" alt="Photo 22"></div>
     <div class="slide"><img src="Images/33.jpeg" alt="Photo 23"></div>
     <div class="slide"><img src="Images/34.jpeg" alt="Photo 24"></div>
     <div class="slide"><img src="Images/35.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/43.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
+    <div class="slide"><img src="Images/37.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
+    <div class="slide"><img src="Images/38.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/39.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/40.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/41.jpeg" alt="Photo 25"></div>
+    
+    
 
     <button class="slideshow-nav prev" aria-label="Previous photo">&#8592;</button>
     <button class="slideshow-nav next" aria-label="Next photo">&#8594;</button>
@@ -1010,18 +838,12 @@
             await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
                 {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
             createRSVPCelebration(btn);
-            // Build attending events list for personalised message
-            var attendingEvents = [];
-            if (m) attendingEvents.push('Mehendi Ceremony');
-            if (h) attendingEvents.push('Hurdhee Celebration');
-            if (r) attendingEvents.push('Wedding Reception');
-            var submittedName = document.getElementById('name').value;
             setTimeout(function() {
+                alert('Thank you for your RSVP! We look forward to celebrating with you.');
                 document.getElementById('wedding-rsvp').reset();
                 ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(function(id) {
                     document.getElementById(id).classList.remove('visible');
                 });
-                showRSVPConfirmation(submittedName, attendingEvents);
             }, 350);
         } catch(err) {
             alert('There was an issue submitting your RSVP. Please try again or contact us directly.');
@@ -1074,99 +896,6 @@
     }
 
     window.addEventListener('scroll', handleScroll, {passive:true});
-
-    // ════════════════════════════════════════════════════════════
-    // WOW 1 — Cinematic Entrance
-    // ════════════════════════════════════════════════════════════
-    (function() {
-        var entrance  = document.getElementById('cinema-entrance');
-        var nameEl    = document.getElementById('entrance-names');
-        if (!entrance || !nameEl) return;
-
-        document.body.classList.add('cinema-loading');
-
-        var fullText = 'Yadhir & Ashwari';
-        var delay    = 200; // ms before first char
-
-        // Render each character as a span with staggered animation
-        fullText.split('').forEach(function(ch, i) {
-            var span = document.createElement('span');
-            span.className   = 'char';
-            span.textContent = ch === ' ' ? ' ' : ch;
-            span.style.animationDelay = (delay + i * 65) + 'ms';
-            nameEl.appendChild(span);
-        });
-
-        // After all chars revealed + pause, fade out
-        var totalCharTime = delay + fullText.length * 65 + 500;
-        var holdTime      = 700;
-
-        setTimeout(function() {
-            entrance.classList.add('fade-out');
-            setTimeout(function() {
-                entrance.style.display = 'none';
-                document.body.classList.remove('cinema-loading');
-            }, 1400);
-        }, totalCharTime + holdTime);
-    }());
-
-    // ════════════════════════════════════════════════════════════
-    // WOW 3 — Personalised RSVP Confirmation
-    // ════════════════════════════════════════════════════════════
-    function showRSVPConfirmation(name, events) {
-        var overlay   = document.getElementById('rsvp-confirm');
-        var nameEl    = document.getElementById('confirm-name');
-        var msgEl     = document.getElementById('confirm-message');
-        if (!overlay) return;
-
-        var firstName = name.split(' ')[0] || name;
-        nameEl.textContent = firstName + '!';
-
-        var eventList = events.join(', ');
-        msgEl.innerHTML =
-            'We’re so thrilled you’ll be joining us to celebrate.<br>' +
-            'We’ve noted your RSVP for <strong style="color:var(--primary)">' + eventList + '</strong>.<br><br>' +
-            'With all our love,<br>' +
-            '<em style="font-family:'Playfair Display',serif;font-size:1.1em">Yadhir &amp; Ashwari</em>';
-
-        overlay.classList.add('show');
-
-        document.getElementById('confirm-close').onclick = function() {
-            overlay.classList.remove('show');
-        };
-    }
-
-    // ════════════════════════════════════════════════════════════
-    // WOW 6 — Parallax hero on scroll
-    // ════════════════════════════════════════════════════════════
-    (function() {
-        var heroBg = document.getElementById('hero-bg');
-        if (!heroBg) return;
-
-        // Disable on mobile — too heavy and not visible anyway
-        var isMobile = window.innerWidth <= 768;
-        if (isMobile) return;
-
-        var ticking = false;
-        function updateParallax() {
-            var scrollY = window.scrollY;
-            var headerH = document.getElementById('home').offsetHeight;
-            if (scrollY <= headerH) {
-                // Move bg at 40% of scroll speed = depth effect
-                var offset = scrollY * 0.4;
-                heroBg.style.transform = 'translateY(' + offset + 'px)';
-            }
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
-        }, { passive: true });
-    }());
-
 
     // ── Cinematic Slideshow ───────────────────────────────────────
     (function() {
@@ -1311,17 +1040,6 @@
     }());
 
 </script>
-
-<div class="rsvp-confirm-overlay" id="rsvp-confirm">
-    <div class="rsvp-confirm-hearts">&#10084;&#65039;</div>
-    <div class="rsvp-confirm-title">
-        Thank you,<br>
-        <span class="rsvp-confirm-name" id="confirm-name"></span>
-    </div>
-    <div class="rsvp-confirm-line"></div>
-    <div class="rsvp-confirm-message" id="confirm-message"></div>
-    <button class="rsvp-confirm-close" id="confirm-close">Close</button>
-</div>
 
 </body>
 </html>
