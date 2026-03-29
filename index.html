@@ -31,7 +31,7 @@
     nav a:hover { color:#d4a373; }
     nav a:hover::after { width:100%; }
 
-    header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
+    header { position:relative; min-height:100vh; min-height:100svh; background:transparent; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
     @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
     .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
@@ -325,12 +325,72 @@
     @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
     @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
+
+    /* WOW 1: Cinematic Entrance */
+    #cinema-entrance {
+        position:fixed; inset:0; z-index:99998; background:#0a0a0a;
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        transition:opacity 1.2s ease;
+    }
+    #cinema-entrance.fade-out { opacity:0; pointer-events:none; }
+    #entrance-names {
+        font-family:'Playfair Display',serif; color:#e8c8b0;
+        font-size:clamp(1.8rem,7vw,4.5rem); letter-spacing:4px; text-align:center; min-height:1.3em;
+    }
+    #entrance-sub {
+        font-family:'Montserrat',sans-serif; color:rgba(255,255,255,0.45);
+        font-size:clamp(0.6rem,2vw,0.8rem); letter-spacing:5px; text-transform:uppercase;
+        margin-top:1rem; opacity:0; transition:opacity 0.8s ease;
+    }
+    #entrance-line {
+        width:0; height:1px; background:#d4a373; margin-top:1.4rem; transition:width 0.9s ease;
+    }
+
+    /* WOW 3: RSVP Confirmation Overlay */
+    #rsvp-confirm {
+        position:fixed; inset:0; z-index:99997; background:rgba(10,10,10,0.96);
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        text-align:center; padding:2rem; opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+    }
+    #rsvp-confirm.show { opacity:1; pointer-events:all; }
+    .rc-heart { font-size:3rem; margin-bottom:1.5rem; animation:rcPulse 1.2s ease infinite alternate; }
+    @keyframes rcPulse { from{transform:scale(1);opacity:0.8} to{transform:scale(1.15);opacity:1} }
+    .rc-title {
+        font-family:'Playfair Display',serif; font-size:clamp(1.8rem,6vw,3rem);
+        color:#e8c8b0; margin-bottom:0.75rem; line-height:1.2;
+    }
+    .rc-name { color:white; }
+    .rc-line { width:60px; height:1px; background:#d4a373; margin:0 auto 1.5rem; }
+    .rc-msg {
+        font-family:'Montserrat',sans-serif; color:rgba(255,255,255,0.65);
+        font-size:clamp(0.9rem,2.5vw,1.05rem); max-width:460px; line-height:1.8; margin-bottom:2rem;
+    }
+    .rc-close {
+        background:transparent; border:1px solid rgba(255,255,255,0.3); color:white;
+        padding:0.8rem 2.5rem; font-family:'Montserrat',sans-serif;
+        font-size:0.78rem; letter-spacing:2px; text-transform:uppercase;
+        cursor:pointer; border-radius:50px; transition:all 0.3s ease;
+    }
+    .rc-close:hover { background:#e8c8b0; color:#333; border-color:#e8c8b0; }
+
+    /* WOW 6: Parallax Hero */
+    .hero-parallax-bg {
+        position:absolute; inset:-15%;
+        background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),
+                    url('Images/13.jpeg') no-repeat center center/cover;
+        will-change:transform; z-index:0;
+    }
 </style>
 ```
 
 </head>
 <body>
 
+<div id="cinema-entrance">
+    <div id="entrance-names"></div>
+    <div id="entrance-line"></div>
+    <div id="entrance-sub">Are Getting Married</div>
+</div>
 <audio id="bgMusic" loop preload="auto">
     <source src="Music/Love.mp3" type="audio/mpeg">
 </audio>
@@ -348,6 +408,7 @@
 </nav>
 
 <header id="home">
+    <div class="hero-parallax-bg" id="hero-bg"></div>
     <div class="header-content">
         <h1>Yadhir &amp; Ashwari</h1>
         <div class="subtitle">Are Getting Married</div>
@@ -456,31 +517,30 @@
     <div class="gallery-slideshow" id="gallery-slideshow">
 
 ```
- <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
+    <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
+    <div class="slide"><img src="Images/2.jpeg"  alt="Photo 2"></div>
+    <div class="slide"><img src="Images/3.jpeg"  alt="Photo 3"></div>
+    <div class="slide"><img src="Images/4.jpeg"  alt="Photo 4"></div>
+    <div class="slide"><img src="Images/5.jpeg"  alt="Photo 5"></div>
+    <div class="slide"><img src="Images/6.jpeg"  alt="Photo 6"></div>
+    <div class="slide"><img src="Images/8.jpeg"  alt="Photo 8"></div>
+    <div class="slide"><img src="Images/9.jpeg"  alt="Photo 9"></div>
+    <div class="slide"><img src="Images/10.jpeg" alt="Photo 10"></div>
     <div class="slide"><img src="Images/21.jpeg" alt="Photo 11"></div>
     <div class="slide"><img src="Images/22.jpeg" alt="Photo 12"></div>
     <div class="slide"><img src="Images/23.jpeg" alt="Photo 13"></div>
     <div class="slide"><img src="Images/24.jpeg" alt="Photo 14"></div>
+    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
     <div class="slide"><img src="Images/26.jpeg" alt="Photo 16"></div>
-    <div class="slide"><img src="Images/44.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
     <div class="slide"><img src="Images/27.jpeg" alt="Photo 17"></div>
     <div class="slide"><img src="Images/28.jpeg" alt="Photo 18"></div>
+    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
+    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
     <div class="slide"><img src="Images/31.jpeg" alt="Photo 21"></div>
     <div class="slide"><img src="Images/32.jpeg" alt="Photo 22"></div>
     <div class="slide"><img src="Images/33.jpeg" alt="Photo 23"></div>
     <div class="slide"><img src="Images/34.jpeg" alt="Photo 24"></div>
     <div class="slide"><img src="Images/35.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/43.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
-    <div class="slide"><img src="Images/37.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
-    <div class="slide"><img src="Images/38.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/39.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/40.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/41.jpeg" alt="Photo 25"></div>
-    
-    
 
     <button class="slideshow-nav prev" aria-label="Previous photo">&#8592;</button>
     <button class="slideshow-nav next" aria-label="Next photo">&#8594;</button>
@@ -816,7 +876,7 @@
         }
     });
 
-    document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
+    document.getElementById('wedding-rsvp').addEventListener('submit', function(e) {
         e.preventDefault();
         var m = document.getElementById('mehendi').checked;
         var h = document.getElementById('hurdhee').checked;
@@ -824,19 +884,41 @@
         if (!m && !h && !r) { alert('Please select at least one event to attend.'); return; }
         var btn = document.getElementById('submit-rsvp');
         btn.textContent = 'Sending...'; btn.disabled = true;
+        var submittedName = document.getElementById('name').value;
+        var events = [];
+        if (m) { events.push('Mehendi Ceremony'); }
+        if (h) { events.push('Hurdhee Celebration'); }
+        if (r) { events.push('Wedding Reception'); }
         var payload = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
-            mehendi_attending:   m ? 'Yes':'No', mehendi_guests:   m ? document.getElementById('mehendi-count').value:'0',
-            hurdhee_attending:   h ? 'Yes':'No', hurdhee_guests:   h ? document.getElementById('hurdhee-count').value:'0',
-            reception_attending: r ? 'Yes':'No', reception_guests: r ? document.getElementById('reception-count').value:'0',
-            message: document.getElementById('message').value,
-            timestamp: new Date().toLocaleString()
+            mehendi_attending:   m ? 'Yes':'No',
+            mehendi_guests:      m ? document.getElementById('mehendi-count').value:'0',
+            hurdhee_attending:   h ? 'Yes':'No',
+            hurdhee_guests:      h ? document.getElementById('hurdhee-count').value:'0',
+            reception_attending: r ? 'Yes':'No',
+            reception_guests:    r ? document.getElementById('reception-count').value:'0',
+            message:             document.getElementById('message').value,
+            timestamp:           new Date().toLocaleString()
         };
-        try {
-            await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
-                {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+        fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
+            {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}
+        ).then(function() {
+            createRSVPCelebration(btn);
+            setTimeout(function() {
+                document.getElementById('wedding-rsvp').reset();
+                ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(function(gid) {
+                    document.getElementById(gid).classList.remove('visible');
+                });
+                showRSVPConfirm(submittedName, events);
+                btn.textContent = 'Submit RSVP'; btn.disabled = false;
+            }, 400);
+        }).catch(function() {
+            alert('There was an issue submitting your RSVP. Please try again.');
+            btn.textContent = 'Submit RSVP'; btn.disabled = false;
+        });
+    });
             createRSVPCelebration(btn);
             setTimeout(function() {
                 alert('Thank you for your RSVP! We look forward to celebrating with you.');
@@ -896,6 +978,75 @@
     }
 
     window.addEventListener('scroll', handleScroll, {passive:true});
+
+    // WOW 1: Cinematic Entrance
+    (function() {
+        var el   = document.getElementById('cinema-entrance');
+        var name = document.getElementById('entrance-names');
+        var line = document.getElementById('entrance-line');
+        var sub  = document.getElementById('entrance-sub');
+        if (!el) return;
+        var txt  = 'Yadhir & Ashwari';
+        var i    = 0;
+        function tick() {
+            if (i < txt.length) {
+                name.textContent += txt[i];
+                i++;
+                setTimeout(tick, 80);
+            } else {
+                setTimeout(function() {
+                    if (line) { line.style.width = '200px'; }
+                }, 100);
+                setTimeout(function() {
+                    if (sub) { sub.style.opacity = '1'; }
+                }, 450);
+                setTimeout(function() {
+                    el.classList.add('fade-out');
+                    setTimeout(function() { el.style.display = 'none'; }, 1300);
+                }, 1200);
+            }
+        }
+        setTimeout(tick, 500);
+        // Guaranteed safety net
+        setTimeout(function() { if (el) { el.style.display = 'none'; } }, 9000);
+    }());
+
+    // WOW 3: Personalised RSVP Confirmation
+    function showRSVPConfirm(name, events) {
+        var overlay = document.getElementById('rsvp-confirm');
+        var nameEl  = document.getElementById('rc-name');
+        var msgEl   = document.getElementById('rc-msg');
+        var closeEl = document.getElementById('rc-close');
+        if (!overlay) return;
+        var first = name.split(' ')[0] || name;
+        nameEl.textContent = first + '!';
+        var evtStr = events.join(', ');
+        msgEl.textContent = "We're so thrilled you'll be joining us to celebrate. We've noted your RSVP for " + evtStr + ". With all our love, Yadhir & Ashwari";
+        overlay.classList.add('show');
+        if (closeEl) {
+            closeEl.onclick = function() { overlay.classList.remove('show'); };
+        }
+    }
+
+    // WOW 6: Parallax hero (desktop only)
+    (function() {
+        var bg = document.getElementById('hero-bg');
+        if (!bg || window.innerWidth <= 768) return;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    var header = document.getElementById('home');
+                    if (header && window.scrollY <= header.offsetHeight) {
+                        bg.style.transform = 'translateY(' + (window.scrollY * 0.4) + 'px)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, {passive: true});
+    }());
+
 
     // ── Cinematic Slideshow ───────────────────────────────────────
     (function() {
@@ -1041,5 +1192,12 @@
 
 </script>
 
+<div id="rsvp-confirm">
+    <div class="rc-heart">&#10084;&#65039;</div>
+    <div class="rc-title">Thank you,<br><span class="rc-name" id="rc-name"></span></div>
+    <div class="rc-line"></div>
+    <div class="rc-msg" id="rc-msg"></div>
+    <button class="rc-close" id="rc-close">Close</button>
+</div>
 </body>
 </html>
