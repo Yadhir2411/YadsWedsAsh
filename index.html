@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -119,21 +120,12 @@
         position: absolute;
         inset: 0;
         opacity: 0;
-        transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 1.4s ease-in-out;
         will-change: opacity;
-        z-index: 0;
     }
 
     .slide.active {
         opacity: 1;
-        z-index: 2;
-    }
-
-    /* Keep outgoing slide visible during crossfade */
-    .slide.leaving {
-        opacity: 0;
-        z-index: 1;
-        transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .slide img {
@@ -142,26 +134,32 @@
         object-fit: cover;
         object-position: center center;
         display: block;
+        animation: kenBurns 8s ease-in-out forwards;
     }
 
-    /* Ken Burns only plays on active slide */
     .slide.active img {
-        animation: kenBurns 9s ease-in-out forwards;
+        animation: kenBurns 8s ease-in-out forwards;
     }
-    .slide.active:nth-child(even) img  { animation-name: kenBurns2; }
-    .slide.active:nth-child(3n) img    { animation-name: kenBurns3; }
 
     @keyframes kenBurns {
-        0%   { transform: scale(1.06) translate(0px, 0px); }
-        100% { transform: scale(1.0)  translate(-6px, -3px); }
+        0%   { transform: scale(1.08) translate(0px, 0px); }
+        100% { transform: scale(1.0)  translate(-8px, -4px); }
+    }
+
+    /* Alternate Ken Burns directions for variety */
+    .slide:nth-child(even) img {
+        animation-name: kenBurns2;
     }
     @keyframes kenBurns2 {
         0%   { transform: scale(1.0)  translate(0px, 0px); }
-        100% { transform: scale(1.06) translate(6px, 3px); }
+        100% { transform: scale(1.08) translate(8px, 4px); }
+    }
+    .slide:nth-child(3n) img {
+        animation-name: kenBurns3;
     }
     @keyframes kenBurns3 {
-        0%   { transform: scale(1.04) translate(4px, -3px); }
-        100% { transform: scale(1.0)  translate(-3px, 3px); }
+        0%   { transform: scale(1.05) translate(6px, -4px); }
+        100% { transform: scale(1.0)  translate(-4px, 4px); }
     }
 
     /* Slide overlay — subtle vignette */
@@ -288,36 +286,7 @@
     .form-group input:focus,.form-group select:focus,.form-group textarea:focus { outline:none; border-color:var(--primary); background:rgba(255,255,255,0.2); }
     .event-checkbox-block { background:rgba(255,255,255,0.1); padding:clamp(1rem,3vw,1.5rem); border-radius:8px; margin-bottom:0.75rem; border:1px solid rgba(255,255,255,0.15); }
     .event-checkbox-row { display:flex; align-items:flex-start; gap:0.85rem; }
-    .event-checkbox-row input[type="checkbox"] {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 22px;
-        height: 22px;
-        flex-shrink: 0;
-        margin-top: 0.1rem;
-        cursor: pointer;
-        border: 2px solid rgba(255,255,255,0.5);
-        border-radius: 4px;
-        background: rgba(255,255,255,0.1);
-        position: relative;
-        transition: background 0.2s ease, border-color 0.2s ease;
-    }
-    .event-checkbox-row input[type="checkbox"]:checked {
-        background: var(--accent);
-        border-color: var(--accent);
-    }
-    .event-checkbox-row input[type="checkbox"]:checked::after {
-        content: '';
-        position: absolute;
-        left: 5px;
-        top: 2px;
-        width: 6px;
-        height: 11px;
-        border: 2px solid white;
-        border-top: none;
-        border-left: none;
-        transform: rotate(45deg);
-    }
+    .event-checkbox-row input[type="checkbox"] { width:20px; height:20px; flex-shrink:0; margin-top:0.15rem; cursor:pointer; accent-color:var(--accent); padding:0; }
     .event-checkbox-row label { margin:0; cursor:pointer; flex:1; }
     .event-checkbox-row label strong { display:block; margin-bottom:0.2rem; }
     .event-checkbox-row label span { font-size:clamp(0.78rem,2vw,0.88rem); opacity:0.85; }
@@ -357,175 +326,6 @@
     @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
     @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
-
-    /* WOW 1: removed */
-
-    /* WOW 7: Add to Calendar */
-    .add-cal-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 2rem;
-        padding: 0.85rem 2rem;
-        background: var(--accent);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.82rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        box-shadow: 0 4px 20px rgba(212,163,115,0.4);
-    }
-    .add-cal-btn:hover {
-        background: var(--secondary);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 28px rgba(212,163,115,0.35);
-    }
-    .add-cal-btn:active { transform: translateY(0); }
-    .cal-dropdown {
-        position: relative;
-        display: inline-block;
-        text-align: center;
-        width: 100%;
-        margin-top: 2rem;
-    }
-    .cal-options {
-        display: none;
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        overflow: hidden;
-        min-width: 220px;
-        z-index: 100;
-    }
-    .cal-options.open { display: block; }
-    .cal-option {
-        display: block;
-        padding: 0.9rem 1.4rem;
-        color: var(--dark);
-        text-decoration: none;
-        font-size: 0.85rem;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-        border-bottom: 1px solid #f0e8e0;
-        transition: background 0.2s ease;
-    }
-    .cal-option:last-child { border-bottom: none; }
-    .cal-option:hover { background: var(--light); color: var(--accent); }
-
-    /* WOW 5: Lightbox */
-    #slideshow-lightbox {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s ease;
-    }
-    #slideshow-lightbox.open {
-        opacity: 1;
-        pointer-events: all;
-    }
-    #lb-blur-bg {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        filter: blur(24px) brightness(0.3) saturate(1.5);
-        transform: scale(1.1);
-    }
-    #lb-photo {
-        position: relative;
-        z-index: 2;
-        max-width: min(94vw, 1000px);
-        max-height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #lb-photo img {
-        max-width: 100%;
-        max-height: 90vh;
-        object-fit: contain;
-        border-radius: 6px;
-        box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-        transform: scale(0.9);
-        opacity: 0;
-        transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
-        display: block;
-    }
-    #slideshow-lightbox.open #lb-photo img {
-        transform: scale(1);
-        opacity: 1;
-    }
-    #lb-x {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 3;
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.3);
-        color: white;
-        font-size: 1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.25s ease;
-    }
-    #lb-x:hover { background: rgba(255,255,255,0.28); }
-
-    /* WOW 3: RSVP Confirmation Overlay */
-    #rsvp-confirm {
-        position:fixed; inset:0; z-index:99997; background:rgba(10,10,10,0.96);
-        display:flex; flex-direction:column; align-items:center; justify-content:center;
-        text-align:center; padding:2rem; opacity:0; pointer-events:none; transition:opacity 0.6s ease;
-    }
-    #rsvp-confirm.show { opacity:1; pointer-events:all; }
-    .rc-heart { font-size:3rem; margin-bottom:1.5rem; animation:rcPulse 1.2s ease infinite alternate; }
-    @keyframes rcPulse { from{transform:scale(1);opacity:0.8} to{transform:scale(1.15);opacity:1} }
-    .rc-title {
-        font-family:'Playfair Display',serif; font-size:clamp(1.8rem,6vw,3rem);
-        color:#e8c8b0; margin-bottom:0.75rem; line-height:1.2;
-    }
-    .rc-name { color:white; }
-    .rc-line { width:60px; height:1px; background:#d4a373; margin:0 auto 1.5rem; }
-    .rc-msg {
-        font-family:'Montserrat',sans-serif; color:rgba(255,255,255,0.65);
-        font-size:clamp(0.9rem,2.5vw,1.05rem); max-width:460px; line-height:1.8; margin-bottom:2rem;
-    }
-    .rc-close {
-        background:transparent; border:1px solid rgba(255,255,255,0.3); color:white;
-        padding:0.8rem 2.5rem; font-family:'Montserrat',sans-serif;
-        font-size:0.78rem; letter-spacing:2px; text-transform:uppercase;
-        cursor:pointer; border-radius:50px; transition:all 0.3s ease;
-    }
-    .rc-close:hover { background:#e8c8b0; color:#333; border-color:#e8c8b0; }
-
-    /* WOW 6: Parallax Hero */
-    .hero-parallax-bg {
-        position:absolute; inset:-15%;
-        background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),
-                    url('Images/13.jpeg') no-repeat center center/cover;
-        will-change:transform; z-index:0;
-    }
 </style>
 ```
 
@@ -549,7 +349,6 @@
 </nav>
 
 <header id="home">
-    <div class="hero-parallax-bg" id="hero-bg"></div>
     <div class="header-content">
         <h1>Yadhir &amp; Ashwari</h1>
         <div class="subtitle">Are Getting Married</div>
@@ -651,16 +450,6 @@
             <p>asraiashwari [at] gmail.com | (082) 811-5166</p>
         </div>
     </div>
-        <div class="cal-dropdown" id="cal-dropdown">
-            <button class="add-cal-btn" id="cal-btn" onclick="toggleCal()">
-                &#128197; Save the Date
-            </button>
-            <div class="cal-options" id="cal-options">
-                <a class="cal-option" href="#" id="cal-google">Google Calendar</a>
-                <a class="cal-option" href="#" id="cal-apple">Apple Calendar (.ics)</a>
-                <a class="cal-option" href="#" id="cal-outlook">Outlook (.ics)</a>
-            </div>
-        </div>
 </section>
 
 <section id="gallery">
@@ -668,30 +457,31 @@
     <div class="gallery-slideshow" id="gallery-slideshow">
 
 ```
-    <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
-    <div class="slide"><img src="Images/2.jpeg"  alt="Photo 2"></div>
-    <div class="slide"><img src="Images/3.jpeg"  alt="Photo 3"></div>
-    <div class="slide"><img src="Images/4.jpeg"  alt="Photo 4"></div>
-    <div class="slide"><img src="Images/5.jpeg"  alt="Photo 5"></div>
-    <div class="slide"><img src="Images/6.jpeg"  alt="Photo 6"></div>
-    <div class="slide"><img src="Images/8.jpeg"  alt="Photo 8"></div>
-    <div class="slide"><img src="Images/9.jpeg"  alt="Photo 9"></div>
-    <div class="slide"><img src="Images/10.jpeg" alt="Photo 10"></div>
+ <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
     <div class="slide"><img src="Images/21.jpeg" alt="Photo 11"></div>
     <div class="slide"><img src="Images/22.jpeg" alt="Photo 12"></div>
     <div class="slide"><img src="Images/23.jpeg" alt="Photo 13"></div>
     <div class="slide"><img src="Images/24.jpeg" alt="Photo 14"></div>
-    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
     <div class="slide"><img src="Images/26.jpeg" alt="Photo 16"></div>
+    <div class="slide"><img src="Images/44.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
     <div class="slide"><img src="Images/27.jpeg" alt="Photo 17"></div>
     <div class="slide"><img src="Images/28.jpeg" alt="Photo 18"></div>
-    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
-    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
     <div class="slide"><img src="Images/31.jpeg" alt="Photo 21"></div>
     <div class="slide"><img src="Images/32.jpeg" alt="Photo 22"></div>
     <div class="slide"><img src="Images/33.jpeg" alt="Photo 23"></div>
     <div class="slide"><img src="Images/34.jpeg" alt="Photo 24"></div>
     <div class="slide"><img src="Images/35.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/43.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
+    <div class="slide"><img src="Images/37.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
+    <div class="slide"><img src="Images/38.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/39.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/40.jpeg" alt="Photo 25"></div>
+    <div class="slide"><img src="Images/41.jpeg" alt="Photo 25"></div>
+    
+    
 
     <button class="slideshow-nav prev" aria-label="Previous photo">&#8592;</button>
     <button class="slideshow-nav next" aria-label="Next photo">&#8594;</button>
@@ -1027,7 +817,7 @@
         }
     });
 
-    document.getElementById('wedding-rsvp').addEventListener('submit', function(e) {
+    document.getElementById('wedding-rsvp').addEventListener('submit', async function(e) {
         e.preventDefault();
         var m = document.getElementById('mehendi').checked;
         var h = document.getElementById('hurdhee').checked;
@@ -1035,41 +825,19 @@
         if (!m && !h && !r) { alert('Please select at least one event to attend.'); return; }
         var btn = document.getElementById('submit-rsvp');
         btn.textContent = 'Sending...'; btn.disabled = true;
-        var submittedName = document.getElementById('name').value;
-        var events = [];
-        if (m) { events.push('Mehendi Ceremony'); }
-        if (h) { events.push('Hurdhee Celebration'); }
-        if (r) { events.push('Wedding Reception'); }
         var payload = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
-            mehendi_attending:   m ? 'Yes':'No',
-            mehendi_guests:      m ? document.getElementById('mehendi-count').value:'0',
-            hurdhee_attending:   h ? 'Yes':'No',
-            hurdhee_guests:      h ? document.getElementById('hurdhee-count').value:'0',
-            reception_attending: r ? 'Yes':'No',
-            reception_guests:    r ? document.getElementById('reception-count').value:'0',
-            message:             document.getElementById('message').value,
-            timestamp:           new Date().toLocaleString()
+            mehendi_attending:   m ? 'Yes':'No', mehendi_guests:   m ? document.getElementById('mehendi-count').value:'0',
+            hurdhee_attending:   h ? 'Yes':'No', hurdhee_guests:   h ? document.getElementById('hurdhee-count').value:'0',
+            reception_attending: r ? 'Yes':'No', reception_guests: r ? document.getElementById('reception-count').value:'0',
+            message: document.getElementById('message').value,
+            timestamp: new Date().toLocaleString()
         };
-        fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
-            {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}
-        ).then(function() {
-            createRSVPCelebration(btn);
-            setTimeout(function() {
-                document.getElementById('wedding-rsvp').reset();
-                ['mehendi-guests','hurdhee-guests','reception-guests'].forEach(function(gid) {
-                    document.getElementById(gid).classList.remove('visible');
-                });
-                showRSVPConfirm(submittedName, events);
-                btn.textContent = 'Submit RSVP'; btn.disabled = false;
-            }, 400);
-        }).catch(function() {
-            alert('There was an issue submitting your RSVP. Please try again.');
-            btn.textContent = 'Submit RSVP'; btn.disabled = false;
-        });
-    });
+        try {
+            await fetch('https://script.google.com/macros/s/AKfycbwtpZ0k5H9zzY9xmCIaXNrM7u4NZX9rOdRUAJ0fFoK83dJNHPNPNoUSqTLjQWQFEX6eyA/exec',
+                {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
             createRSVPCelebration(btn);
             setTimeout(function() {
                 alert('Thank you for your RSVP! We look forward to celebrating with you.');
@@ -1130,163 +898,6 @@
 
     window.addEventListener('scroll', handleScroll, {passive:true});
 
-    // WOW 5: Lightbox for slideshow
-    (function() {
-        var lb     = document.getElementById('slideshow-lightbox');
-        var lbBg   = document.getElementById('lb-blur-bg');
-        var lbImg  = document.getElementById('lb-img');
-        var lbX    = document.getElementById('lb-x');
-        var ss     = document.getElementById('gallery-slideshow');
-        if (!lb || !ss) return;
-
-        function openLB(src) {
-            lbBg.style.backgroundImage = 'url(' + src + ')';
-            lbImg.src = src;
-            lb.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLB() {
-            lb.classList.remove('open');
-            document.body.style.overflow = '';
-            setTimeout(function() { lbImg.src = ''; }, 450);
-        }
-
-        // Tap the slideshow image to open lightbox
-        ss.addEventListener('click', function(e) {
-            var slide = e.target.closest('.slide');
-            if (!slide) return;
-            // Don't open if they clicked a nav button
-            if (e.target.classList.contains('slideshow-nav') ||
-                e.target.classList.contains('slideshow-dot')) return;
-            var img = slide.querySelector('img');
-            if (img) { openLB(img.src); }
-        });
-
-        lbX.addEventListener('click', closeLB);
-        lb.addEventListener('click', function(e) {
-            if (e.target === lb || e.target === lbBg) { closeLB(); }
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && lb.classList.contains('open')) { closeLB(); }
-        });
-    }());
-
-    // WOW 7: Save the Date calendar
-    function toggleCal() {
-        var opts = document.getElementById('cal-options');
-        if (opts) { opts.classList.toggle('open'); }
-    }
-
-    (function() {
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            var dd = document.getElementById('cal-dropdown');
-            if (dd && !dd.contains(e.target)) {
-                var opts = document.getElementById('cal-options');
-                if (opts) { opts.classList.remove('open'); }
-            }
-        });
-
-        // Build ICS file content
-        function makeICS() {
-            var lines = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'PRODID:-//Yadhir & Ashwari Wedding//EN',
-                'BEGIN:VEVENT',
-                'DTSTART:20261217T180000',
-                'DTEND:20261217T230000',
-                'SUMMARY:Mehendi Ceremony - Yadhir & Ashwari',
-                'LOCATION:The White Boxx, 369 Peter Mokaba Ridge, Berea',
-                'END:VEVENT',
-                'BEGIN:VEVENT',
-                'DTSTART:20261218T170000',
-                'DTEND:20261218T220000',
-                'SUMMARY:Hurdhee Celebration - Yadhir & Ashwari',
-                'LOCATION:The Coastlands Hotel Umhlanga, 11th Floor',
-                'END:VEVENT',
-                'BEGIN:VEVENT',
-                'DTSTART:20261219T173000',
-                'DTEND:20261219T230000',
-                'SUMMARY:Wedding Reception - Yadhir & Ashwari',
-                'LOCATION:King Protea, The Capital Zimbali Resort, Zimbali',
-                'END:VEVENT',
-                'END:VCALENDAR'
-            ];
-            return lines.join('\r\n');
-        }
-
-        function downloadICS() {
-            var blob = new Blob([makeICS()], {type: 'text/calendar;charset=utf-8'});
-            var url  = URL.createObjectURL(blob);
-            var a    = document.createElement('a');
-            a.href   = url;
-            a.download = 'Yadhir-Ashwari-Wedding.ics';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        // Google Calendar link (reception — main event)
-        var gCal = document.getElementById('cal-google');
-        if (gCal) {
-            var gBase = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-            gCal.href = gBase +
-                '&text=Yadhir+%26+Ashwari+Wedding+Reception' +
-                '&dates=20261219T173000Z/20261219T230000Z' +
-                '&details=Wedding+Reception+at+King+Protea%2C+The+Capital+Zimbali+Resort' +
-                '&location=King+Protea%2C+The+Capital+Zimbali+Resort%2C+Zimbali';
-            gCal.target = '_blank';
-            gCal.rel    = 'noopener';
-        }
-
-        var aCal = document.getElementById('cal-apple');
-        var oCal = document.getElementById('cal-outlook');
-        if (aCal) { aCal.addEventListener('click', function(e) { e.preventDefault(); downloadICS(); }); }
-        if (oCal) { oCal.addEventListener('click', function(e) { e.preventDefault(); downloadICS(); }); }
-    }());
-
-
-    // WOW 1: removed
-
-    // WOW 3: Personalised RSVP Confirmation
-    function showRSVPConfirm(name, events) {
-        var overlay = document.getElementById('rsvp-confirm');
-        var nameEl  = document.getElementById('rc-name');
-        var msgEl   = document.getElementById('rc-msg');
-        var closeEl = document.getElementById('rc-close');
-        if (!overlay) return;
-        var first = name.split(' ')[0] || name;
-        nameEl.textContent = first + '!';
-        var evtStr = events.join(', ');
-        msgEl.textContent = "We're so thrilled you'll be joining us to celebrate. We've noted your RSVP for " + evtStr + ". With all our love, Yadhir & Ashwari";
-        overlay.classList.add('show');
-        if (closeEl) {
-            closeEl.onclick = function() { overlay.classList.remove('show'); };
-        }
-    }
-
-    // WOW 6: Parallax hero (desktop only)
-    (function() {
-        var bg = document.getElementById('hero-bg');
-        if (!bg || window.innerWidth <= 768) return;
-        var ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(function() {
-                    var header = document.getElementById('home');
-                    if (header && window.scrollY <= header.offsetHeight) {
-                        bg.style.transform = 'translateY(' + (window.scrollY * 0.4) + 'px)';
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }, {passive: true});
-    }());
-
-
     // ── Cinematic Slideshow ───────────────────────────────────────
     (function() {
         var container = document.getElementById('gallery-slideshow');
@@ -1314,24 +925,21 @@
         function getDots() { return Array.prototype.slice.call(dotsWrap.querySelectorAll('.slideshow-dot')); }
 
         function goTo(idx) {
-            var prev = current;
-            current  = (idx + total) % total;
-            if (prev === current) return;
+            slides[current].classList.remove('active');
+            // Reset Ken Burns by forcing reflow
+            var img = slides[current].querySelector('img');
+            img.style.animation = 'none';
+            void img.offsetWidth;
+            img.style.animation = '';
 
-            // Outgoing: add leaving (holds it visible briefly then fades)
-            slides[prev].classList.remove('active');
-            slides[prev].classList.add('leaving');
-            // Remove leaving class after transition completes
-            (function(s) {
-                setTimeout(function() { s.classList.remove('leaving'); }, 1900);
-            }(slides[prev]));
+            current = (idx + total) % total;
+            slides[current].classList.add('active');
 
-            // Incoming: reset Ken Burns then activate
+            // Restart Ken Burns on new active slide
             var newImg = slides[current].querySelector('img');
             newImg.style.animation = 'none';
-            void newImg.offsetWidth; // force reflow
+            void newImg.offsetWidth;
             newImg.style.animation = '';
-            slides[current].classList.add('active');
 
             getDots().forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
@@ -1434,18 +1042,5 @@
 
 </script>
 
-<div id="rsvp-confirm">
-    <div class="rc-heart">&#10084;&#65039;</div>
-    <div class="rc-title">Thank you,<br><span class="rc-name" id="rc-name"></span></div>
-    <div class="rc-line"></div>
-    <div class="rc-msg" id="rc-msg"></div>
-    <button class="rc-close" id="rc-close">Close</button>
-</div>
-
-<div id="slideshow-lightbox">
-    <div id="lb-blur-bg"></div>
-    <div id="lb-photo"><img id="lb-img" src="" alt=""></div>
-    <button id="lb-x" aria-label="Close">&#10005;</button>
-</div>
 </body>
 </html>
