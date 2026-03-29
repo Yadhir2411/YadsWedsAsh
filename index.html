@@ -31,7 +31,7 @@
     nav a:hover { color:#d4a373; }
     nav a:hover::after { width:100%; }
 
-    header { position:relative; min-height:100vh; min-height:100svh; background:transparent; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
+    header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
     @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
     .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
@@ -119,12 +119,21 @@
         position: absolute;
         inset: 0;
         opacity: 0;
-        transition: opacity 1.4s ease-in-out;
+        transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: opacity;
+        z-index: 0;
     }
 
     .slide.active {
         opacity: 1;
+        z-index: 2;
+    }
+
+    /* Keep outgoing slide visible during crossfade */
+    .slide.leaving {
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .slide img {
@@ -133,32 +142,26 @@
         object-fit: cover;
         object-position: center center;
         display: block;
-        animation: kenBurns 8s ease-in-out forwards;
     }
 
+    /* Ken Burns only plays on active slide */
     .slide.active img {
-        animation: kenBurns 8s ease-in-out forwards;
+        animation: kenBurns 9s ease-in-out forwards;
     }
+    .slide.active:nth-child(even) img  { animation-name: kenBurns2; }
+    .slide.active:nth-child(3n) img    { animation-name: kenBurns3; }
 
     @keyframes kenBurns {
-        0%   { transform: scale(1.08) translate(0px, 0px); }
-        100% { transform: scale(1.0)  translate(-8px, -4px); }
-    }
-
-    /* Alternate Ken Burns directions for variety */
-    .slide:nth-child(even) img {
-        animation-name: kenBurns2;
+        0%   { transform: scale(1.06) translate(0px, 0px); }
+        100% { transform: scale(1.0)  translate(-6px, -3px); }
     }
     @keyframes kenBurns2 {
         0%   { transform: scale(1.0)  translate(0px, 0px); }
-        100% { transform: scale(1.08) translate(8px, 4px); }
-    }
-    .slide:nth-child(3n) img {
-        animation-name: kenBurns3;
+        100% { transform: scale(1.06) translate(6px, 3px); }
     }
     @keyframes kenBurns3 {
-        0%   { transform: scale(1.05) translate(6px, -4px); }
-        100% { transform: scale(1.0)  translate(-4px, 4px); }
+        0%   { transform: scale(1.04) translate(4px, -3px); }
+        100% { transform: scale(1.0)  translate(-3px, 3px); }
     }
 
     /* Slide overlay — subtle vignette */
@@ -285,7 +288,36 @@
     .form-group input:focus,.form-group select:focus,.form-group textarea:focus { outline:none; border-color:var(--primary); background:rgba(255,255,255,0.2); }
     .event-checkbox-block { background:rgba(255,255,255,0.1); padding:clamp(1rem,3vw,1.5rem); border-radius:8px; margin-bottom:0.75rem; border:1px solid rgba(255,255,255,0.15); }
     .event-checkbox-row { display:flex; align-items:flex-start; gap:0.85rem; }
-    .event-checkbox-row input[type="checkbox"] { width:20px; height:20px; flex-shrink:0; margin-top:0.15rem; cursor:pointer; accent-color:var(--accent); padding:0; }
+    .event-checkbox-row input[type="checkbox"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+        cursor: pointer;
+        border: 2px solid rgba(255,255,255,0.5);
+        border-radius: 4px;
+        background: rgba(255,255,255,0.1);
+        position: relative;
+        transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .event-checkbox-row input[type="checkbox"]:checked {
+        background: var(--accent);
+        border-color: var(--accent);
+    }
+    .event-checkbox-row input[type="checkbox"]:checked::after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        width: 6px;
+        height: 11px;
+        border: 2px solid white;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg);
+    }
     .event-checkbox-row label { margin:0; cursor:pointer; flex:1; }
     .event-checkbox-row label strong { display:block; margin-bottom:0.2rem; }
     .event-checkbox-row label span { font-size:clamp(0.78rem,2vw,0.88rem); opacity:0.85; }
@@ -326,25 +358,139 @@
     @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
 
-    /* WOW 1: Cinematic Entrance */
-    #cinema-entrance {
-        position:fixed; inset:0; z-index:99998; background:#0a0a0a;
-        display:flex; flex-direction:column; align-items:center; justify-content:center;
-        transition:opacity 1.2s ease;
+    /* WOW 1: removed */
+
+    /* WOW 7: Add to Calendar */
+    .add-cal-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        padding: 0.85rem 2rem;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(212,163,115,0.4);
     }
-    #cinema-entrance.fade-out { opacity:0; pointer-events:none; }
-    #entrance-names {
-        font-family:'Playfair Display',serif; color:#e8c8b0;
-        font-size:clamp(1.8rem,7vw,4.5rem); letter-spacing:4px; text-align:center; min-height:1.3em;
+    .add-cal-btn:hover {
+        background: var(--secondary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(212,163,115,0.35);
     }
-    #entrance-sub {
-        font-family:'Montserrat',sans-serif; color:rgba(255,255,255,0.45);
-        font-size:clamp(0.6rem,2vw,0.8rem); letter-spacing:5px; text-transform:uppercase;
-        margin-top:1rem; opacity:0; transition:opacity 0.8s ease;
+    .add-cal-btn:active { transform: translateY(0); }
+    .cal-dropdown {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+        margin-top: 2rem;
     }
-    #entrance-line {
-        width:0; height:1px; background:#d4a373; margin-top:1.4rem; transition:width 0.9s ease;
+    .cal-options {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        overflow: hidden;
+        min-width: 220px;
+        z-index: 100;
     }
+    .cal-options.open { display: block; }
+    .cal-option {
+        display: block;
+        padding: 0.9rem 1.4rem;
+        color: var(--dark);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        border-bottom: 1px solid #f0e8e0;
+        transition: background 0.2s ease;
+    }
+    .cal-option:last-child { border-bottom: none; }
+    .cal-option:hover { background: var(--light); color: var(--accent); }
+
+    /* WOW 5: Lightbox */
+    #slideshow-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+    #slideshow-lightbox.open {
+        opacity: 1;
+        pointer-events: all;
+    }
+    #lb-blur-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        filter: blur(24px) brightness(0.3) saturate(1.5);
+        transform: scale(1.1);
+    }
+    #lb-photo {
+        position: relative;
+        z-index: 2;
+        max-width: min(94vw, 1000px);
+        max-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #lb-photo img {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 6px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+        transform: scale(0.9);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+        display: block;
+    }
+    #slideshow-lightbox.open #lb-photo img {
+        transform: scale(1);
+        opacity: 1;
+    }
+    #lb-x {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 3;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.25s ease;
+    }
+    #lb-x:hover { background: rgba(255,255,255,0.28); }
 
     /* WOW 3: RSVP Confirmation Overlay */
     #rsvp-confirm {
@@ -386,11 +532,6 @@
 </head>
 <body>
 
-<div id="cinema-entrance">
-    <div id="entrance-names"></div>
-    <div id="entrance-line"></div>
-    <div id="entrance-sub">Are Getting Married</div>
-</div>
 <audio id="bgMusic" loop preload="auto">
     <source src="Music/Love.mp3" type="audio/mpeg">
 </audio>
@@ -510,6 +651,16 @@
             <p>asraiashwari [at] gmail.com | (082) 811-5166</p>
         </div>
     </div>
+        <div class="cal-dropdown" id="cal-dropdown">
+            <button class="add-cal-btn" id="cal-btn" onclick="toggleCal()">
+                &#128197; Save the Date
+            </button>
+            <div class="cal-options" id="cal-options">
+                <a class="cal-option" href="#" id="cal-google">Google Calendar</a>
+                <a class="cal-option" href="#" id="cal-apple">Apple Calendar (.ics)</a>
+                <a class="cal-option" href="#" id="cal-outlook">Outlook (.ics)</a>
+            </div>
+        </div>
 </section>
 
 <section id="gallery">
@@ -979,37 +1130,125 @@
 
     window.addEventListener('scroll', handleScroll, {passive:true});
 
-    // WOW 1: Cinematic Entrance
+    // WOW 5: Lightbox for slideshow
     (function() {
-        var el   = document.getElementById('cinema-entrance');
-        var name = document.getElementById('entrance-names');
-        var line = document.getElementById('entrance-line');
-        var sub  = document.getElementById('entrance-sub');
-        if (!el) return;
-        var txt  = 'Yadhir & Ashwari';
-        var i    = 0;
-        function tick() {
-            if (i < txt.length) {
-                name.textContent += txt[i];
-                i++;
-                setTimeout(tick, 80);
-            } else {
-                setTimeout(function() {
-                    if (line) { line.style.width = '200px'; }
-                }, 100);
-                setTimeout(function() {
-                    if (sub) { sub.style.opacity = '1'; }
-                }, 450);
-                setTimeout(function() {
-                    el.classList.add('fade-out');
-                    setTimeout(function() { el.style.display = 'none'; }, 1300);
-                }, 1200);
-            }
+        var lb     = document.getElementById('slideshow-lightbox');
+        var lbBg   = document.getElementById('lb-blur-bg');
+        var lbImg  = document.getElementById('lb-img');
+        var lbX    = document.getElementById('lb-x');
+        var ss     = document.getElementById('gallery-slideshow');
+        if (!lb || !ss) return;
+
+        function openLB(src) {
+            lbBg.style.backgroundImage = 'url(' + src + ')';
+            lbImg.src = src;
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
         }
-        setTimeout(tick, 500);
-        // Guaranteed safety net
-        setTimeout(function() { if (el) { el.style.display = 'none'; } }, 9000);
+        function closeLB() {
+            lb.classList.remove('open');
+            document.body.style.overflow = '';
+            setTimeout(function() { lbImg.src = ''; }, 450);
+        }
+
+        // Tap the slideshow image to open lightbox
+        ss.addEventListener('click', function(e) {
+            var slide = e.target.closest('.slide');
+            if (!slide) return;
+            // Don't open if they clicked a nav button
+            if (e.target.classList.contains('slideshow-nav') ||
+                e.target.classList.contains('slideshow-dot')) return;
+            var img = slide.querySelector('img');
+            if (img) { openLB(img.src); }
+        });
+
+        lbX.addEventListener('click', closeLB);
+        lb.addEventListener('click', function(e) {
+            if (e.target === lb || e.target === lbBg) { closeLB(); }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lb.classList.contains('open')) { closeLB(); }
+        });
     }());
+
+    // WOW 7: Save the Date calendar
+    function toggleCal() {
+        var opts = document.getElementById('cal-options');
+        if (opts) { opts.classList.toggle('open'); }
+    }
+
+    (function() {
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            var dd = document.getElementById('cal-dropdown');
+            if (dd && !dd.contains(e.target)) {
+                var opts = document.getElementById('cal-options');
+                if (opts) { opts.classList.remove('open'); }
+            }
+        });
+
+        // Build ICS file content
+        function makeICS() {
+            var lines = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Yadhir & Ashwari Wedding//EN',
+                'BEGIN:VEVENT',
+                'DTSTART:20261217T180000',
+                'DTEND:20261217T230000',
+                'SUMMARY:Mehendi Ceremony - Yadhir & Ashwari',
+                'LOCATION:The White Boxx, 369 Peter Mokaba Ridge, Berea',
+                'END:VEVENT',
+                'BEGIN:VEVENT',
+                'DTSTART:20261218T170000',
+                'DTEND:20261218T220000',
+                'SUMMARY:Hurdhee Celebration - Yadhir & Ashwari',
+                'LOCATION:The Coastlands Hotel Umhlanga, 11th Floor',
+                'END:VEVENT',
+                'BEGIN:VEVENT',
+                'DTSTART:20261219T173000',
+                'DTEND:20261219T230000',
+                'SUMMARY:Wedding Reception - Yadhir & Ashwari',
+                'LOCATION:King Protea, The Capital Zimbali Resort, Zimbali',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ];
+            return lines.join('\r\n');
+        }
+
+        function downloadICS() {
+            var blob = new Blob([makeICS()], {type: 'text/calendar;charset=utf-8'});
+            var url  = URL.createObjectURL(blob);
+            var a    = document.createElement('a');
+            a.href   = url;
+            a.download = 'Yadhir-Ashwari-Wedding.ics';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Google Calendar link (reception — main event)
+        var gCal = document.getElementById('cal-google');
+        if (gCal) {
+            var gBase = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+            gCal.href = gBase +
+                '&text=Yadhir+%26+Ashwari+Wedding+Reception' +
+                '&dates=20261219T173000Z/20261219T230000Z' +
+                '&details=Wedding+Reception+at+King+Protea%2C+The+Capital+Zimbali+Resort' +
+                '&location=King+Protea%2C+The+Capital+Zimbali+Resort%2C+Zimbali';
+            gCal.target = '_blank';
+            gCal.rel    = 'noopener';
+        }
+
+        var aCal = document.getElementById('cal-apple');
+        var oCal = document.getElementById('cal-outlook');
+        if (aCal) { aCal.addEventListener('click', function(e) { e.preventDefault(); downloadICS(); }); }
+        if (oCal) { oCal.addEventListener('click', function(e) { e.preventDefault(); downloadICS(); }); }
+    }());
+
+
+    // WOW 1: removed
 
     // WOW 3: Personalised RSVP Confirmation
     function showRSVPConfirm(name, events) {
@@ -1075,21 +1314,24 @@
         function getDots() { return Array.prototype.slice.call(dotsWrap.querySelectorAll('.slideshow-dot')); }
 
         function goTo(idx) {
-            slides[current].classList.remove('active');
-            // Reset Ken Burns by forcing reflow
-            var img = slides[current].querySelector('img');
-            img.style.animation = 'none';
-            void img.offsetWidth;
-            img.style.animation = '';
+            var prev = current;
+            current  = (idx + total) % total;
+            if (prev === current) return;
 
-            current = (idx + total) % total;
-            slides[current].classList.add('active');
+            // Outgoing: add leaving (holds it visible briefly then fades)
+            slides[prev].classList.remove('active');
+            slides[prev].classList.add('leaving');
+            // Remove leaving class after transition completes
+            (function(s) {
+                setTimeout(function() { s.classList.remove('leaving'); }, 1900);
+            }(slides[prev]));
 
-            // Restart Ken Burns on new active slide
+            // Incoming: reset Ken Burns then activate
             var newImg = slides[current].querySelector('img');
             newImg.style.animation = 'none';
-            void newImg.offsetWidth;
+            void newImg.offsetWidth; // force reflow
             newImg.style.animation = '';
+            slides[current].classList.add('active');
 
             getDots().forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
@@ -1198,6 +1440,12 @@
     <div class="rc-line"></div>
     <div class="rc-msg" id="rc-msg"></div>
     <button class="rc-close" id="rc-close">Close</button>
+</div>
+
+<div id="slideshow-lightbox">
+    <div id="lb-blur-bg"></div>
+    <div id="lb-photo"><img id="lb-img" src="" alt=""></div>
+    <button id="lb-x" aria-label="Close">&#10005;</button>
 </div>
 </body>
 </html>
