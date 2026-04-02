@@ -525,6 +525,72 @@ nav.nav-hidden { transform: translateY(-100%); }
             <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Minutes</div></div>
             <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Seconds</div></div>
         </div>
+        <!-- Sacred inscription – animated handwriting -->
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
+
+<div class="ganesh-inscription" id="inscription" style="text-align:center;margin-top:1.6rem;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+  <span id="ins-en" style="font-family:'Satisfy',cursive;font-size:clamp(1rem,3.2vw,1.45rem);letter-spacing:2.5px;color:rgba(255,255,255,0.88);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
+  <span id="ins-div" style="font-family:'Satisfy',cursive;font-size:0.9rem;color:rgba(212,163,115,0.7);letter-spacing:6px;opacity:0;transition:opacity 0.6s ease;">✦ &nbsp; ✦ &nbsp; ✦</span>
+  <span id="ins-hi" style="font-family:'Noto Serif Devanagari',serif;font-size:clamp(0.95rem,2.8vw,1.3rem);letter-spacing:1px;color:rgba(255,220,180,0.9);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
+  <span id="ins-cur" style="display:inline-block;width:1px;height:1.1em;background:rgba(255,255,255,0.7);vertical-align:middle;margin-left:1px;animation:curBlink 0.65s step-end infinite;"></span>
+</div>
+
+<style>
+  @keyframes curBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+  @keyframes inkIn { from{opacity:0;transform:translateY(4px) rotate(-1deg)} to{opacity:1;transform:translateY(0) rotate(0)} }
+  .ins-char { display:inline-block; opacity:0; transform:translateY(4px) rotate(-1deg); animation:inkIn 0.12s ease-out forwards; }
+</style>
+
+<script>
+(function(){
+  var EN='Om Shri Ganeshaya Namaha', HI='ॐ श्री गणेशाय नमः';
+  var CD=52, PAUSE=2400, ED=28;
+  var eEn=document.getElementById('ins-en'),
+      eHi=document.getElementById('ins-hi'),
+      eDiv=document.getElementById('ins-div'),
+      eCur=document.getElementById('ins-cur');
+  var phase=0;
+
+  function typeText(el,text,delay,done){
+    var i=0,chars=Array.from(text); el.innerHTML='';
+    (function next(){
+      if(i>=chars.length){done&&done();return;}
+      var s=document.createElement('span'); s.className='ins-char'; s.textContent=chars[i];
+      el.appendChild(s);
+      if(eCur.parentNode)eCur.parentNode.removeChild(eCur); el.parentNode.appendChild(eCur);
+      i++; setTimeout(next,delay+(Math.random()*22-11));
+    })();
+  }
+
+  function eraseText(el,done){
+    var iv=setInterval(function(){
+      var ss=el.querySelectorAll('.ins-char');
+      if(!ss.length){clearInterval(iv);done&&done();return;}
+      var l=ss[ss.length-1]; l.style.transition='opacity 0.12s,transform 0.12s';
+      l.style.opacity='0'; l.style.transform='translateY(-3px)';
+      setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l);},130);
+    },ED);
+  }
+
+  function runCycle(){
+    eEn.innerHTML=''; eHi.innerHTML=''; eDiv.style.opacity='0';
+    typeText(eEn,EN,CD,function(){
+      setTimeout(function(){
+        eDiv.style.opacity='1';
+        setTimeout(function(){
+          typeText(eHi,HI,CD+10,function(){
+            if(eCur.parentNode)eCur.parentNode.removeChild(eCur);
+            setTimeout(function(){ eraseText(eHi,function(){ setTimeout(function(){
+              eDiv.style.opacity='0'; eraseText(eEn,function(){ setTimeout(runCycle,600); });
+            },150); }); },PAUSE);
+          });
+        },250);
+      },200);
+    });
+  }
+  runCycle();
+}());
+</script>
     </div>
 </header>
 
@@ -566,7 +632,7 @@ nav.nav-hidden { transform: translateY(-100%); }
             <div class="event-card-body">
                 <h4>Mehendi Ceremony</h4>
                 <div class="event-detail-row"><i class="fas fa-calendar-alt"></i><span>December 17, 2026</span></div>
-                <div class="event-detail-row"><i class="fas fa-clock"></i><span>6:00 PM</span></div>
+                <div class="event-detail-row"><i class="fas fa-clock"></i><span>5:30 PM for 6:00 PM</span></div>
                 <div class="event-detail-row"><i class="fas fa-map-marker-alt"></i><span>The White Boxx, 369 Peter Mokaba Ridge, Berea</span></div>
                 <div class="event-detail-row"><i class="fas fa-tshirt"></i><span>Vibrant traditional attire &mdash; colorful lehengas, sarees &amp; kurtas!</span></div>
 
@@ -710,7 +776,7 @@ nav.nav-hidden { transform: translateY(-100%); }
             <div class="detail-icon"><i class="fas fa-question-circle"></i></div>
             <h3>Questions?</h3>
             <p>Contact our wedding planner: Prathika Asrai</p>
-            <p>asraiashwari [at] gmail.com | (082) 811-5166</p>
+            <p>asraiashwari@gmail.com | (082) 811-5166</p>
         </div>
     </div>
 
@@ -815,14 +881,14 @@ nav.nav-hidden { transform: translateY(-100%); }
             </div>
             <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+27 123 456 7890" required autocomplete="tel">
+                <input type="tel" id="phone" name="phone" placeholder="+27 23 456 7890" required autocomplete="tel">
             </div>
             <div class="form-group">
                 <label>Which events will you be attending?</label>
                 <div class="event-checkbox-block">
                     <div class="event-checkbox-row">
                         <input type="checkbox" id="mehendi" name="mehendi">
-                        <label for="mehendi"><strong>Mehendi Ceremony</strong><span>December 17, 2026 at 6:00 PM</span></label>
+                        <label for="mehendi"><strong>Mehendi Ceremony</strong><span>December 17, 2026 at 5:30 PM for 6:00 PM</span></label>
                     </div>
                     <div class="guest-count-row" id="mehendi-guests">
                         <label for="mehendi-count">Number of guests:</label>
