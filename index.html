@@ -485,6 +485,13 @@ nav.nav-hidden { transform: translateY(-100%); }
         }
         @media (min-width:1200px) { nav a { font-size:0.92rem; } }
         @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
+
+@media (max-width:768px) {
+    nav ul { gap:0.3rem 0.5rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:0 0.75rem; justify-content:flex-start; }
+    nav ul::-webkit-scrollbar { display:none; }
+    nav a { font-size:0.7rem; letter-spacing:0.5px; white-space:nowrap; padding:0.4rem 0.2rem; }
+    header { padding-top: 5rem; }
+}
         @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
         @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
     </style>
