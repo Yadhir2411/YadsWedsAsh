@@ -22,7 +22,8 @@
         body { font-family:'Montserrat',sans-serif; color:var(--dark); background-color:var(--light); overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.6; height:100%; }
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
-        nav { position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000; transition:all 0.3s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 3px 16px rgba(0,0,0,0.18); border-bottom:2px solid var(--accent); }
+        nav { position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000; transition:all 0.3s ease, transform 0.35s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 3px 16px rgba(0,0,0,0.18); border-bottom:2px solid var(--accent); }
+nav.nav-hidden { transform: translateY(-100%); }
         nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
         nav ul { display:flex; justify-content:center; list-style:none; gap:1rem; padding:0 1rem; flex-wrap:wrap; max-width:100%; }
         nav a { color:#333333; text-decoration:none; font-weight:700; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; transition:color 0.3s ease; position:relative; padding:0.5rem 0.25rem; white-space:nowrap; }
@@ -30,7 +31,7 @@
         nav a:hover { color:#d4a373; }
         nav a:hover::after { width:100%; }
 
-        header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
+        header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center 15%/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
         @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
         .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
@@ -999,9 +1000,19 @@
         });
     }
 
-    function handleScroll() {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    var lastScrollY = 0;
+function handleScroll() {
+    var navbar = document.getElementById('navbar');
+    var currentY = window.scrollY;
+    navbar.classList.toggle('scrolled', currentY > 80);
+    // Hide nav when scrolling down past the hero, show when scrolling up
+    if (currentY > 120 && currentY > lastScrollY + 10) {
+        navbar.classList.add('nav-hidden');
+    } else if (currentY < lastScrollY - 5) {
+        navbar.classList.remove('nav-hidden');
     }
+    lastScrollY = currentY;
+}
 
     function animateHeart(el, tx, ty, rot, sc, dur) {
         var startTime = null;
