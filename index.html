@@ -22,312 +22,471 @@
         body { font-family:'Montserrat',sans-serif; color:var(--dark); background-color:var(--light); overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.6; height:100%; }
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
-```
-    nav { position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000; transition:all 0.3s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 3px 16px rgba(0,0,0,0.18); border-bottom:2px solid var(--accent); }
-    nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
-    nav ul { display:flex; justify-content:center; list-style:none; gap:1rem; padding:0 1rem; flex-wrap:wrap; max-width:100%; }
-    nav a { color:#333333; text-decoration:none; font-weight:700; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; transition:color 0.3s ease; position:relative; padding:0.5rem 0.25rem; white-space:nowrap; }
-    nav a::after { content:''; position:absolute; width:0; height:2px; bottom:-2px; left:0; background-color:var(--accent); transition:width 0.3s ease; }
-    nav a:hover { color:#d4a373; }
-    nav a:hover::after { width:100%; }
+        nav { position:fixed; top:0; width:100%; padding:1rem 0; z-index:1000; transition:all 0.3s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 3px 16px rgba(0,0,0,0.18); border-bottom:2px solid var(--accent); }
+        nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
+        nav ul { display:flex; justify-content:center; list-style:none; gap:1rem; padding:0 1rem; flex-wrap:wrap; max-width:100%; }
+        nav a { color:#333333; text-decoration:none; font-weight:700; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; transition:color 0.3s ease; position:relative; padding:0.5rem 0.25rem; white-space:nowrap; }
+        nav a::after { content:''; position:absolute; width:0; height:2px; bottom:-2px; left:0; background-color:var(--accent); transition:width 0.3s ease; }
+        nav a:hover { color:#d4a373; }
+        nav a:hover::after { width:100%; }
 
-    header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
-    @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
+        header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center center/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
+        @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
-    .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
-    .heart { position:absolute; color:rgba(255,255,255,0.7); font-size:18px; pointer-events:none; will-change:transform,opacity; }
+        .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
+        .heart { position:absolute; color:rgba(255,255,255,0.7); font-size:18px; pointer-events:none; will-change:transform,opacity; }
 
-    .header-content { position:relative; z-index:4; animation:fadeIn 2s ease-out; width:100%; max-width:700px; padding:0 1rem; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    h1 { font-size:clamp(2rem,7vw,4rem); margin-bottom:0.8rem; text-shadow:2px 2px 8px rgba(0,0,0,0.5); line-height:1.15; }
-    .subtitle { font-size:clamp(0.8rem,2.5vw,1.2rem); letter-spacing:3px; margin-bottom:1rem; text-transform:uppercase; font-weight:300; }
-    .date { font-size:clamp(1rem,3vw,1.5rem); margin-bottom:2rem; font-style:italic; }
-    .countdown { display:flex; justify-content:center; gap:clamp(0.6rem,3vw,2rem); margin-top:1.5rem; animation:slideUp 1s ease-out 0.5s both; flex-wrap:wrap; }
-    @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-    .countdown-item { text-align:center; min-width:60px; }
-    .countdown-number { font-size:clamp(1.5rem,5vw,2.5rem); font-weight:700; color:var(--primary); line-height:1; margin-bottom:0.4rem; font-family:'Playfair Display',serif; }
-    .countdown-label { font-size:clamp(0.6rem,1.5vw,0.8rem); text-transform:uppercase; letter-spacing:1px; }
+        .header-content { position:relative; z-index:4; animation:fadeIn 2s ease-out; width:100%; max-width:700px; padding:0 1rem; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        h1 { font-size:clamp(2rem,7vw,4rem); margin-bottom:0.8rem; text-shadow:2px 2px 8px rgba(0,0,0,0.5); line-height:1.15; }
+        .subtitle { font-size:clamp(0.8rem,2.5vw,1.2rem); letter-spacing:3px; margin-bottom:1rem; text-transform:uppercase; font-weight:300; }
+        .date { font-size:clamp(1rem,3vw,1.5rem); margin-bottom:2rem; font-style:italic; }
+        .countdown { display:flex; justify-content:center; gap:clamp(0.6rem,3vw,2rem); margin-top:1.5rem; animation:slideUp 1s ease-out 0.5s both; flex-wrap:wrap; }
+        @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        .countdown-item { text-align:center; min-width:60px; }
+        .countdown-number { font-size:clamp(1.5rem,5vw,2.5rem); font-weight:700; color:var(--primary); line-height:1; margin-bottom:0.4rem; font-family:'Playfair Display',serif; }
+        .countdown-label { font-size:clamp(0.6rem,1.5vw,0.8rem); text-transform:uppercase; letter-spacing:1px; }
 
-    section { padding:clamp(3rem,8vw,6rem) clamp(1rem,5vw,2rem); max-width:1200px; margin:0 auto; width:100%; }
-    .section-title { text-align:center; margin-bottom:clamp(2rem,6vw,4rem); position:relative; }
-    .section-title h2 { font-size:clamp(1.5rem,4vw,2.2rem); display:inline-block; background-color:var(--light); padding:0 1rem; position:relative; z-index:2; }
-    .section-title::after { content:''; position:absolute; top:50%; left:0; right:0; height:1px; background-color:var(--secondary); z-index:1; }
+        section { padding:clamp(3rem,8vw,6rem) clamp(1rem,5vw,2rem); max-width:1200px; margin:0 auto; width:100%; }
+        .section-title { text-align:center; margin-bottom:clamp(2rem,6vw,4rem); position:relative; }
+        .section-title h2 { font-size:clamp(1.5rem,4vw,2.2rem); display:inline-block; background-color:var(--light); padding:0 1rem; position:relative; z-index:2; }
+        .section-title::after { content:''; position:absolute; top:50%; left:0; right:0; height:1px; background-color:var(--secondary); z-index:1; }
 
-    .story-container { display:grid; grid-template-columns:1fr; gap:clamp(1.5rem,4vw,3rem); align-items:center; margin-bottom:clamp(2rem,6vw,4rem); }
-    .story-text { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; font-size:clamp(0.9rem,2.5vw,1.1rem); line-height:1.9; text-align:center; }
-    .story-text.visible { opacity:1; transform:translateY(0); }
-    .story-image { position:relative; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; width:100%; }
-    .story-image.visible { opacity:1; transform:translateY(0); }
-    .story-image img { width:100%; max-width:100%; height:auto; border-radius:6px; box-shadow:0 15px 30px rgba(0,0,0,0.12); display:block; }
-    .story-image::before { content:''; position:absolute; border:2px solid var(--primary); border-radius:6px; top:-12px; left:-12px; right:12px; bottom:12px; z-index:-1; display:none; }
+        .story-container { display:grid; grid-template-columns:1fr; gap:clamp(1.5rem,4vw,3rem); align-items:center; margin-bottom:clamp(2rem,6vw,4rem); }
+        .story-text { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; font-size:clamp(0.9rem,2.5vw,1.1rem); line-height:1.9; text-align:center; }
+        .story-text.visible { opacity:1; transform:translateY(0); }
+        .story-image { position:relative; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; width:100%; }
+        .story-image.visible { opacity:1; transform:translateY(0); }
+        .story-image img { width:100%; max-width:100%; height:auto; border-radius:6px; box-shadow:0 15px 30px rgba(0,0,0,0.12); display:block; }
+        .story-image::before { content:''; position:absolute; border:2px solid var(--primary); border-radius:6px; top:-12px; left:-12px; right:12px; bottom:12px; z-index:-1; display:none; }
 
-    .cards-container { display:grid; grid-template-columns:1fr; gap:clamp(1.5rem,4vw,2.5rem); margin-top:2rem; }
-    @media (min-width:768px) { .cards-container { grid-template-columns:repeat(2,1fr); } }
+        .cards-container { display:grid; grid-template-columns:1fr; gap:clamp(1.5rem,4vw,2.5rem); margin-top:2rem; }
+        @media (min-width:768px) { .cards-container { grid-template-columns:repeat(2,1fr); } }
 
-    .event-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.1); transition:transform 0.35s ease,box-shadow 0.35s ease; cursor:pointer; position:relative; width:100%; touch-action:manipulation; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
-    .event-card:hover { transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.15); }
-    .event-card:active { transform:scale(0.98); }
-    .event-card-cover { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; pointer-events:none; background:#1a1008; }
-    .event-card-cover img { width:100%; height:100%; object-fit:contain; object-position:center center; transition:transform 0.55s ease; display:block; pointer-events:none; }
-    .event-card:hover .event-card-cover img { transform:scale(1.05); }
-    .event-card-cover-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%); transition:background 0.4s ease; pointer-events:none; }
-    .event-card.is-open .event-card-cover-overlay { background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.05) 55%); }
-    .event-card-cover-text { position:absolute; bottom:0; left:0; right:0; padding:1.2rem; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; pointer-events:none; }
-    .event-card-title { color:white; font-family:'Playfair Display',serif; font-size:clamp(1.4rem,4vw,2rem); text-shadow:0 2px 10px rgba(0,0,0,0.5); line-height:1.1; }
-    .event-card-tap-hint { display:flex; align-items:center; gap:0.4rem; background:rgba(255,255,255,0.22); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.35); border-radius:50px; padding:0.4rem 0.85rem; color:white; font-size:clamp(0.7rem,2vw,0.8rem); font-weight:600; letter-spacing:0.5px; white-space:nowrap; flex-shrink:0; pointer-events:none; }
-    .event-card-tap-hint i { font-size:0.75rem; transition:transform 0.4s ease; }
-    .event-card.is-open .event-card-tap-hint i { transform:rotate(180deg); }
-    .event-card.is-open .event-card-tap-hint .hint-text { display:none; }
-    .event-card.is-open .event-card-tap-hint::before { content:'Close'; }
-    .event-card-body { max-height:0; overflow:hidden; padding:0 clamp(1rem,4vw,1.5rem); opacity:0; transition:max-height 0.55s cubic-bezier(0.4,0,0.2,1),padding 0.4s ease,opacity 0.4s ease; }
-    .event-card.is-open .event-card-body { max-height:600px; padding:clamp(1rem,4vw,1.5rem); opacity:1; }
-    .event-card-body h4 { font-size:clamp(1rem,3vw,1.25rem); color:var(--accent); margin-bottom:1rem; padding-bottom:0.6rem; border-bottom:2px solid var(--primary); }
-    .event-detail-row { display:flex; align-items:flex-start; gap:0.75rem; margin-bottom:0.8rem; font-size:clamp(0.85rem,2.2vw,0.95rem); line-height:1.55; }
-    .event-detail-row i { color:var(--accent); width:16px; flex-shrink:0; margin-top:0.18rem; }
-    .event-card.is-open .event-detail-row { animation:rowSlideIn 0.4s ease both; }
-    .event-card.is-open .event-detail-row:nth-child(2) { animation-delay:0.07s; }
-    .event-card.is-open .event-detail-row:nth-child(3) { animation-delay:0.14s; }
-    .event-card.is-open .event-detail-row:nth-child(4) { animation-delay:0.21s; }
-    .event-card.is-open .event-detail-row:nth-child(5) { animation-delay:0.28s; }
-    @keyframes rowSlideIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-    .event-card-ripple { position:absolute; border-radius:50%; background:radial-gradient(circle,rgba(212,163,115,0.35) 0%,transparent 70%); transform:scale(0); animation:rippleOut 0.7s ease-out forwards; pointer-events:none; z-index:10; }
-    @keyframes rippleOut { to{transform:scale(4);opacity:0} }
+        .event-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.1); transition:transform 0.35s ease,box-shadow 0.35s ease; cursor:pointer; position:relative; width:100%; touch-action:manipulation; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
+        .event-card:hover { transform:translateY(-4px); box-shadow:0 18px 45px rgba(0,0,0,0.15); }
+        .event-card:active { transform:scale(0.98); }
+        .event-card-cover { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; pointer-events:none; background:#1a1008; }
+        .event-card-cover img { width:100%; height:100%; object-fit:contain; object-position:center center; transition:transform 0.55s ease; display:block; pointer-events:none; }
+        .event-card:hover .event-card-cover img { transform:scale(1.05); }
+        .event-card-cover-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%); transition:background 0.4s ease; pointer-events:none; }
+        .event-card.is-open .event-card-cover-overlay { background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.05) 55%); }
+        .event-card-cover-text { position:absolute; bottom:0; left:0; right:0; padding:1.2rem; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; pointer-events:none; }
+        .event-card-title { color:white; font-family:'Playfair Display',serif; font-size:clamp(1.4rem,4vw,2rem); text-shadow:0 2px 10px rgba(0,0,0,0.5); line-height:1.1; }
+        .event-card-tap-hint { display:flex; align-items:center; gap:0.4rem; background:rgba(255,255,255,0.22); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.35); border-radius:50px; padding:0.4rem 0.85rem; color:white; font-size:clamp(0.7rem,2vw,0.8rem); font-weight:600; letter-spacing:0.5px; white-space:nowrap; flex-shrink:0; pointer-events:none; }
+        .event-card-tap-hint i { font-size:0.75rem; transition:transform 0.4s ease; }
+        .event-card.is-open .event-card-tap-hint i { transform:rotate(180deg); }
+        .event-card.is-open .event-card-tap-hint .hint-text { display:none; }
+        .event-card.is-open .event-card-tap-hint::before { content:'Close'; }
+        .event-card-body { max-height:0; overflow:hidden; padding:0 clamp(1rem,4vw,1.5rem); opacity:0; transition:max-height 0.55s cubic-bezier(0.4,0,0.2,1),padding 0.4s ease,opacity 0.4s ease; }
+        .event-card.is-open .event-card-body { max-height:700px; padding:clamp(1rem,4vw,1.5rem); opacity:1; }
+        .event-card-body h4 { font-size:clamp(1rem,3vw,1.25rem); color:var(--accent); margin-bottom:1rem; padding-bottom:0.6rem; border-bottom:2px solid var(--primary); }
+        .event-detail-row { display:flex; align-items:flex-start; gap:0.75rem; margin-bottom:0.8rem; font-size:clamp(0.85rem,2.2vw,0.95rem); line-height:1.55; }
+        .event-detail-row i { color:var(--accent); width:16px; flex-shrink:0; margin-top:0.18rem; }
+        .event-card.is-open .event-detail-row { animation:rowSlideIn 0.4s ease both; }
+        .event-card.is-open .event-detail-row:nth-child(2) { animation-delay:0.07s; }
+        .event-card.is-open .event-detail-row:nth-child(3) { animation-delay:0.14s; }
+        .event-card.is-open .event-detail-row:nth-child(4) { animation-delay:0.21s; }
+        .event-card.is-open .event-detail-row:nth-child(5) { animation-delay:0.28s; }
+        @keyframes rowSlideIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+        .event-card-ripple { position:absolute; border-radius:50%; background:radial-gradient(circle,rgba(212,163,115,0.35) 0%,transparent 70%); transform:scale(0); animation:rippleOut 0.7s ease-out forwards; pointer-events:none; z-index:10; }
+        @keyframes rippleOut { to{transform:scale(4);opacity:0} }
 
-    .details-grid { display:grid; grid-template-columns:1fr; gap:clamp(1rem,3vw,2rem); margin-top:2rem; }
-    @media (min-width:640px) { .details-grid { grid-template-columns:repeat(2,1fr); } }
-    @media (min-width:1024px) { .details-grid { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); } }
-    .detail-card { background:white; padding:clamp(1.5rem,4vw,2rem); border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.06); transition:transform 0.3s ease,box-shadow 0.3s ease; opacity:0; transform:translateY(20px); }
-    .detail-card.visible { opacity:1; transform:translateY(0); }
-    .detail-card:hover { transform:translateY(-5px); box-shadow:0 12px 28px rgba(0,0,0,0.1); }
-    .detail-icon { font-size:2rem; color:var(--accent); margin-bottom:1rem; }
-    .detail-card h3 { margin-bottom:0.75rem; color:var(--secondary); font-size:clamp(1rem,3vw,1.2rem); }
-    .detail-card p { font-size:clamp(0.85rem,2.2vw,0.95rem); line-height:1.6; margin-bottom:0.4rem; }
-    .detail-card a { color:var(--accent); text-decoration:none; font-size:clamp(0.85rem,2.2vw,0.95rem); word-break:break-all; }
+        /* ── Mark your Calendar Button ── */
+        .cal-btn-wrap {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-top: 1.1rem;
+            /* ensures dropdown can overflow without clipping */
+            overflow: visible;
+        }
 
-    /* ── Cinematic Slideshow Gallery ── */
-    .gallery-slideshow {
-        position: relative;
-        width: 100%;
-        height: 85vh;
-        overflow: hidden;
-        background: #0a0a0a;
-        border-radius: 4px;
-        margin-top: 2rem;
-    }
+        .cal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: transparent;
+            border: 1.5px solid var(--accent);
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            padding: 0.55rem 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            position: relative;
+            z-index: 2;
+        }
 
-    .slide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 1.4s ease-in-out;
-        will-change: opacity;
-    }
+        .cal-btn svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
+            fill: currentColor;
+            transition: transform 0.25s ease;
+        }
 
-    .slide.active {
-        opacity: 1;
-    }
+        .cal-btn .cal-chevron {
+            width: 10px;
+            height: 10px;
+            flex-shrink: 0;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+            margin-left: 0.1rem;
+        }
 
-    .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        display: block;
-        animation: kenBurns 8s ease-in-out forwards;
-    }
+        .cal-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(212,163,115,0.35);
+        }
 
-    .slide.active img {
-        animation: kenBurns 8s ease-in-out forwards;
-    }
+        .cal-btn-wrap.open .cal-btn {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(212,163,115,0.35);
+        }
 
-    @keyframes kenBurns {
-        0%   { transform: scale(1.08) translate(0px, 0px); }
-        100% { transform: scale(1.0)  translate(-8px, -4px); }
-    }
+        .cal-btn-wrap.open .cal-chevron {
+            transform: rotate(180deg);
+        }
 
-    /* Alternate Ken Burns directions for variety */
-    .slide:nth-child(even) img {
-        animation-name: kenBurns2;
-    }
-    @keyframes kenBurns2 {
-        0%   { transform: scale(1.0)  translate(0px, 0px); }
-        100% { transform: scale(1.08) translate(8px, 4px); }
-    }
-    .slide:nth-child(3n) img {
-        animation-name: kenBurns3;
-    }
-    @keyframes kenBurns3 {
-        0%   { transform: scale(1.05) translate(6px, -4px); }
-        100% { transform: scale(1.0)  translate(-4px, 4px); }
-    }
+        /* Dropdown panel */
+        .cal-dropdown {
+            position: absolute;
+            bottom: calc(100% + 8px); /* opens UPWARD above the button */
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07);
+            border: 1px solid rgba(212,163,115,0.2);
+            min-width: 210px;
+            padding: 0.45rem 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            z-index: 9999;
+        }
 
-    /* Slide overlay — subtle vignette */
-    .slide::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at center,
-            transparent 40%,
-            rgba(0,0,0,0.45) 100%);
-        pointer-events: none;
-    }
+        .cal-btn-wrap.open .cal-dropdown {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
 
-    /* Counter badge */
-    .slideshow-counter {
-        position: absolute;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        color: rgba(255,255,255,0.7);
-        font-size: 0.78rem;
-        letter-spacing: 2px;
-        font-family: 'Montserrat', sans-serif;
-        z-index: 10;
-        pointer-events: none;
-    }
+        .cal-dropdown-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--secondary);
+            opacity: 0.65;
+            padding: 0.4rem 1rem 0.35rem;
+            display: block;
+        }
 
-    /* Navigation arrows */
-    .slideshow-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.25);
-        color: white;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.2s ease;
-        font-size: 1rem;
-        -webkit-tap-highlight-color: transparent;
-        user-select: none;
-    }
-    .slideshow-nav:hover { background: rgba(255,255,255,0.25); }
-    .slideshow-nav:active { transform: translateY(-50%) scale(0.92); }
-    .slideshow-nav.prev { left: 1.2rem; }
-    .slideshow-nav.next { right: 1.2rem; }
+        .cal-dropdown-divider {
+            height: 1px;
+            background: rgba(212,163,115,0.18);
+            margin: 0.2rem 0;
+        }
 
-    /* Dot indicators */
-    .slideshow-dots {
-        position: absolute;
-        bottom: 1.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-        z-index: 10;
-    }
-    .slideshow-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.35);
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .slideshow-dot.active {
-        background: white;
-        transform: scale(1.4);
-    }
+        .cal-option {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.3px;
+        }
 
-    /* Progress bar */
-    .slideshow-progress {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 3px;
-        background: var(--accent);
-        z-index: 10;
-        width: 0%;
-        transition: none;
-    }
-    .slideshow-progress.animating {
-        transition: width linear;
-    }
+        .cal-option:hover {
+            background: var(--light);
+            color: var(--accent);
+        }
 
-    /* Pause indicator */
-    .slideshow-pause-hint {
-        position: absolute;
-        top: 1.2rem;
-        right: 1.2rem;
-        color: rgba(255,255,255,0.5);
-        font-size: 0.65rem;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        z-index: 10;
-        pointer-events: none;
-        font-family: 'Montserrat', sans-serif;
-    }
+        .cal-option:active {
+            background: rgba(212,163,115,0.12);
+        }
 
-    @media (max-width: 640px) {
-        .gallery-slideshow { height: 70vw; min-height: 260px; }
-        .slideshow-nav { width: 38px; height: 38px; font-size: 0.85rem; }
-        .slideshow-nav.prev { left: 0.6rem; }
-        .slideshow-nav.next { right: 0.6rem; }
-    }
+        .cal-option-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
-    .rsvp-section { color:white; text-align:center; padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem); background-color:#2a1f1a; background-image:linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)),url('Images/rsvp4.jpeg'); background-repeat:no-repeat; background-attachment:scroll; background-size:cover; background-position:center center; }
-    .rsvp-section .section-title h2 { background-color:transparent; color:white; }
-    .rsvp-section .section-title::after { background-color:rgba(255,255,255,0.3); }
-    .rsvp-form { max-width:600px; margin:0 auto; background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:clamp(1.5rem,5vw,3rem); border-radius:12px; border:1px solid rgba(255,255,255,0.2); text-align:left; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; width:100%; }
-    .rsvp-form.visible { opacity:1; transform:translateY(0); }
-    .form-group { margin-bottom:1.4rem; }
-    .form-group label { display:block; margin-bottom:0.5rem; font-weight:600; font-size:clamp(0.85rem,2.5vw,1rem); }
-    .form-group input,.form-group select,.form-group textarea { width:100%; padding:0.85rem 1rem; border:1px solid rgba(255,255,255,0.3); border-radius:6px; background:rgba(255,255,255,0.15); color:white; font-family:inherit; font-size:clamp(0.85rem,2.5vw,1rem); -webkit-appearance:none; appearance:none; }
-    .form-group select option { color:var(--dark); background:white; }
-    .form-group input::placeholder,.form-group textarea::placeholder { color:rgba(255,255,255,0.65); }
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { outline:none; border-color:var(--primary); background:rgba(255,255,255,0.2); }
-    .event-checkbox-block { background:rgba(255,255,255,0.1); padding:clamp(1rem,3vw,1.5rem); border-radius:8px; margin-bottom:0.75rem; border:1px solid rgba(255,255,255,0.15); }
-    .event-checkbox-row { display:flex; align-items:flex-start; gap:0.85rem; }
-    .event-checkbox-row input[type="checkbox"] { width:20px; height:20px; flex-shrink:0; margin-top:0.15rem; cursor:pointer; accent-color:var(--accent); padding:0; }
-    .event-checkbox-row label { margin:0; cursor:pointer; flex:1; }
-    .event-checkbox-row label strong { display:block; margin-bottom:0.2rem; }
-    .event-checkbox-row label span { font-size:clamp(0.78rem,2vw,0.88rem); opacity:0.85; }
-    .guest-count-row { display:none; margin-top:0.9rem; margin-left:2.1rem; align-items:center; gap:0.6rem; flex-wrap:wrap; }
-    .guest-count-row.visible { display:flex; }
-    .guest-count-row label { font-size:clamp(0.82rem,2.2vw,0.92rem); margin:0; }
-    .guest-count-row select { width:auto; padding:0.4rem 0.7rem; font-size:clamp(0.82rem,2.2vw,0.92rem); }
-    .submit-btn { width:100%; background:var(--primary); color:var(--dark); border:none; padding:1rem 2rem; font-size:clamp(0.9rem,2.5vw,1rem); font-weight:700; border-radius:6px; cursor:pointer; transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1.5px; margin-top:0.5rem; -webkit-appearance:none; touch-action:manipulation; }
-    .submit-btn:hover { background:white; transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
-    .submit-btn:active { transform:translateY(0); }
+        .cal-option-icon svg,
+        .cal-option-icon img {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
 
-    footer { background-color:var(--dark); color:white; text-align:center; padding:clamp(2rem,6vw,3rem) 1.5rem; }
-    .footer-logo { font-size:clamp(1.4rem,5vw,2rem); margin-bottom:0.6rem; font-family:'Playfair Display',serif; }
-    .footer-date { font-size:clamp(0.85rem,2.5vw,1rem); opacity:0.8; }
-    .social-links { display:flex; justify-content:center; gap:1.5rem; margin:1.5rem 0; }
-    .social-links a { color:white; transition:color 0.3s ease; padding:0.5rem; display:flex; align-items:center; justify-content:center; }
-    .social-links a svg { width:28px; height:28px; fill:currentColor; display:block; }
-    .social-links a:hover { color:var(--primary); }
-    .copyright { margin-top:1.5rem; font-size:clamp(0.72rem,2vw,0.85rem); opacity:0.6; line-height:1.6; }
+        .cal-option-icon.google  { background: #fff3f0; }
+        .cal-option-icon.apple   { background: #f0f0f5; }
+        .cal-option-icon.outlook { background: #f0f4ff; }
+        .cal-option-icon.yahoo   { background: #f5f0ff; }
+        .cal-option-icon.ical    { background: #f0f8f0; }
 
-    .heart-confetti { position:fixed; pointer-events:none; z-index:99999; }
+        /* ── end calendar button ── */
 
-    @media (min-width:768px) {
-        nav ul { gap:1.5rem; }
-        nav a { font-size:0.85rem; letter-spacing:1.5px; }
-        .story-container { grid-template-columns:1fr 1fr; }
-        .story-container:nth-child(even) .story-text { order:2; transform:translateX(20px); }
-        .story-container:nth-child(even) .story-image { order:1; transform:translateX(-20px); }
-        .story-container:nth-child(even) .story-image::before { left:12px; right:-12px; }
-        .story-text { text-align:left; transform:translateX(-20px); }
-        .story-image { transform:translateX(20px); }
-        .story-text.visible,.story-image.visible { transform:translateX(0); }
-        .story-image::before { display:block; }
-        .event-card-cover { aspect-ratio:3/2; background:#1a1008; }
-    }
-    @media (min-width:1200px) { nav a { font-size:0.92rem; } }
-    @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
-    @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
-    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
-</style>
-```
+        .details-grid { display:grid; grid-template-columns:1fr; gap:clamp(1rem,3vw,2rem); margin-top:2rem; }
+        @media (min-width:640px) { .details-grid { grid-template-columns:repeat(2,1fr); } }
+        @media (min-width:1024px) { .details-grid { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); } }
+        .detail-card { background:white; padding:clamp(1.5rem,4vw,2rem); border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.06); transition:transform 0.3s ease,box-shadow 0.3s ease; opacity:0; transform:translateY(20px); }
+        .detail-card.visible { opacity:1; transform:translateY(0); }
+        .detail-card:hover { transform:translateY(-5px); box-shadow:0 12px 28px rgba(0,0,0,0.1); }
+        .detail-icon { font-size:2rem; color:var(--accent); margin-bottom:1rem; }
+        .detail-card h3 { margin-bottom:0.75rem; color:var(--secondary); font-size:clamp(1rem,3vw,1.2rem); }
+        .detail-card p { font-size:clamp(0.85rem,2.2vw,0.95rem); line-height:1.6; margin-bottom:0.4rem; }
+        .detail-card a { color:var(--accent); text-decoration:none; font-size:clamp(0.85rem,2.2vw,0.95rem); word-break:break-all; }
 
+        /* Reception calendar button – sits below the details grid */
+        .reception-cal-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* ── Cinematic Slideshow Gallery ── */
+        .gallery-slideshow {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            overflow: hidden;
+            background: #0a0a0a;
+            border-radius: 4px;
+            margin-top: 2rem;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.4s ease-in-out;
+            will-change: opacity;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+            animation: kenBurns 8s ease-in-out forwards;
+        }
+
+        .slide.active img {
+            animation: kenBurns 8s ease-in-out forwards;
+        }
+
+        @keyframes kenBurns {
+            0%   { transform: scale(1.08) translate(0px, 0px); }
+            100% { transform: scale(1.0)  translate(-8px, -4px); }
+        }
+
+        .slide:nth-child(even) img {
+            animation-name: kenBurns2;
+        }
+        @keyframes kenBurns2 {
+            0%   { transform: scale(1.0)  translate(0px, 0px); }
+            100% { transform: scale(1.08) translate(8px, 4px); }
+        }
+        .slide:nth-child(3n) img {
+            animation-name: kenBurns3;
+        }
+        @keyframes kenBurns3 {
+            0%   { transform: scale(1.05) translate(6px, -4px); }
+            100% { transform: scale(1.0)  translate(-4px, 4px); }
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center,
+                transparent 40%,
+                rgba(0,0,0,0.45) 100%);
+            pointer-events: none;
+        }
+
+        .slideshow-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .slideshow-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-size: 1rem;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .slideshow-nav:hover { background: rgba(255,255,255,0.25); }
+        .slideshow-nav:active { transform: translateY(-50%) scale(0.92); }
+        .slideshow-nav.prev { left: 1.2rem; }
+        .slideshow-nav.next { right: 1.2rem; }
+
+        .slideshow-dots {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .slideshow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .slideshow-dot.active {
+            background: white;
+            transform: scale(1.4);
+        }
+
+        .slideshow-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 10;
+            width: 0%;
+            transition: none;
+        }
+        .slideshow-progress.animating {
+            transition: width linear;
+        }
+
+        .slideshow-pause-hint {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            z-index: 10;
+            pointer-events: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        @media (max-width: 640px) {
+            .gallery-slideshow { height: 70vw; min-height: 260px; }
+            .slideshow-nav { width: 38px; height: 38px; font-size: 0.85rem; }
+            .slideshow-nav.prev { left: 0.6rem; }
+            .slideshow-nav.next { right: 0.6rem; }
+        }
+
+        .rsvp-section { color:white; text-align:center; padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,2rem); background-color:#2a1f1a; background-image:linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)),url('Images/rsvp4.jpeg'); background-repeat:no-repeat; background-attachment:scroll; background-size:cover; background-position:center center; }
+        .rsvp-section .section-title h2 { background-color:transparent; color:white; }
+        .rsvp-section .section-title::after { background-color:rgba(255,255,255,0.3); }
+        .rsvp-form { max-width:600px; margin:0 auto; background:rgba(255,255,255,0.1); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:clamp(1.5rem,5vw,3rem); border-radius:12px; border:1px solid rgba(255,255,255,0.2); text-align:left; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; width:100%; }
+        .rsvp-form.visible { opacity:1; transform:translateY(0); }
+        .form-group { margin-bottom:1.4rem; }
+        .form-group label { display:block; margin-bottom:0.5rem; font-weight:600; font-size:clamp(0.85rem,2.5vw,1rem); }
+        .form-group input,.form-group select,.form-group textarea { width:100%; padding:0.85rem 1rem; border:1px solid rgba(255,255,255,0.3); border-radius:6px; background:rgba(255,255,255,0.15); color:white; font-family:inherit; font-size:clamp(0.85rem,2.5vw,1rem); -webkit-appearance:none; appearance:none; }
+        .form-group select option { color:var(--dark); background:white; }
+        .form-group input::placeholder,.form-group textarea::placeholder { color:rgba(255,255,255,0.65); }
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus { outline:none; border-color:var(--primary); background:rgba(255,255,255,0.2); }
+        .event-checkbox-block { background:rgba(255,255,255,0.1); padding:clamp(1rem,3vw,1.5rem); border-radius:8px; margin-bottom:0.75rem; border:1px solid rgba(255,255,255,0.15); }
+        .event-checkbox-row { display:flex; align-items:flex-start; gap:0.85rem; }
+        .event-checkbox-row input[type="checkbox"] { width:20px; height:20px; flex-shrink:0; margin-top:0.15rem; cursor:pointer; accent-color:var(--accent); padding:0; }
+        .event-checkbox-row label { margin:0; cursor:pointer; flex:1; }
+        .event-checkbox-row label strong { display:block; margin-bottom:0.2rem; }
+        .event-checkbox-row label span { font-size:clamp(0.78rem,2vw,0.88rem); opacity:0.85; }
+        .guest-count-row { display:none; margin-top:0.9rem; margin-left:2.1rem; align-items:center; gap:0.6rem; flex-wrap:wrap; }
+        .guest-count-row.visible { display:flex; }
+        .guest-count-row label { font-size:clamp(0.82rem,2.2vw,0.92rem); margin:0; }
+        .guest-count-row select { width:auto; padding:0.4rem 0.7rem; font-size:clamp(0.82rem,2.2vw,0.92rem); }
+        .submit-btn { width:100%; background:var(--primary); color:var(--dark); border:none; padding:1rem 2rem; font-size:clamp(0.9rem,2.5vw,1rem); font-weight:700; border-radius:6px; cursor:pointer; transition:all 0.3s ease; text-transform:uppercase; letter-spacing:1.5px; margin-top:0.5rem; -webkit-appearance:none; touch-action:manipulation; }
+        .submit-btn:hover { background:white; transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+        .submit-btn:active { transform:translateY(0); }
+
+        footer { background-color:var(--dark); color:white; text-align:center; padding:clamp(2rem,6vw,3rem) 1.5rem; }
+        .footer-logo { font-size:clamp(1.4rem,5vw,2rem); margin-bottom:0.6rem; font-family:'Playfair Display',serif; }
+        .footer-date { font-size:clamp(0.85rem,2.5vw,1rem); opacity:0.8; }
+        .social-links { display:flex; justify-content:center; gap:1.5rem; margin:1.5rem 0; }
+        .social-links a { color:white; transition:color 0.3s ease; padding:0.5rem; display:flex; align-items:center; justify-content:center; }
+        .social-links a svg { width:28px; height:28px; fill:currentColor; display:block; }
+        .social-links a:hover { color:var(--primary); }
+        .copyright { margin-top:1.5rem; font-size:clamp(0.72rem,2vw,0.85rem); opacity:0.6; line-height:1.6; }
+
+        .heart-confetti { position:fixed; pointer-events:none; z-index:99999; }
+
+        @media (min-width:768px) {
+            nav ul { gap:1.5rem; }
+            nav a { font-size:0.85rem; letter-spacing:1.5px; }
+            .story-container { grid-template-columns:1fr 1fr; }
+            .story-container:nth-child(even) .story-text { order:2; transform:translateX(20px); }
+            .story-container:nth-child(even) .story-image { order:1; transform:translateX(-20px); }
+            .story-container:nth-child(even) .story-image::before { left:12px; right:-12px; }
+            .story-text { text-align:left; transform:translateX(-20px); }
+            .story-image { transform:translateX(20px); }
+            .story-text.visible,.story-image.visible { transform:translateX(0); }
+            .story-image::before { display:block; }
+            .event-card-cover { aspect-ratio:3/2; background:#1a1008; }
+        }
+        @media (min-width:1200px) { nav a { font-size:0.92rem; } }
+        @media (max-width:380px) { nav ul { gap:0.4rem 0.6rem; } nav a { font-size:0.65rem; letter-spacing:0.5px; } .countdown { gap:0.5rem; } .countdown-item { min-width:50px; } }
+        @media (hover:none) { .event-card:hover { transform:none; } .gallery-item:hover img { transform:none; } .detail-card:hover { transform:none; } }
+        @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; } .heart,.heart-confetti { animation:none !important; } }
+    </style>
 </head>
 <body>
 
@@ -385,6 +544,8 @@
 <section id="prewedding">
     <div class="section-title"><h2>Pre-Wedding</h2></div>
     <div class="cards-container">
+
+        <!-- Mehendi Card -->
         <div class="event-card" id="card-mehendi" role="button" tabindex="0" aria-expanded="false">
             <div class="event-card-cover">
                 <img src="Images/mendhi2.jpeg" alt="Mehendi Ceremony" loading="lazy" width="800" height="533">
@@ -400,8 +561,56 @@
                 <div class="event-detail-row"><i class="fas fa-clock"></i><span>6:00 PM</span></div>
                 <div class="event-detail-row"><i class="fas fa-map-marker-alt"></i><span>The White Boxx, 369 Peter Mokaba Ridge, Berea</span></div>
                 <div class="event-detail-row"><i class="fas fa-tshirt"></i><span>Vibrant traditional attire &mdash; colorful lehengas, sarees &amp; kurtas!</span></div>
+
+                <!-- Mehendi Calendar Button -->
+                <div class="cal-btn-wrap" id="cal-mehendi-wrap" data-event="mehendi">
+                    <button class="cal-btn" aria-haspopup="true" aria-expanded="false">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                        Mark your Calendar
+                        <svg class="cal-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>
+                    </button>
+                    <div class="cal-dropdown" role="menu">
+                        <span class="cal-dropdown-label">Add to calendar</span>
+                        <div class="cal-dropdown-divider"></div>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="google" data-event="mehendi" target="_blank" rel="noopener">
+                            <span class="cal-option-icon google">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                            </span>
+                            Google Calendar
+                        </a>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="apple" data-event="mehendi" download>
+                            <span class="cal-option-icon apple">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#555"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            </span>
+                            Apple Calendar
+                        </a>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="outlook" data-event="mehendi" target="_blank" rel="noopener">
+                            <span class="cal-option-icon outlook">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 7.387v13.276L17.455 24V10.44L24 7.387zM0 8.597l7.09 1.709v10.68L0 19.77V8.597zm16.363 1.203L8.182 8.3V21.33l8.181-1.5V9.8zM10.909 0l10.909 3.56-4.363 2.126L7.09 4.24 10.91 0z" fill="#0072C6"/></svg>
+                            </span>
+                            Outlook / Office 365
+                        </a>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="yahoo" data-event="mehendi" target="_blank" rel="noopener">
+                            <span class="cal-option-icon yahoo">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l6.252 9.336L0 13.23h3.393l3.834-2.775L10.887 13.23h3.393L8.055 9.336 14.307 0h-3.393L7.227 5.544 3.393 0H0zm14.013 4.392l1.8 2.622-.918.648 2.988 4.368H21l-1.8-2.628.918-.648-2.988-4.362h-3.117zm-.684 9.702l-.054 9.906h2.394v-3.492c.678.606 1.476.906 2.394.906 1.14 0 2.07-.39 2.79-1.17.738-.78 1.107-1.77 1.107-2.97 0-1.2-.369-2.184-1.107-2.952-.72-.768-1.638-1.152-2.754-1.152-.99 0-1.806.3-2.448.9v-.876h-2.322zm4.194 1.722c.6 0 1.098.216 1.494.648.396.432.594.972.594 1.62 0 .648-.198 1.188-.594 1.62-.396.432-.894.648-1.494.648-.6 0-1.104-.222-1.512-.666-.39-.444-.585-.978-.585-1.602 0-.624.195-1.158.585-1.602.408-.444.912-.666 1.512-.666z" fill="#6001D2"/></svg>
+                            </span>
+                            Yahoo Calendar
+                        </a>
+                        <div class="cal-dropdown-divider"></div>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="ical" data-event="mehendi" download>
+                            <span class="cal-option-icon ical">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#2da851"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                            </span>
+                            Download .ics file
+                        </a>
+                    </div>
+                </div>
+                <!-- end calendar button -->
+
             </div>
         </div>
+
+        <!-- Hurdhee Card -->
         <div class="event-card" id="card-hurdhee" role="button" tabindex="0" aria-expanded="false">
             <div class="event-card-cover">
                 <img src="Images/haldi2.jpeg" alt="Hurdhee Celebration" loading="lazy" width="800" height="533">
@@ -417,8 +626,55 @@
                 <div class="event-detail-row"><i class="fas fa-clock"></i><span>5:00 PM</span></div>
                 <div class="event-detail-row"><i class="fas fa-map-marker-alt"></i><span>The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</span></div>
                 <div class="event-detail-row"><i class="fas fa-tshirt"></i><span>Vibrant traditional attire &mdash; colorful lehengas, sarees &amp; kurtas!</span></div>
+
+                <!-- Hurdhee Calendar Button -->
+                <div class="cal-btn-wrap" id="cal-hurdhee-wrap" data-event="hurdhee">
+                    <button class="cal-btn" aria-haspopup="true" aria-expanded="false">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                        Mark your Calendar
+                        <svg class="cal-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>
+                    </button>
+                    <div class="cal-dropdown" role="menu">
+                        <span class="cal-dropdown-label">Add to calendar</span>
+                        <div class="cal-dropdown-divider"></div>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="google" data-event="hurdhee" target="_blank" rel="noopener">
+                            <span class="cal-option-icon google">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.45 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                            </span>
+                            Google Calendar
+                        </a>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="apple" data-event="hurdhee" download>
+                            <span class="cal-option-icon apple">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#555"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            </span>
+                            Apple Calendar
+                        </a>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="outlook" data-event="hurdhee" target="_blank" rel="noopener">
+                            <span class="cal-option-icon outlook">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 7.387v13.276L17.455 24V10.44L24 7.387zM0 8.597l7.09 1.709v10.68L0 19.77V8.597zm16.363 1.203L8.182 8.3V21.33l8.181-1.5V9.8zM10.909 0l10.909 3.56-4.363 2.126L7.09 4.24 10.91 0z" fill="#0072C6"/></svg>
+                            </span>
+                            Outlook / Office 365
+                        </a>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="yahoo" data-event="hurdhee" target="_blank" rel="noopener">
+                            <span class="cal-option-icon yahoo">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l6.252 9.336L0 13.23h3.393l3.834-2.775L10.887 13.23h3.393L8.055 9.336 14.307 0h-3.393L7.227 5.544 3.393 0H0zm14.013 4.392l1.8 2.622-.918.648 2.988 4.368H21l-1.8-2.628.918-.648-2.988-4.362h-3.117zm-.684 9.702l-.054 9.906h2.394v-3.492c.678.606 1.476.906 2.394.906 1.14 0 2.07-.39 2.79-1.17.738-.78 1.107-1.77 1.107-2.97 0-1.2-.369-2.184-1.107-2.952-.72-.768-1.638-1.152-2.754-1.152-.99 0-1.806.3-2.448.9v-.876h-2.322zm4.194 1.722c.6 0 1.098.216 1.494.648.396.432.594.972.594 1.62 0 .648-.198 1.188-.594 1.62-.396.432-.894.648-1.494.648-.6 0-1.104-.222-1.512-.666-.39-.444-.585-.978-.585-1.602 0-.624.195-1.158.585-1.602.408-.444.912-.666 1.512-.666z" fill="#6001D2"/></svg>
+                            </span>
+                            Yahoo Calendar
+                        </a>
+                        <div class="cal-dropdown-divider"></div>
+                        <a class="cal-option" role="menuitem" href="#" data-cal="ical" data-event="hurdhee" download>
+                            <span class="cal-option-icon ical">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#2da851"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                            </span>
+                            Download .ics file
+                        </a>
+                    </div>
+                </div>
+                <!-- end calendar button -->
+
             </div>
         </div>
+
     </div>
 </section>
 
@@ -449,49 +705,92 @@
             <p>asraiashwari [at] gmail.com | (082) 811-5166</p>
         </div>
     </div>
+
+    <!-- Reception Calendar Button -->
+    <div class="reception-cal-wrap">
+        <div class="cal-btn-wrap" id="cal-reception-wrap" data-event="reception">
+            <button class="cal-btn" aria-haspopup="true" aria-expanded="false">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                Mark your Calendar
+                <svg class="cal-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="cal-dropdown" role="menu">
+                <span class="cal-dropdown-label">Add to calendar</span>
+                <div class="cal-dropdown-divider"></div>
+                <a class="cal-option" role="menuitem" href="#" data-cal="google" data-event="reception" target="_blank" rel="noopener">
+                    <span class="cal-option-icon google">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                    </span>
+                    Google Calendar
+                </a>
+                <a class="cal-option" role="menuitem" href="#" data-cal="apple" data-event="reception" download>
+                    <span class="cal-option-icon apple">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#555"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    </span>
+                    Apple Calendar
+                </a>
+                <a class="cal-option" role="menuitem" href="#" data-cal="outlook" data-event="reception" target="_blank" rel="noopener">
+                    <span class="cal-option-icon outlook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 7.387v13.276L17.455 24V10.44L24 7.387zM0 8.597l7.09 1.709v10.68L0 19.77V8.597zm16.363 1.203L8.182 8.3V21.33l8.181-1.5V9.8zM10.909 0l10.909 3.56-4.363 2.126L7.09 4.24 10.91 0z" fill="#0072C6"/></svg>
+                    </span>
+                    Outlook / Office 365
+                </a>
+                <a class="cal-option" role="menuitem" href="#" data-cal="yahoo" data-event="reception" target="_blank" rel="noopener">
+                    <span class="cal-option-icon yahoo">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l6.252 9.336L0 13.23h3.393l3.834-2.775L10.887 13.23h3.393L8.055 9.336 14.307 0h-3.393L7.227 5.544 3.393 0H0zm14.013 4.392l1.8 2.622-.918.648 2.988 4.368H21l-1.8-2.628.918-.648-2.988-4.362h-3.117zm-.684 9.702l-.054 9.906h2.394v-3.492c.678.606 1.476.906 2.394.906 1.14 0 2.07-.39 2.79-1.17.738-.78 1.107-1.77 1.107-2.97 0-1.2-.369-2.184-1.107-2.952-.72-.768-1.638-1.152-2.754-1.152-.99 0-1.806.3-2.448.9v-.876h-2.322zm4.194 1.722c.6 0 1.098.216 1.494.648.396.432.594.972.594 1.62 0 .648-.198 1.188-.594 1.62-.396.432-.894.648-1.494.648-.6 0-1.104-.222-1.512-.666-.39-.444-.585-.978-.585-1.602 0-.624.195-1.158.585-1.602.408-.444.912-.666 1.512-.666z" fill="#6001D2"/></svg>
+                    </span>
+                    Yahoo Calendar
+                </a>
+                <div class="cal-dropdown-divider"></div>
+                <a class="cal-option" role="menuitem" href="#" data-cal="ical" data-event="reception" download>
+                    <span class="cal-option-icon ical">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#2da851"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                    </span>
+                    Download .ics file
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- end reception calendar button -->
+
 </section>
 
 <section id="gallery">
     <div class="section-title"><h2>Our Gallery</h2></div>
     <div class="gallery-slideshow" id="gallery-slideshow">
 
-```
- <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
-    <div class="slide"><img src="Images/21.jpeg" alt="Photo 11"></div>
-    <div class="slide"><img src="Images/22.jpeg" alt="Photo 12"></div>
-    <div class="slide"><img src="Images/23.jpeg" alt="Photo 13"></div>
-    <div class="slide"><img src="Images/24.jpeg" alt="Photo 14"></div>
-    <div class="slide"><img src="Images/26.jpeg" alt="Photo 16"></div>
-    <div class="slide"><img src="Images/44.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
-    <div class="slide"><img src="Images/27.jpeg" alt="Photo 17"></div>
-    <div class="slide"><img src="Images/28.jpeg" alt="Photo 18"></div>
-    <div class="slide"><img src="Images/31.jpeg" alt="Photo 21"></div>
-    <div class="slide"><img src="Images/32.jpeg" alt="Photo 22"></div>
-    <div class="slide"><img src="Images/33.jpeg" alt="Photo 23"></div>
-    <div class="slide"><img src="Images/34.jpeg" alt="Photo 24"></div>
-    <div class="slide"><img src="Images/35.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/43.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
-    <div class="slide"><img src="Images/37.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
-    <div class="slide"><img src="Images/38.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/39.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/40.jpeg" alt="Photo 25"></div>
-    <div class="slide"><img src="Images/41.jpeg" alt="Photo 25"></div>
-    
-    
+        <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
+        <div class="slide"><img src="Images/21.jpeg" alt="Photo 11"></div>
+        <div class="slide"><img src="Images/22.jpeg" alt="Photo 12"></div>
+        <div class="slide"><img src="Images/23.jpeg" alt="Photo 13"></div>
+        <div class="slide"><img src="Images/24.jpeg" alt="Photo 14"></div>
+        <div class="slide"><img src="Images/26.jpeg" alt="Photo 16"></div>
+        <div class="slide"><img src="Images/44.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/29.jpeg" alt="Photo 19"></div>
+        <div class="slide"><img src="Images/27.jpeg" alt="Photo 17"></div>
+        <div class="slide"><img src="Images/28.jpeg" alt="Photo 18"></div>
+        <div class="slide"><img src="Images/31.jpeg" alt="Photo 21"></div>
+        <div class="slide"><img src="Images/32.jpeg" alt="Photo 22"></div>
+        <div class="slide"><img src="Images/33.jpeg" alt="Photo 23"></div>
+        <div class="slide"><img src="Images/34.jpeg" alt="Photo 24"></div>
+        <div class="slide"><img src="Images/35.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/43.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/30.jpeg" alt="Photo 20"></div>
+        <div class="slide"><img src="Images/37.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/25.jpeg" alt="Photo 15"></div>
+        <div class="slide"><img src="Images/38.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/39.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/40.jpeg" alt="Photo 25"></div>
+        <div class="slide"><img src="Images/41.jpeg" alt="Photo 25"></div>
 
-    <button class="slideshow-nav prev" aria-label="Previous photo">&#8592;</button>
-    <button class="slideshow-nav next" aria-label="Next photo">&#8594;</button>
+        <button class="slideshow-nav prev" aria-label="Previous photo">&#8592;</button>
+        <button class="slideshow-nav next" aria-label="Next photo">&#8594;</button>
 
-    <div class="slideshow-dots" id="slideshow-dots"></div>
-    <div class="slideshow-counter" id="slideshow-counter">1 / 24</div>
-    <div class="slideshow-progress" id="slideshow-progress"></div>
-    <div class="slideshow-pause-hint" id="pause-hint">&#9646;&#9646; Tap to pause</div>
-</div>
-```
-
+        <div class="slideshow-dots" id="slideshow-dots"></div>
+        <div class="slideshow-counter" id="slideshow-counter">1 / 24</div>
+        <div class="slideshow-progress" id="slideshow-progress"></div>
+        <div class="slideshow-pause-hint" id="pause-hint">&#9646;&#9646; Tap to pause</div>
+    </div>
 </section>
 
 <section class="rsvp-section" id="rsvp">
@@ -574,11 +873,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
 <script>
+    // ── Email obfuscation ──
     (function() {
         var el = document.getElementById('email-link');
         if (el) { el.href = ['mai','lto:ashwariasrai','@gmail.com'].join(''); }
     }());
 
+    // ── Floating hearts ──
     var heartsActive = true;
     var heartsTimer  = null;
 
@@ -863,11 +1164,14 @@
         document.querySelectorAll('.event-card').forEach(function(card) {
             var tapped = false;
             card.addEventListener('touchend', function(e) {
+                // Only toggle if the touch did NOT originate from inside the cal-btn-wrap
+                if (e.target.closest && e.target.closest('.cal-btn-wrap')) return;
                 e.preventDefault();
                 tapped = true;
                 toggleEventCard(card);
             }, {passive: false});
             card.addEventListener('click', function(e) {
+                if (e.target.closest && e.target.closest('.cal-btn-wrap')) return;
                 if (tapped) { tapped = false; return; }
                 toggleEventCard(card);
             });
@@ -897,6 +1201,190 @@
 
     window.addEventListener('scroll', handleScroll, {passive:true});
 
+    // ── Calendar button logic ─────────────────────────────────────
+    (function() {
+
+        // Event data — update these to match your exact details
+        var events = {
+            mehendi: {
+                title:    'Mehendi Ceremony – Yadhir & Ashwari',
+                location: 'The White Boxx, 369 Peter Mokaba Ridge, Berea, Durban',
+                details:  'Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!',
+                // SAST = UTC+2
+                startUTC: '20261217T160000Z', // 18:00 SAST = 16:00 UTC
+                endUTC:   '20261217T210000Z', // 23:00 SAST = 21:00 UTC
+                startLocal: '20261217T180000',
+                endLocal:   '20261217T230000'
+            },
+            hurdhee: {
+                title:    'Hurdhee Celebration – Yadhir & Ashwari',
+                location: 'The Coastlands Hotel Umhlanga, 11th Floor, The African Sky Convention Centre',
+                details:  'Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!',
+                startUTC: '20261218T150000Z',
+                endUTC:   '20261218T220000Z',
+                startLocal: '20261218T170000',
+                endLocal:   '20261218T000000'
+            },
+            reception: {
+                title:    'Wedding Reception – Yadhir & Ashwari',
+                location: 'King Protea, The Capital Zimbali Resort, Zimbali, KwaZulu-Natal',
+                details:  'Black Tie Event. 5:30 PM for 6:00 PM.',
+                startUTC: '20261219T153000Z',
+                endUTC:   '20261220T000000Z',
+                startLocal: '20261219T173000',
+                endLocal:   '20261220T020000'
+            }
+        };
+
+        function encodeRFC(str) {
+            return str.replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
+        }
+
+        function makeICS(ev) {
+            return [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Yadhir & Ashwari Wedding//EN',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                'DTSTART:' + ev.startUTC,
+                'DTEND:'   + ev.endUTC,
+                'SUMMARY:' + encodeRFC(ev.title),
+                'LOCATION:' + encodeRFC(ev.location),
+                'DESCRIPTION:' + encodeRFC(ev.details),
+                'STATUS:CONFIRMED',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+        }
+
+        function googleURL(ev) {
+            var base = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+            return base
+                + '&text='     + encodeURIComponent(ev.title)
+                + '&dates='    + ev.startUTC.replace('Z','') + '/' + ev.endUTC.replace('Z','')
+                + '&details='  + encodeURIComponent(ev.details)
+                + '&location=' + encodeURIComponent(ev.location);
+        }
+
+        function outlookURL(ev) {
+            return 'https://outlook.live.com/calendar/0/deeplink/compose?subject='
+                + encodeURIComponent(ev.title)
+                + '&startdt=' + ev.startLocal
+                + '&enddt='   + ev.endLocal
+                + '&location=' + encodeURIComponent(ev.location)
+                + '&body='     + encodeURIComponent(ev.details)
+                + '&path=/calendar/action/compose&rru=addevent';
+        }
+
+        function yahooURL(ev) {
+            return 'https://calendar.yahoo.com/?v=60&title='
+                + encodeURIComponent(ev.title)
+                + '&st=' + ev.startUTC.replace(/[:-]/g,'').replace('Z','')
+                + '&et=' + ev.endUTC.replace(/[:-]/g,'').replace('Z','')
+                + '&in_loc=' + encodeURIComponent(ev.location)
+                + '&desc='   + encodeURIComponent(ev.details);
+        }
+
+        function downloadICS(ev, filename) {
+            var blob = new Blob([makeICS(ev)], { type: 'text/calendar;charset=utf-8' });
+            var url  = URL.createObjectURL(blob);
+            var a    = document.createElement('a');
+            a.href     = url;
+            a.download = filename + '.ics';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 500);
+        }
+
+        // Wire up each calendar option link
+        document.querySelectorAll('.cal-option').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // don't bubble to event card
+                var calType  = this.getAttribute('data-cal');
+                var eventKey = this.getAttribute('data-event');
+                var ev       = events[eventKey];
+                if (!ev) return;
+
+                if (calType === 'google') {
+                    window.open(googleURL(ev), '_blank', 'noopener');
+                } else if (calType === 'apple') {
+                    downloadICS(ev, eventKey + '-wedding');
+                } else if (calType === 'outlook') {
+                    window.open(outlookURL(ev), '_blank', 'noopener');
+                } else if (calType === 'yahoo') {
+                    window.open(yahooURL(ev), '_blank', 'noopener');
+                } else if (calType === 'ical') {
+                    downloadICS(ev, eventKey + '-wedding');
+                }
+
+                // Close dropdown after action
+                var wrap = this.closest('.cal-btn-wrap');
+                if (wrap) closeDropdown(wrap);
+            });
+        });
+
+        function openDropdown(wrap) {
+            // Close any other open dropdowns first
+            document.querySelectorAll('.cal-btn-wrap.open').forEach(function(w) {
+                if (w !== wrap) closeDropdown(w);
+            });
+            wrap.classList.add('open');
+            var btn = wrap.querySelector('.cal-btn');
+            if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown(wrap) {
+            wrap.classList.remove('open');
+            var btn = wrap.querySelector('.cal-btn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
+        function toggleDropdown(wrap) {
+            if (wrap.classList.contains('open')) {
+                closeDropdown(wrap);
+            } else {
+                openDropdown(wrap);
+            }
+        }
+
+        // Button click — open/close dropdown
+        document.querySelectorAll('.cal-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation(); // don't bubble to event card or document
+                var wrap = this.closest('.cal-btn-wrap');
+                if (wrap) toggleDropdown(wrap);
+            });
+
+            btn.addEventListener('touchend', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var wrap = this.closest('.cal-btn-wrap');
+                if (wrap) toggleDropdown(wrap);
+            }, { passive: false });
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.cal-btn-wrap')) {
+                document.querySelectorAll('.cal-btn-wrap.open').forEach(closeDropdown);
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.cal-btn-wrap.open').forEach(closeDropdown);
+            }
+        });
+
+    }());
+
     // ── Cinematic Slideshow ───────────────────────────────────────
     (function() {
         var container = document.getElementById('gallery-slideshow');
@@ -907,13 +1395,12 @@
         var current     = 0;
         var paused      = false;
         var timer       = null;
-        var DURATION    = 5000; // ms per slide
+        var DURATION    = 5000;
         var progressEl  = document.getElementById('slideshow-progress');
         var counterEl   = document.getElementById('slideshow-counter');
         var dotsWrap    = document.getElementById('slideshow-dots');
         var pauseHint   = document.getElementById('pause-hint');
 
-        // Build dots
         slides.forEach(function(_, i) {
             var d = document.createElement('div');
             d.className = 'slideshow-dot' + (i === 0 ? ' active' : '');
@@ -925,7 +1412,6 @@
 
         function goTo(idx) {
             slides[current].classList.remove('active');
-            // Reset Ken Burns by forcing reflow
             var img = slides[current].querySelector('img');
             img.style.animation = 'none';
             void img.offsetWidth;
@@ -934,7 +1420,6 @@
             current = (idx + total) % total;
             slides[current].classList.add('active');
 
-            // Restart Ken Burns on new active slide
             var newImg = slides[current].querySelector('img');
             newImg.style.animation = 'none';
             void newImg.offsetWidth;
@@ -984,7 +1469,6 @@
             }
         }
 
-        // Arrow buttons
         container.querySelector('.prev').addEventListener('click', function(e) {
             e.stopPropagation();
             goTo(current - 1);
@@ -996,14 +1480,12 @@
             resetTimer();
         });
 
-        // Tap to pause/play (avoid triggering on arrow taps)
         container.addEventListener('click', function(e) {
             if (e.target.classList.contains('slideshow-nav') ||
                 e.target.classList.contains('slideshow-dot')) return;
             togglePause();
         });
 
-        // Touch swipe
         var touchStartX = 0;
         container.addEventListener('touchstart', function(e) {
             touchStartX = e.touches[0].clientX;
@@ -1016,13 +1498,11 @@
             }
         }, { passive: true });
 
-        // Keyboard
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowRight') { goTo(current + 1); resetTimer(); }
             if (e.key === 'ArrowLeft')  { goTo(current - 1); resetTimer(); }
         });
 
-        // Pause when tab is hidden, resume when visible
         document.addEventListener('visibilitychange', function() {
             if (document.visibilityState === 'hidden') {
                 clearTimeout(timer);
@@ -1032,7 +1512,6 @@
             }
         });
 
-        // Start
         startProgress();
         timer = setTimeout(function() { goTo(1); resetTimer(); }, DURATION);
         counterEl.textContent = '1 / ' + total;
