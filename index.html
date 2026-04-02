@@ -160,6 +160,63 @@ nav.nav-hidden { transform: translateY(-100%); }
         .cal-btn-wrap.open .cal-chevron {
             transform: rotate(180deg);
         }
+        /* ── Gallery Quote ── */
+.gallery-quote-wrap {
+  text-align: center;
+  margin: 1.6rem 0 0 0;
+}
+.gallery-quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+.gallery-quote::before,
+.gallery-quote::after {
+  content: '';
+  display: block;
+  width: clamp(24px, 5vw, 48px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent));
+  flex-shrink: 0;
+}
+.gallery-quote::after {
+  background: linear-gradient(to left, transparent, var(--accent));
+}
+.gallery-quote-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.88rem, 2.4vw, 1.13rem);
+  color: var(--secondary);
+  letter-spacing: 0.35px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.gallery-quote-heart {
+  display: inline-block;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: #c0697a;
+  margin-left: 0.18rem;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  animation: heartBeat 1.35s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  filter: drop-shadow(0 0 5px rgba(192, 105, 122, 0.5));
+  will-change: transform;
+}
+@keyframes heartBeat {
+  0%   { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(192,105,122,0.45)); }
+  14%  { transform: scale(1.28); filter: drop-shadow(0 0 9px rgba(192,105,122,0.7));  }
+  28%  { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(192,105,122,0.45)); }
+  42%  { transform: scale(1.18); filter: drop-shadow(0 0 7px rgba(192,105,122,0.6));  }
+  70%  { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(192,105,122,0.4));  }
+  100% { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(192,105,122,0.4));  }
+}
+@media (max-width: 600px) {
+  .gallery-quote-text { white-space: normal; }
+  .gallery-quote::before, .gallery-quote::after { width: 16px; }
+}
+
 
         /* Dropdown panel */
         .cal-dropdown {
@@ -907,6 +964,15 @@ nav.nav-hidden { transform: translateY(-100%); }
 
 <section id="gallery">
     <div class="section-title"><h2>Our Gallery</h2></div>
+
+    <!-- Quote -->
+    <div class="gallery-quote-wrap">
+      <div class="gallery-quote">
+        <span class="gallery-quote-text">Two souls, one journey. Two hearts, one beat.</span>
+        <span class="gallery-quote-heart" aria-hidden="true">&#10084;</span>
+      </div>
+    </div>
+
     <div class="gallery-slideshow" id="gallery-slideshow">
 
         <div class="slide active"><img src="Images/1.jpeg"  alt="Photo 1"></div>
