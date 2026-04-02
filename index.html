@@ -423,9 +423,37 @@
         <li><a href="#rsvp">RSVP</a></li>
     </ul>
 </nav>
-
 <header id="home">
     <div class="header-content">
+
+        <!-- ── Om Shri Ganeshaya Namaha — top of hero ── -->
+        <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
+        <div class="ganesh-inscription" id="inscription" style="text-align:center;margin-bottom:2rem;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+          <span id="ins-en" style="font-family:'Satisfy',cursive;font-size:clamp(1rem,3.2vw,1.45rem);letter-spacing:0.5px;color:rgba(255,255,255,0.9);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
+          <span id="ins-div" style="font-family:'Satisfy',cursive;font-size:0.9rem;color:rgba(212,163,115,0.7);letter-spacing:6px;opacity:0;transition:opacity 0.8s ease;">✦ &nbsp; ✦ &nbsp; ✦</span>
+          <span id="ins-hi" style="font-family:'Noto Serif Devanagari',serif;font-size:clamp(0.95rem,2.8vw,1.3rem);letter-spacing:0.5px;color:rgba(255,220,180,0.95);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
+          <span id="ins-cur" style="display:inline-block;width:1px;height:1.1em;background:rgba(255,255,255,0.7);vertical-align:middle;margin-left:1px;animation:curBlink 0.65s step-end infinite;"></span>
+        </div>
+        <style>
+          @keyframes curBlink{0%,100%{opacity:1}50%{opacity:0}}
+          @keyframes inkIn{from{opacity:0;transform:translateY(4px) rotate(-1deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
+          @keyframes divineFade{0%{opacity:0;transform:translateY(6px) scale(0.98);filter:blur(2px)}60%{opacity:0.7;filter:blur(0.5px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+          .ins-char{display:inline-block;opacity:0;transform:translateY(4px) rotate(-1deg);animation:inkIn 0.14s ease-out forwards}
+          .ins-hi-char{display:inline-block;opacity:0;animation:divineFade 0.8s ease-out forwards}
+        </style>
+        <script>
+        (function(){
+          var EN='Om\u00A0Shri\u00A0Ganeshaya\u00A0Namaha',HI='ॐ श्री गणेशाय नमः';
+          var CD=52,PAUSE=2600,ED=28;
+          var eEn=document.getElementById('ins-en'),eHi=document.getElementById('ins-hi'),eDiv=document.getElementById('ins-div'),eCur=document.getElementById('ins-cur');
+          function typeText(el,text,delay,done,isSanskrit){var i=0,chars=Array.from(text);el.innerHTML='';(function next(){if(i>=chars.length){done&&done();return;}var s=document.createElement('span');s.className=isSanskrit?'ins-hi-char':'ins-char';s.textContent=chars[i];el.appendChild(s);if(eCur.parentNode)eCur.parentNode.removeChild(eCur);el.parentNode.appendChild(eCur);i++;setTimeout(next,delay+(Math.random()*20-10));})();}
+          function eraseText(el,done){var iv=setInterval(function(){var ss=el.querySelectorAll('span');if(!ss.length){clearInterval(iv);done&&done();return;}var l=ss[ss.length-1];l.style.transition='opacity 0.15s,transform 0.15s';l.style.opacity='0';l.style.transform='translateY(-4px)';setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l);},150);},ED);}
+          function runCycle(){eEn.innerHTML='';eHi.innerHTML='';eDiv.style.opacity='0';typeText(eEn,EN,CD,function(){setTimeout(function(){eDiv.style.opacity='1';setTimeout(function(){typeText(eHi,HI,CD+30,function(){if(eCur.parentNode)eCur.parentNode.removeChild(eCur);setTimeout(function(){eraseText(eHi,function(){setTimeout(function(){eDiv.style.opacity='0';eraseText(eEn,function(){setTimeout(runCycle,700);});},200);});},PAUSE);},true);},400);},300);}
+          runCycle();
+        })();
+        </script>
+
+        <!-- ── Names, date, countdown ── -->
         <h1>Yadhir &amp; Ashwari</h1>
         <div class="subtitle">Are Getting Married</div>
         <div class="date">December 19, 2026</div>
@@ -435,13 +463,11 @@
             <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Minutes</div></div>
             <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Seconds</div></div>
         </div>
-        <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
-        <div class="ganesh-inscription" id="inscription" style="text-align:center;margin-top:1.6rem;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-          <span id="ins-en" style="font-family:'Satisfy',cursive;font-size:clamp(1rem,3.2vw,1.45rem);letter-spacing:0.5px;color:rgba(255,255,255,0.9);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
-          <span id="ins-div" style="font-family:'Satisfy',cursive;font-size:0.9rem;color:rgba(212,163,115,0.7);letter-spacing:6px;opacity:0;transition:opacity 0.8s ease;">✦ &nbsp; ✦ &nbsp; ✦</span>
-          <span id="ins-hi" style="font-family:'Noto Serif Devanagari',serif;font-size:clamp(0.95rem,2.8vw,1.3rem);letter-spacing:0.5px;color:rgba(255,220,180,0.95);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
-          <span id="ins-cur" style="display:inline-block;width:1px;height:1.1em;background:rgba(255,255,255,0.7);vertical-align:middle;margin-left:1px;animation:curBlink 0.65s step-end infinite;"></span>
-        </div>
+
+    </div>
+</header>
+
+
         <style>
           @keyframes curBlink{0%,100%{opacity:1}50%{opacity:0}}
           @keyframes inkIn{from{opacity:0;transform:translateY(4px) rotate(-1deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
