@@ -389,6 +389,252 @@
     @media (hover:none) { .event-card:hover{transform:none} .gallery-item:hover img{transform:none} .detail-card:hover{transform:none} }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important} .heart,.heart-confetti{animation:none !important} .gallery-quote-heart{animation:heartBeat 1.35s cubic-bezier(0.215,0.61,0.355,1) infinite !important;} }
 
+    /* ── Reception Carousel ── */
+.rc-carousel-wrap {
+  position: relative;
+  width: 100%;
+  /* height adapts to content */
+  padding: clamp(20px, 5vw, 60px) 0 clamp(50px, 8vw, 80px);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The track: we position cards absolutely so they fan/stack */
+.rc-track {
+  position: relative;
+  width: clamp(260px, 60vw, 380px);
+  height: clamp(340px, 55vw, 480px);
+  margin: 0 auto;
+  /* extra horizontal room for fanned side cards */
+  overflow: visible;
+}
+
+/* ── Individual card ── */
+.rc-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition:
+    transform 0.65s cubic-bezier(0.34, 1.26, 0.64, 1),
+    opacity   0.55s ease,
+    box-shadow 0.45s ease,
+    z-index   0s 0.1s;
+  /* white polaroid border */
+  border: 10px solid #fff;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Background image */
+.rc-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 0.6s ease;
+}
+.rc-card:hover .rc-card-bg { transform: scale(1.1); }
+
+/* Dark gradient overlay */
+.rc-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(20,10,5,0.82) 0%,
+    rgba(20,10,5,0.35) 55%,
+    rgba(20,10,5,0.12) 100%
+  );
+}
+
+/* Content */
+.rc-card-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1rem, 4vw, 1.6rem);
+  color: white;
+  z-index: 2;
+}
+.rc-card-icon {
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+}
+.rc-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 3.5vw, 1.65rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  line-height: 1.15;
+}
+.rc-card-inner p {
+  font-size: clamp(0.78rem, 2.2vw, 0.92rem);
+  line-height: 1.55;
+  opacity: 0.92;
+  margin-bottom: 0.2rem;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+.rc-card-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+.rc-card-link:hover { color: white; }
+
+/* Corner number */
+.rc-card-num {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.9rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.55);
+  z-index: 3;
+}
+
+/* ─────────────────────────────────
+   CARD POSITIONS (fan/stack effect)
+   5 states relative to active (0):
+   -2  far left
+   -1  near left
+    0  center (active)
+   +1  near right
+   +2  far right
+   ───────────────────────────────── */
+.rc-card[data-pos="-2"] {
+  transform: translateX(-115%) rotate(-18deg) scale(0.72);
+  opacity: 0.45;
+  z-index: 1;
+  pointer-events: none;
+}
+.rc-card[data-pos="-1"] {
+  transform: translateX(-62%) rotate(-9deg) scale(0.84);
+  opacity: 0.72;
+  z-index: 2;
+}
+.rc-card[data-pos="0"] {
+  transform: translateX(0) rotate(0deg) scale(1);
+  opacity: 1;
+  z-index: 5;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.36), 0 6px 20px rgba(0,0,0,0.18);
+}
+.rc-card[data-pos="1"] {
+  transform: translateX(62%) rotate(9deg) scale(0.84);
+  opacity: 0.72;
+  z-index: 2;
+}
+.rc-card[data-pos="2"] {
+  transform: translateX(115%) rotate(18deg) scale(0.72);
+  opacity: 0.45;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hover lift for adjacent cards */
+.rc-card[data-pos="-1"]:hover,
+.rc-card[data-pos="1"]:hover {
+  opacity: 0.88;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+}
+
+/* ── Navigation arrows ── */
+.rc-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(38px, 8vw, 52px);
+  height: clamp(38px, 8vw, 52px);
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  background: rgba(248,241,233,0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--secondary);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  -webkit-tap-highlight-color: transparent;
+}
+.rc-nav:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 6px 22px rgba(212,163,115,0.4);
+}
+.rc-nav:active { transform: translateY(-50%) scale(0.91); }
+.rc-prev { left: clamp(-10px, -2vw, -20px); }
+.rc-next { right: clamp(-10px, -2vw, -20px); }
+
+/* ── Dots ── */
+.rc-dots {
+  position: absolute;
+  bottom: clamp(12px, 3vw, 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+.rc-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(122,106,95,0.3);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.rc-dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+}
+
+/* ── Caption strip below active card ── */
+.rc-caption {
+  text-align: center;
+  margin-top: clamp(18px, 4vw, 28px);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.82rem, 2.2vw, 0.98rem);
+  color: var(--secondary);
+  letter-spacing: 0.4px;
+  opacity: 0.8;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .rc-track {
+    width: 75vw;
+    height: 68vw;
+  }
+  .rc-card[data-pos="-2"] { transform: translateX(-90%) rotate(-15deg) scale(0.68); }
+  .rc-card[data-pos="-1"] { transform: translateX(-52%) rotate(-8deg) scale(0.80); }
+  .rc-card[data-pos="1"]  { transform: translateX(52%)  rotate(8deg)  scale(0.80); }
+  .rc-card[data-pos="2"]  { transform: translateX(90%)  rotate(15deg) scale(0.68); }
+}
 </style>
 
 
@@ -592,35 +838,121 @@
 </section>
 
 <section id="details">
-    <div class="section-title"><h2>Wedding Reception</h2></div>
-    <div class="details-grid">
-        <div class="detail-card"><div class="detail-icon"><i class="fas fa-calendar-alt"></i></div><h3>When</h3><p>Saturday, December 19, 2026</p><p>Time: 5:30 PM for 6 PM</p></div>
-        <div class="detail-card"><div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div><h3>Where</h3><p>King Protea</p><p>The Capital Zimbali Resort, Zimbali</p><a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z" target="_blank" rel="noopener">View on map</a></div>
-        <div class="detail-card"><div class="detail-icon"><i class="fas fa-heart"></i></div><h3>Dress Code</h3><p>Black Tie Event</p></div>
-        <div class="detail-card"><div class="detail-icon"><i class="fas fa-gift"></i></div><h3>Registry</h3><p>Your presence is present enough!</p><p>For those who insist, please give us cash.</p></div>
-        <div class="detail-card"><div class="detail-icon"><i class="fas fa-question-circle"></i></div><h3>Questions?</h3><p>Contact our wedding planner: Prathika Asrai</p><p>asraiashwari@gmail.com | (082) 811-5166</p></div>
-    </div>
-    <div class="reception-cal-wrap">
-        <div class="cal-btn-wrap" id="cal-reception-wrap" data-event="reception">
-            <button class="cal-btn" aria-haspopup="true" aria-expanded="false">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-                Mark your Calendar
-                <svg class="cal-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>
-            </button>
-            <div class="cal-dropdown" role="menu">
-                <span class="cal-dropdown-label">Add to calendar</span>
-                <div class="cal-dropdown-divider"></div>
-                <a class="cal-option" role="menuitem" href="#" data-cal="google" data-event="reception" target="_blank" rel="noopener"><span class="cal-option-icon google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span>Google Calendar</a>
-                <a class="cal-option" role="menuitem" href="#" data-cal="apple" data-event="reception" download><span class="cal-option-icon apple"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#555"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></span>Apple Calendar</a>
-                <a class="cal-option" role="menuitem" href="#" data-cal="outlook" data-event="reception" target="_blank" rel="noopener"><span class="cal-option-icon outlook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 7.387v13.276L17.455 24V10.44L24 7.387zM0 8.597l7.09 1.709v10.68L0 19.77V8.597zm16.363 1.203L8.182 8.3V21.33l8.181-1.5V9.8zM10.909 0l10.909 3.56-4.363 2.126L7.09 4.24 10.91 0z" fill="#0072C6"/></svg></span>Outlook / Office 365</a>
-                <a class="cal-option" role="menuitem" href="#" data-cal="yahoo" data-event="reception" target="_blank" rel="noopener"><span class="cal-option-icon yahoo"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l6.252 9.336L0 13.23h3.393l3.834-2.775L10.887 13.23h3.393L8.055 9.336 14.307 0h-3.393L7.227 5.544 3.393 0H0zm14.013 4.392l1.8 2.622-.918.648 2.988 4.368H21l-1.8-2.628.918-.648-2.988-4.362h-3.117zm-.684 9.702l-.054 9.906h2.394v-3.492c.678.606 1.476.906 2.394.906 1.14 0 2.07-.39 2.79-1.17.738-.78 1.107-1.77 1.107-2.97 0-1.2-.369-2.184-1.107-2.952-.72-.768-1.638-1.152-2.754-1.152-.99 0-1.806.3-2.448.9v-.876h-2.322zm4.194 1.722c.6 0 1.098.216 1.494.648.396.432.594.972.594 1.62 0 .648-.198 1.188-.594 1.62-.396.432-.894.648-1.494.648-.6 0-1.104-.222-1.512-.666-.39-.444-.585-.978-.585-1.602 0-.624.195-1.158.585-1.602.408-.444.912-.666 1.512-.666z" fill="#6001D2"/></svg></span>Yahoo Calendar</a>
-                <div class="cal-dropdown-divider"></div>
-                <a class="cal-option" role="menuitem" href="#" data-cal="ical" data-event="reception" download><span class="cal-option-icon ical"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#2da851"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></span>Download .ics file</a>
-            </div>
+  <div class="section-title"><h2>Wedding Reception</h2></div>
+
+  <div class="rc-carousel-wrap">
+
+    <!-- Track holds all 5 cards -->
+    <div class="rc-track" id="rcTrack">
+
+      <!-- Card 1 – When -->
+      <div class="rc-card" data-index="0">
+        <div class="rc-card-bg" style="background-image:url('Images/13.jpeg')"></div>
+        <div class="rc-card-overlay"></div>
+        <div class="rc-card-inner">
+          <div class="rc-card-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h3 class="rc-card-title">When</h3>
+          <p>Saturday, December 19, 2026</p>
+          <p>Time: 5:30 PM for 6 PM</p>
         </div>
+        <div class="rc-card-num">01</div>
+      </div>
+
+      <!-- Card 2 – Where -->
+      <div class="rc-card" data-index="1">
+        <div class="rc-card-bg" style="background-image:url('Images/rsvp4.jpeg')"></div>
+        <div class="rc-card-overlay"></div>
+        <div class="rc-card-inner">
+          <div class="rc-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <h3 class="rc-card-title">Where</h3>
+          <p>King Protea</p>
+          <p>The Capital Zimbali Resort, Zimbali</p>
+          <a href="https://www.google.com/maps/place/Zimbali+Country+Club/@-29.5460026,31.1984946,17z"
+             target="_blank" rel="noopener" class="rc-card-link">View on map &rarr;</a>
+        </div>
+        <div class="rc-card-num">02</div>
+      </div>
+
+      <!-- Card 3 – Dress Code -->
+      <div class="rc-card" data-index="2">
+        <div class="rc-card-bg" style="background-image:url('Images/mendhi2.jpeg')"></div>
+        <div class="rc-card-overlay"></div>
+        <div class="rc-card-inner">
+          <div class="rc-card-icon"><i class="fas fa-heart"></i></div>
+          <h3 class="rc-card-title">Dress Code</h3>
+          <p>Black Tie Event</p>
+        </div>
+        <div class="rc-card-num">03</div>
+      </div>
+
+      <!-- Card 4 – Registry -->
+      <div class="rc-card" data-index="3">
+        <div class="rc-card-bg" style="background-image:url('Images/haldi2.jpeg')"></div>
+        <div class="rc-card-overlay"></div>
+        <div class="rc-card-inner">
+          <div class="rc-card-icon"><i class="fas fa-gift"></i></div>
+          <h3 class="rc-card-title">Registry</h3>
+          <p>Your presence is present enough!</p>
+          <p>For those who insist, please give us cash.</p>
+        </div>
+        <div class="rc-card-num">04</div>
+      </div>
+
+      <!-- Card 5 – Questions -->
+      <div class="rc-card" data-index="4">
+        <div class="rc-card-bg" style="background-image:url('Images/airplane.jpeg')"></div>
+        <div class="rc-card-overlay"></div>
+        <div class="rc-card-inner">
+          <div class="rc-card-icon"><i class="fas fa-question-circle"></i></div>
+          <h3 class="rc-card-title">Questions?</h3>
+          <p>Contact our wedding planner: Prathika Asrai</p>
+          <p>asraiashwari@gmail.com</p>
+          <p>(082) 811-5166</p>
+        </div>
+        <div class="rc-card-num">05</div>
+      </div>
+
+    </div><!-- /rc-track -->
+
+    <!-- Nav arrows -->
+    <button class="rc-nav rc-prev" id="rcPrev" aria-label="Previous">&#8592;</button>
+    <button class="rc-nav rc-next" id="rcNext" aria-label="Next">&#8594;</button>
+
+    <!-- Dots -->
+    <div class="rc-dots" id="rcDots">
+      <span class="rc-dot active"></span>
+      <span class="rc-dot"></span>
+      <span class="rc-dot"></span>
+      <span class="rc-dot"></span>
+      <span class="rc-dot"></span>
     </div>
+
+  </div><!-- /rc-carousel-wrap -->
+
+  <!-- "Mark your Calendar" button kept below carousel -->
+  <div class="reception-cal-wrap">
+    <div class="cal-btn-wrap" id="cal-reception-wrap" data-event="reception">
+      <button class="cal-btn" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+        Mark your Calendar
+        <svg class="cal-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>
+      </button>
+      <div class="cal-dropdown" role="menu">
+        <span class="cal-dropdown-label">Add to calendar</span>
+        <div class="cal-dropdown-divider"></div>
+        <a class="cal-option" role="menuitem" href="#" data-cal="google" data-event="reception" target="_blank" rel="noopener"><span class="cal-option-icon google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span>Google Calendar</a>
+        <a class="cal-option" role="menuitem" href="#" data-cal="apple" data-event="reception" download><span class="cal-option-icon apple"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#555"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></span>Apple Calendar</a>
+        <a class="cal-option" role="menuitem" href="#" data-cal="outlook" data-event="reception" target="_blank" rel="noopener"><span class="cal-option-icon outlook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 7.387v13.276L17.455 24V10.44L24 7.387zM0 8.597l7.09 1.709v10.68L0 19.77V8.597zm16.363 1.203L8.182 8.3V21.33l8.181-1.5V9.8zM10.909 0l10.909 3.56-4.363 2.126L7.09 4.24 10.91 0z" fill="#0072C6"/></svg></span>Outlook / Office 365</a>
+        <a class="cal-option" role="menuitem" href="#" data-cal="yahoo" data-event="reception" target="_blank" rel="noopener"><span class="cal-option-icon yahoo"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l6.252 9.336L0 13.23h3.393l3.834-2.775L10.887 13.23h3.393L8.055 9.336 14.307 0h-3.393L7.227 5.544 3.393 0H0zm14.013 4.392l1.8 2.622-.918.648 2.988 4.368H21l-1.8-2.628.918-.648-2.988-4.362h-3.117zm-.684 9.702l-.054 9.906h2.394v-3.492c.678.606 1.476.906 2.394.906 1.14 0 2.07-.39 2.79-1.17.738-.78 1.107-1.77 1.107-2.97 0-1.2-.369-2.184-1.107-2.952-.72-.768-1.638-1.152-2.754-1.152-.99 0-1.806.3-2.448.9v-.876h-2.322zm4.194 1.722c.6 0 1.098.216 1.494.648.396.432.594.972.594 1.62 0 .648-.198 1.188-.594 1.62-.396.432-.894.648-1.494.648-.6 0-1.104-.222-1.512-.666-.39-.444-.585-.978-.585-1.602 0-.624.195-1.158.585-1.602.408-.444.912-.666 1.512-.666z" fill="#6001D2"/></svg></span>Yahoo Calendar</a>
+        <div class="cal-dropdown-divider"></div>
+        <a class="cal-option" role="menuitem" href="#" data-cal="ical" data-event="reception" download><span class="cal-option-icon ical"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#2da851"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></span>Download .ics file</a>
+      </div>
+    </div>
+  </div>
+
 </section>
 
+    
 <section id="gallery">
     <div class="section-title"><h2>Our Gallery</h2></div>
     <div class="gallery-quote-wrap">
@@ -927,6 +1259,94 @@
         lbImg.style.transition='opacity 0.22s ease, transform 0.22s ease';
 
     }());
+
+    (function() {
+  var TOTAL = 5;
+  var current = 0;
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#rcTrack .rc-card'));
+  var dots  = Array.prototype.slice.call(document.querySelectorAll('#rcDots .rc-dot'));
+
+  function posFor(cardIndex) {
+    // Returns position relative to current: -2, -1, 0, 1, 2
+    var diff = cardIndex - current;
+    // Wrap around
+    if (diff > TOTAL / 2)  diff -= TOTAL;
+    if (diff < -TOTAL / 2) diff += TOTAL;
+    return Math.max(-2, Math.min(2, diff));
+  }
+
+  function render() {
+    cards.forEach(function(card, i) {
+      var pos = posFor(i);
+      card.setAttribute('data-pos', String(pos));
+    });
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goTo(idx) {
+    current = ((idx % TOTAL) + TOTAL) % TOTAL;
+    render();
+  }
+
+  // Arrows
+  document.getElementById('rcPrev').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goTo(current - 1);
+  });
+  document.getElementById('rcNext').addEventListener('click', function(e) {
+    e.stopPropagation();
+    goTo(current + 1);
+  });
+
+  // Dot clicks
+  dots.forEach(function(d, i) {
+    d.addEventListener('click', function() { goTo(i); });
+  });
+
+  // Click a side card to bring it forward
+  cards.forEach(function(card, i) {
+    card.addEventListener('click', function() {
+      var pos = posFor(i);
+      if (pos !== 0) { goTo(i); }
+    });
+    card.addEventListener('touchend', function(e) {
+      var pos = posFor(i);
+      if (pos !== 0) {
+        e.preventDefault();
+        goTo(i);
+      }
+    }, { passive: false });
+  });
+
+  // Touch swipe on track
+  var swipeStartX = 0;
+  var track = document.getElementById('rcTrack');
+  track.addEventListener('touchstart', function(e) {
+    swipeStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(dx) > 40) {
+      goTo(dx < 0 ? current + 1 : current - 1);
+    }
+  }, { passive: true });
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    // Only respond if details section is in view
+    var section = document.getElementById('details');
+    if (!section) return;
+    var rect = section.getBoundingClientRect();
+    if (rect.top > window.innerHeight || rect.bottom < 0) return;
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+  });
+
+  // Init
+  render();
+})();
 </script>
 
 </body>
