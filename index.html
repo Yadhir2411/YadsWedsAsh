@@ -389,7 +389,8 @@
     @media (hover:none) { .event-card:hover{transform:none} .gallery-item:hover img{transform:none} .detail-card:hover{transform:none} }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important} .heart,.heart-confetti{animation:none !important} .gallery-quote-heart{animation:heartBeat 1.35s cubic-bezier(0.215,0.61,0.355,1) infinite !important;} }
 
-    /* ── Reception Carousel ── */
+
+/* ── Reception Carousel ── */
 .rc-carousel-wrap {
   position: relative;
   width: 100%;
@@ -401,20 +402,27 @@
   align-items: center;
 }
 
-/* The track: we position cards absolutely so they fan/stack */
+/* The track: width sets the active card size; height is derived from 3:4 ratio */
 .rc-track {
   position: relative;
-  width: clamp(260px, 60vw, 380px);
-  height: clamp(340px, 55vw, 480px);
+  /* On mobile: 68vw wide. On tablet+: clamp up to 340px */
+  width: clamp(200px, 68vw, 340px);
+  /* Height = width × 4/3 to guarantee portrait. Use padding-bottom trick. */
+  height: 0;
+  padding-bottom: calc(clamp(200px, 68vw, 340px) * 4 / 3);
   margin: 0 auto;
-  /* extra horizontal room for fanned side cards */
   overflow: visible;
 }
 
 /* ── Individual card ── */
 .rc-card {
   position: absolute;
-  inset: 0;
+  /* Fill the track exactly */
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Force 3:4 portrait via aspect-ratio — this is the key fix */
+  aspect-ratio: 3 / 4;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.15);
@@ -624,16 +632,12 @@
   opacity: 0.8;
 }
 
-/* Mobile adjustments */
+/* Mobile: tighten the fan so side cards don't clip off-screen */
 @media (max-width: 480px) {
-  .rc-track {
-    width: 75vw;
-    height: 68vw;
-  }
-  .rc-card[data-pos="-2"] { transform: translateX(-90%) rotate(-15deg) scale(0.68); }
-  .rc-card[data-pos="-1"] { transform: translateX(-52%) rotate(-8deg) scale(0.80); }
-  .rc-card[data-pos="1"]  { transform: translateX(52%)  rotate(8deg)  scale(0.80); }
-  .rc-card[data-pos="2"]  { transform: translateX(90%)  rotate(15deg) scale(0.68); }
+  .rc-card[data-pos="-2"] { transform: translateX(-80%) rotate(-14deg) scale(0.68); }
+  .rc-card[data-pos="-1"] { transform: translateX(-48%) rotate(-7deg)  scale(0.82); }
+  .rc-card[data-pos="1"]  { transform: translateX(48%)  rotate(7deg)   scale(0.82); }
+  .rc-card[data-pos="2"]  { transform: translateX(80%)  rotate(14deg)  scale(0.68); }
 }
 </style>
 
@@ -951,7 +955,6 @@
   </div>
 
 </section>
-
     
 <section id="gallery">
     <div class="section-title"><h2>Our Gallery</h2></div>
@@ -1259,8 +1262,7 @@
         lbImg.style.transition='opacity 0.22s ease, transform 0.22s ease';
 
     }());
-
-    (function() {
+  (function() {
   var TOTAL = 5;
   var current = 0;
   var cards = Array.prototype.slice.call(document.querySelectorAll('#rcTrack .rc-card'));
