@@ -32,7 +32,18 @@
     nav a:hover { color:#d4a373; }
     nav a:hover::after { width:100%; }
 
-    header { position:relative; min-height:100vh; min-height:100svh; background:linear-gradient(rgba(0,0,0,0.38),rgba(0,0,0,0.38)),url('Images/13.jpeg') no-repeat center 60%/cover; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; color:white; overflow:hidden; padding:6rem 1rem 3rem; }
+    header { position:relative; 
+    min-height:100vh; 
+    min-height:100svh; 
+    background: #111;  /* fallback only, no image here anymore */
+    display:flex; 
+    flex-direction:column; 
+    justify-content:flex-end;  /* pushes text to bottom */
+    align-items:center; 
+    text-align:center; 
+    color:white; 
+    overflow:hidden; 
+    padding:6rem 1rem 3rem; }
     @supports (-webkit-touch-callout:none) { header { min-height:-webkit-fill-available; } }
 
     .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; }
@@ -760,8 +771,26 @@
     </ul>
 </nav>
 <header id="home">
-    <div class="header-content">
 
+     <!-- Full background image -->
+    <img 
+        src="Images/13.jpeg" 
+        alt="" 
+        style="
+            position:absolute;
+            top:0; left:0;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            object-position:center top;
+            z-index:0;
+        "
+    >
+    <!-- Dark overlay -->
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);z-index:1;"></div>
+
+    <div class="header-content" style="position:relative;z-index:2;">
+        <!-- everything inside stays exactly the same -->
         <!-- ── Om Shri Ganeshaya Namaha — top of hero ── -->
         <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
         <div class="ganesh-inscription" id="inscription" style="text-align:center;margin-bottom:2rem;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
