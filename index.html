@@ -1211,13 +1211,17 @@
         handleScroll();
         document.querySelectorAll('.event-card').forEach(function(card){var tapped=false;card.addEventListener('touchend',function(e){if(e.target.closest&&e.target.closest('.cal-btn-wrap'))return;e.preventDefault();tapped=true;toggleEventCard(card);},{passive:false});card.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.cal-btn-wrap'))return;if(tapped){tapped=false;return;}toggleEventCard(card);});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleEventCard(card);}});});
         var music=document.getElementById('bgMusic');music.volume=0.5;var played=false;
-function tryPlay(){if(!played){music.play().then(function(){played=true;}).catch(function(){});}}
-function delayedPlay(){tryPlay();}
-// Try immediately on load (works in some browsers/contexts)
-tryPlay();
-// Otherwise, trigger 1 second after first interaction anywhere on the page
-['click','touchstart','touchend','scroll','keydown','pointerdown'].forEach(function(ev){
-    document.addEventListener(ev,delayedPlay,{once:true,passive:true});
+var audioUnlocked=false;
+function unlockAudio(){
+    if(audioUnlocked)return;
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    ctx.resume().then(function(){
+        audioUnlocked=true;
+        tryPlay();
+    });
+}
+['touchend','pointerdown','click'].forEach(function(ev){
+    document.addEventListener(ev,unlockAudio,{once:true,passive:true});
 });
 document.addEventListener('visibilitychange',function(){
     if(document.visibilityState==='visible'){delayedPlay();}
