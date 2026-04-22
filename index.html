@@ -1216,7 +1216,7 @@ function delayedPlay(){tryPlay();}
 // Try immediately on load (works in some browsers/contexts)
 tryPlay();
 // Otherwise, trigger 1 second after first interaction anywhere on the page
-['click','touchstart','scroll','keydown'].forEach(function(ev){
+['click','touchstart','touchend','scroll','keydown','pointerdown'].forEach(function(ev){
     document.addEventListener(ev,delayedPlay,{once:true,passive:true});
 });
 document.addEventListener('visibilitychange',function(){
