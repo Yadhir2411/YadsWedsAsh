@@ -745,9 +745,6 @@
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
-    <source src="Music/Love.mp3" type="audio/mpeg">
-</audio>
 <div class="floating-hearts" id="hearts-container"></div>
 
 <!-- ── Lightbox ── -->
@@ -1210,33 +1207,47 @@
         setupScrollAnimations();
         handleScroll();
         document.querySelectorAll('.event-card').forEach(function(card){var tapped=false;card.addEventListener('touchend',function(e){if(e.target.closest&&e.target.closest('.cal-btn-wrap'))return;e.preventDefault();tapped=true;toggleEventCard(card);},{passive:false});card.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.cal-btn-wrap'))return;if(tapped){tapped=false;return;}toggleEventCard(card);});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleEventCard(card);}});});
-        var music=document.getElementById('bgMusic');music.volume=0.5;var played=false;
-        var audioUnlocked=false;
-function unlockAudio(){
-    if(audioUnlocked)return;
-    var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    ctx.resume().then(function(){
-        audioUnlocked=true;
-        tryPlay();
-    });
+        var music=null;var played=false;
+function tryPlay(){
+    if(played)return;
+    if(!music){
+        music=document.createElement('audio');
+        music.loop=true;
+        music.volume=0.5;
+        music.src='Music/Love.mp3';
+        document.body.appendChild(music);
+    }
+    var p=music.play();
+    if(p!==undefined){
+        p.then(function(){played=true;}).catch(function(){});
+    }else{
+        played=true;
+    }
 }
-['touchend','pointerdown','click'].forEach(function(ev){
+function unlockAudio(){
+    if(played)return;
+    if(!music){
+        music=document.createElement('audio');
+        music.loop=true;
+        music.volume=0.5;
+        music.src='Music/Love.mp3';
+        document.body.appendChild(music);
+    }
+    music.load();
+    var p=music.play();
+    if(p!==undefined){
+        p.then(function(){played=true;}).catch(function(){tryPlay();});
+    }else{
+        played=true;
+    }
+}
+['touchstart','touchend','pointerdown','click','scroll','keydown'].forEach(function(ev){
     document.addEventListener(ev,unlockAudio,{once:true,passive:true});
 });
-function tryPlay(){if(!played){music.play().then(function(){played=true;}).catch(function(){});}}
-function delayedPlay(){tryPlay();}
-// Try immediately on load (works in some browsers/contexts)
-tryPlay();
-// Otherwise, trigger 1 second after first interaction anywhere on the page
-['click','touchstart','touchend','scroll','keydown','pointerdown'].forEach(function(ev){
-    document.addEventListener(ev,delayedPlay,{once:true,passive:true});
-});
 document.addEventListener('visibilitychange',function(){
-    if(document.visibilityState==='visible'){delayedPlay();}
-},{once:true});
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
-    window.addEventListener('scroll',handleScroll,{passive:true});
+    if(document.visibilityState==='visible'&&!played){unlockAudio();}
+});
+
 
     // ── Calendar button logic ──
     (function(){
