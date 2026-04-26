@@ -7,7 +7,7 @@
     <title>Yadhir &amp; Ashwari | Wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -22,7 +22,6 @@
         body { font-family:'Montserrat',sans-serif; color:var(--dark); background-color:var(--light); overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.6; height:100%; max-width:100vw; }
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
-```
 nav { position:fixed; top:0; width:100%; padding:0.4rem 0; z-index:1000; transition:all 0.3s ease, transform 0.35s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 2px 8px rgba(0,0,0,0.12); border-bottom:1px solid var(--accent); }
 nav.nav-hidden { transform: translateY(-100%); }
 nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
@@ -471,7 +470,7 @@ footer { background-color:var(--dark); color:white; text-align:center; padding:c
 /* Body locked while splash is showing */
 body.splash-open { overflow: hidden; }
 </style>
-```
+
 
 </head>
 <body class="splash-open">
@@ -530,7 +529,6 @@ body.splash-open { overflow: hidden; }
     <img src="Images/hero4.jpeg" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0;">
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);z-index:1;"></div>
     <div class="header-content" style="position:relative;z-index:2;">
-        <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
         <div class="ganesh-inscription" id="inscription" style="text-align:center;margin-bottom:2rem;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
           <span id="ins-en" style="font-family:'Satisfy',cursive;font-size:clamp(1rem,3.2vw,1.45rem);letter-spacing:0.5px;color:rgba(255,255,255,0.9);min-height:1.6em;line-height:1.6;white-space:nowrap;display:block;"></span>
           <span id="ins-div" style="font-family:'Satisfy',cursive;font-size:0.9rem;color:rgba(212,163,115,0.7);letter-spacing:6px;opacity:0;transition:opacity 0.8s ease;">✦ &nbsp; ✦ &nbsp; ✦</span>
@@ -545,15 +543,60 @@ body.splash-open { overflow: hidden; }
           .ins-hi-char{display:inline-block;opacity:0;animation:divineFade 0.8s ease-out forwards}
         </style>
         <script>
-        (function(){
-          var EN='Om\u00A0Shri\u00A0Ganeshaya\u00A0Namaha',HI='ॐ श्री गणेशाय नमः';
-          var CD=52,PAUSE=2600,ED=28;
-          var eEn=document.getElementById('ins-en'),eHi=document.getElementById('ins-hi'),eDiv=document.getElementById('ins-div'),eCur=document.getElementById('ins-cur');
-          function typeText(el,text,delay,done,isSanskrit){var i=0,chars=Array.from(text);el.innerHTML='';(function next(){if(i>=chars.length){done&&done();return;}var s=document.createElement('span');s.className=isSanskrit?'ins-hi-char':'ins-char';s.textContent=chars[i];el.appendChild(s);if(eCur.parentNode)eCur.parentNode.removeChild(eCur);el.parentNode.appendChild(eCur);i++;setTimeout(next,delay+(Math.random()*20-10));})();}
-          function eraseText(el,done){var iv=setInterval(function(){var ss=el.querySelectorAll('span');if(!ss.length){clearInterval(iv);done&&done();return;}var l=ss[ss.length-1];l.style.transition='opacity 0.15s,transform 0.15s';l.style.opacity='0';l.style.transform='translateY(-4px)';setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l);},150);},ED);}
-          function runCycle(){eEn.innerHTML='';eHi.innerHTML='';eDiv.style.opacity='0';typeText(eEn,EN,CD,function(){setTimeout(function(){eDiv.style.opacity='1';setTimeout(function(){typeText(eHi,HI,CD+30,function(){if(eCur.parentNode)eCur.parentNode.removeChild(eCur);setTimeout(function(){eraseText(eHi,function(){setTimeout(function(){eDiv.style.opacity='0';eraseText(eEn,function(){setTimeout(runCycle,700);});},200);});},PAUSE);},true);},400);},300);}
+        // Exposed so dismissSplash() can call it after fonts are guaranteed loaded
+        window._startInscription = function() {
+          var EN='Om\u00A0Shri\u00A0Ganeshaya\u00A0Namaha', HI='ॐ श्री गणेशाय नमः';
+          var CD=52, PAUSE=2600, ED=28;
+          var eEn=document.getElementById('ins-en'),
+              eHi=document.getElementById('ins-hi'),
+              eDiv=document.getElementById('ins-div'),
+              eCur=document.getElementById('ins-cur');
+          if(!eEn||!eHi||!eDiv||!eCur) return;
+          function typeText(el,text,delay,done,isSanskrit){
+            var i=0,chars=Array.from(text);el.innerHTML='';
+            (function next(){
+              if(i>=chars.length){done&&done();return;}
+              var s=document.createElement('span');
+              s.className=isSanskrit?'ins-hi-char':'ins-char';
+              s.textContent=chars[i];el.appendChild(s);
+              if(eCur.parentNode)eCur.parentNode.removeChild(eCur);
+              el.parentNode.appendChild(eCur);
+              i++;setTimeout(next,delay+(Math.random()*20-10));
+            })();
+          }
+          function eraseText(el,done){
+            var iv=setInterval(function(){
+              var ss=el.querySelectorAll('span');
+              if(!ss.length){clearInterval(iv);done&&done();return;}
+              var l=ss[ss.length-1];
+              l.style.transition='opacity 0.15s,transform 0.15s';
+              l.style.opacity='0';l.style.transform='translateY(-4px)';
+              setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l);},150);
+            },ED);
+          }
+          function runCycle(){
+            eEn.innerHTML='';eHi.innerHTML='';eDiv.style.opacity='0';
+            typeText(eEn,EN,CD,function(){
+              setTimeout(function(){
+                eDiv.style.opacity='1';
+                setTimeout(function(){
+                  typeText(eHi,HI,CD+30,function(){
+                    if(eCur.parentNode)eCur.parentNode.removeChild(eCur);
+                    setTimeout(function(){
+                      eraseText(eHi,function(){
+                        setTimeout(function(){
+                          eDiv.style.opacity='0';
+                          eraseText(eEn,function(){setTimeout(runCycle,700);});
+                        },200);
+                      });
+                    },PAUSE);
+                  },true);
+                },400);
+              },300);
+            });
+          }
           runCycle();
-        })();
+        };
         </script>
         <h1>Yadhir &amp; Ashwari</h1>
         <div class="subtitle">Are Getting Married</div>
@@ -921,6 +964,16 @@ body.splash-open { overflow: hidden; }
             document.body.classList.remove('splash-open');
             setTimeout(function() {
                 if (splash.parentNode) splash.parentNode.removeChild(splash);
+                // Start the inscription AFTER splash is gone and fonts are ready
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(function() {
+                        if (window._startInscription) window._startInscription();
+                    });
+                } else {
+                    setTimeout(function() {
+                        if (window._startInscription) window._startInscription();
+                    }, 300);
+                }
             }, 950);
         }
 
