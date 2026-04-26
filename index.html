@@ -318,7 +318,8 @@ body.splash-open { overflow: hidden; }
     width: 50%;
     z-index: 2;
     will-change: transform;
-    /* solid colour first — gradient on top for browsers that support it */
+    transform: translateX(0);
+    /* solid colour FIRST so Android never renders transparent */
     background-color: #2a0d18;
     background-image:
         repeating-linear-gradient(
@@ -1083,38 +1084,52 @@ body.splash-open { overflow: hidden; }
             if (!splash || splash._dismissed) return;
             splash._dismissed = true;
 
-            // Start music — this IS the direct user gesture (Samsung-safe)
+            // Start music immediately — direct user gesture, Samsung-safe
             startMusic();
 
             var left    = document.getElementById('curtain-left');
             var right   = document.getElementById('curtain-right');
             var content = document.getElementById('curtain-content');
 
-            // 1. Fade out centre text immediately
+            // Step 1: fade out centre content instantly
             if (content) {
-                content.style.transition = 'opacity 0.35s ease';
-                content.style.opacity    = '0';
+                content.style.transition   = 'opacity 0.3s ease';
+                content.style.opacity      = '0';
                 content.style.pointerEvents = 'none';
             }
 
-            // 2. After text fades, slide curtains open
+            // Step 2: set transition FIRST, force reflow, THEN set transform
+            // Double-rAF is the only reliable way to make JS-driven transitions
+            // fire on mobile Chrome/Samsung — single rAF is still too fast
             setTimeout(function() {
-                if (left) {
-                    left.style.transition = 'transform 2s cubic-bezier(0.86, 0, 0.07, 1)';
-                    left.style.transform  = 'translateX(-100%)';
-                }
-                if (right) {
-                    right.style.transition = 'transform 2s cubic-bezier(0.86, 0, 0.07, 1)';
-                    right.style.transform  = 'translateX(100%)';
-                }
-            }, 300);
+                if (left)  { left.style.transition  = 'none'; left.style.transform  = 'translateX(0)'; }
+                if (right) { right.style.transition = 'none'; right.style.transform = 'translateX(0)'; }
 
-            // 3. Remove splash entirely after curtains finish (300 + 2000ms)
+                // Force reflow so the browser registers the starting position
+                if (left)  left.getBoundingClientRect();
+                if (right) right.getBoundingClientRect();
+
+                // Now apply the transition and target position in next frame
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        var easing = 'cubic-bezier(0.77, 0, 0.175, 1)';
+                        if (left) {
+                            left.style.transition = 'transform 1.8s ' + easing;
+                            left.style.transform  = 'translateX(-100%)';
+                        }
+                        if (right) {
+                            right.style.transition = 'transform 1.8s ' + easing;
+                            right.style.transform  = 'translateX(100%)';
+                        }
+                    });
+                });
+            }, 280);
+
+            // Step 3: remove from DOM after animation completes (280 + 1800 + 100 buffer)
             setTimeout(function() {
                 document.body.classList.remove('splash-open');
                 if (splash.parentNode) splash.parentNode.removeChild(splash);
 
-                // Start inscription after fonts ready
                 if (document.fonts && document.fonts.ready) {
                     document.fonts.ready.then(function() {
                         if (window._startInscription) window._startInscription();
@@ -1124,14 +1139,13 @@ body.splash-open { overflow: hidden; }
                         if (window._startInscription) window._startInscription();
                     }, 300);
                 }
-            }, 2400);
+            }, 2300);
         }
 
-        // Wire up the splash button — touch and click
+        // Wire up button — touchstart for instant mobile response
         var splashBtn = document.getElementById('splashBtn');
         var splashEl  = document.getElementById('splash');
         if (splashBtn) {
-            // touchstart fires instantly on mobile (no 300ms delay)
             splashBtn.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 dismissSplash();
@@ -1141,12 +1155,12 @@ body.splash-open { overflow: hidden; }
                 dismissSplash();
             });
         }
-        // Tapping anywhere on splash also works as fallback
+        // Tapping anywhere on splash is a fallback
         if (splashEl) {
-            splashEl.addEventListener('touchstart', function(e) {
+            splashEl.addEventListener('touchstart', function() {
                 dismissSplash();
             }, { passive: true });
-            splashEl.addEventListener('click', function(e) {
+            splashEl.addEventListener('click', function() {
                 dismissSplash();
             });
         }
