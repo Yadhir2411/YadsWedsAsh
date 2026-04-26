@@ -22,6 +22,7 @@
         body { font-family:'Montserrat',sans-serif; color:var(--dark); background-color:var(--light); overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.6; height:100%; max-width:100vw; }
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
+```
 nav { position:fixed; top:0; width:100%; padding:0.4rem 0; z-index:1000; transition:all 0.3s ease, transform 0.35s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 2px 8px rgba(0,0,0,0.12); border-bottom:1px solid var(--accent); }
 nav.nav-hidden { transform: translateY(-100%); }
 nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
@@ -294,77 +295,219 @@ footer { background-color:var(--dark); color:white; text-align:center; padding:c
     .rc-card[data-pos="1"] { transform:translateX(48%) rotate(7deg) scale(0.82); }
     .rc-card[data-pos="2"] { transform:translateX(80%) rotate(14deg) scale(0.68); }
 }
-/* ── Splash Screen ── */
+/* ══════════════════════════════════════
+   CURTAIN SPLASH SCREEN
+   Two panels meeting in the centre.
+   On click they slide left/right away,
+   revealing the hero beneath.
+══════════════════════════════════════ */
+
+body.splash-open { overflow: hidden; }
+
+/* Wrapper that holds both curtain panels + the centre content */
 #splash {
     position: fixed;
     inset: 0;
     z-index: 999999;
+    pointer-events: all;
+    /* no background — the panels ARE the background */
+}
+#splash.hiding { pointer-events: none; }
+
+/* ── Left & Right curtain panels ── */
+.curtain-left,
+.curtain-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 1.4s cubic-bezier(0.77, 0, 0.18, 1);
+    will-change: transform;
+}
+.curtain-left  { left: 0; }
+.curtain-right { right: 0; }
+
+/* Rich deep burgundy/velvet curtain colour */
+.curtain-left::before,
+.curtain-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #1c0f14;
+}
+
+/* Vertical fold lines — give fabric depth */
+.curtain-left::after,
+.curtain-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to right,
+        transparent 0px,
+        transparent 22px,
+        rgba(0,0,0,0.18) 22px,
+        rgba(0,0,0,0.18) 24px,
+        transparent 24px,
+        transparent 46px,
+        rgba(255,255,255,0.03) 46px,
+        rgba(255,255,255,0.03) 48px
+    );
+}
+
+/* Gold sheen overlay — left panel catches light from right */
+.curtain-left .curtain-sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(212,163,115,0.0) 0%,
+        rgba(212,163,115,0.06) 60%,
+        rgba(212,163,115,0.14) 100%
+    );
+    z-index: 1;
+}
+/* Right panel catches light from left */
+.curtain-right .curtain-sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to left,
+        rgba(212,163,115,0.0) 0%,
+        rgba(212,163,115,0.06) 60%,
+        rgba(212,163,115,0.14) 100%
+    );
+    z-index: 1;
+}
+
+/* Gold braid trim down the inner edges */
+.curtain-left .curtain-trim {
+    position: absolute;
+    top: 0; right: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(212,163,115,0.0) 0%,
+        rgba(212,163,115,0.7) 15%,
+        rgba(232,200,176,0.9) 50%,
+        rgba(212,163,115,0.7) 85%,
+        rgba(212,163,115,0.0) 100%
+    );
+    z-index: 2;
+}
+.curtain-right .curtain-trim {
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(212,163,115,0.0) 0%,
+        rgba(212,163,115,0.7) 15%,
+        rgba(232,200,176,0.9) 50%,
+        rgba(212,163,115,0.7) 85%,
+        rgba(212,163,115,0.0) 100%
+    );
+    z-index: 2;
+}
+
+/* Curtain top pelmet bar */
+.curtain-pelmet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(28px, 5vw, 48px);
+    z-index: 999998;
+    background: linear-gradient(
+        to bottom,
+        #2a1018 0%,
+        #1c0f14 70%,
+        transparent 100%
+    );
+    border-bottom: 1px solid rgba(212,163,115,0.35);
+    pointer-events: none;
+}
+/* Pelmet gold centre ornament */
+.curtain-pelmet::after {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(212,163,115,0.7);
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    letter-spacing: 12px;
+}
+
+/* Open animation */
+#splash.hiding .curtain-left  { transform: translateX(-100%); }
+#splash.hiding .curtain-right { transform: translateX(100%);  }
+
+/* ── Centre content sits above both panels ── */
+.curtain-content {
+    position: absolute;
+    inset: 0;
+    z-index: 999997;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem;
-    background-color: #1a0f0a;
-    background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(212,163,115,0.18) 0%, transparent 65%),
-        radial-gradient(ellipse at 50% 100%, rgba(212,163,115,0.12) 0%, transparent 60%);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    transition: opacity 0.9s ease, visibility 0.9s ease;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    pointer-events: none; /* let clicks fall through to splash div */
 }
-#splash.hiding {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-/* Decorative top & bottom border lines */
-.splash-border {
-    position: absolute;
-    left: clamp(1.2rem, 5vw, 3rem);
-    right: clamp(1.2rem, 5vw, 3rem);
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(212,163,115,0.6), transparent);
-}
-.splash-border.top { top: clamp(1.2rem, 4vw, 2.5rem); }
-.splash-border.bottom { bottom: clamp(1.2rem, 4vw, 2.5rem); }
 
 /* Corner ornaments */
 .splash-corner {
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-color: rgba(212,163,115,0.5);
     border-style: solid;
+    z-index: 999998;
 }
 .splash-corner.tl { top: clamp(1rem,3vw,2rem); left: clamp(1rem,3vw,2rem); border-width: 1.5px 0 0 1.5px; }
 .splash-corner.tr { top: clamp(1rem,3vw,2rem); right: clamp(1rem,3vw,2rem); border-width: 1.5px 1.5px 0 0; }
 .splash-corner.bl { bottom: clamp(1rem,3vw,2rem); left: clamp(1rem,3vw,2rem); border-width: 0 0 1.5px 1.5px; }
 .splash-corner.br { bottom: clamp(1rem,3vw,2rem); right: clamp(1rem,3vw,2rem); border-width: 0 1.5px 1.5px 0; }
 
+/* Horizontal rule lines */
+.splash-border {
+    position: absolute;
+    left: clamp(1.2rem, 5vw, 3rem);
+    right: clamp(1.2rem, 5vw, 3rem);
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,163,115,0.5), transparent);
+    z-index: 999998;
+}
+.splash-border.top    { top: clamp(1.8rem, 5vw, 3.5rem); }
+.splash-border.bottom { bottom: clamp(1.8rem, 5vw, 3.5rem); }
+
 .splash-ornament {
-    font-size: clamp(1rem, 3vw, 1.3rem);
+    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
     color: var(--accent);
     letter-spacing: 10px;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.4rem;
     opacity: 0;
-    animation: splashFadeUp 1s ease 0.3s forwards;
+    animation: splashFadeUp 1s ease 0.4s forwards;
 }
 .splash-names {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 9vw, 5rem);
+    font-size: clamp(2rem, 8vw, 4.8rem);
     font-weight: 400;
     color: #fff;
     line-height: 1.1;
     letter-spacing: 1px;
-    text-shadow: 0 2px 24px rgba(212,163,115,0.3);
+    text-shadow: 0 2px 30px rgba(212,163,115,0.25);
     opacity: 0;
-    animation: splashFadeUp 1s ease 0.55s forwards;
+    animation: splashFadeUp 1s ease 0.65s forwards;
 }
 .splash-ampersand {
     display: block;
-    font-size: clamp(1.5rem, 5vw, 2.8rem);
+    font-size: clamp(1.3rem, 4.5vw, 2.6rem);
     color: var(--accent);
     font-style: italic;
     margin: 0.1em 0;
@@ -372,46 +515,58 @@ footer { background-color:var(--dark); color:white; text-align:center; padding:c
 }
 .splash-tagline {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(0.65rem, 2vw, 0.82rem);
+    font-size: clamp(0.6rem, 1.8vw, 0.78rem);
     font-weight: 600;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: rgba(232,200,176,0.75);
-    margin-top: 1rem;
-    margin-bottom: 2.4rem;
+    color: rgba(232,200,176,0.7);
+    margin-top: 0.9rem;
+    margin-bottom: 2rem;
     opacity: 0;
-    animation: splashFadeUp 1s ease 0.8s forwards;
+    animation: splashFadeUp 1s ease 0.9s forwards;
 }
 .splash-date {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
     color: rgba(212,163,115,0.85);
-    margin-bottom: 3rem;
+    margin-bottom: 2.6rem;
     opacity: 0;
-    animation: splashFadeUp 1s ease 1s forwards;
+    animation: splashFadeUp 1s ease 1.1s forwards;
 }
 
-/* The tap button */
+/* Divider line above button */
+.splash-divider {
+    width: clamp(60px, 15vw, 100px);
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,163,115,0.6), transparent);
+    margin-bottom: 2.2rem;
+    opacity: 0;
+    animation: splashFadeUp 1s ease 1.05s forwards;
+}
+
+/* The enter button — pointer-events restored */
 .splash-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.6rem;
     background: transparent;
-    border: 1.5px solid rgba(212,163,115,0.7);
+    border: 1.5px solid rgba(212,163,115,0.65);
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(0.72rem, 2.2vw, 0.85rem);
+    font-size: clamp(0.68rem, 2vw, 0.82rem);
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    padding: clamp(0.85rem,3vw,1.1rem) clamp(2rem,6vw,3rem);
+    padding: clamp(0.85rem,3vw,1.05rem) clamp(1.8rem,5vw,2.8rem);
     border-radius: 50px;
     cursor: pointer;
+    pointer-events: all;
     opacity: 0;
-    animation: splashFadeUp 1s ease 1.25s forwards;
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    animation: splashFadeUp 1s ease 1.3s forwards;
+    transition: background 0.3s ease, border-color 0.3s ease,
+                box-shadow 0.3s ease, transform 0.18s ease;
     -webkit-tap-highlight-color: transparent;
     overflow: hidden;
 }
@@ -420,85 +575,126 @@ footer { background-color:var(--dark); color:white; text-align:center; padding:c
     position: absolute;
     inset: 0;
     border-radius: 50px;
-    background: var(--accent);
+    background: linear-gradient(135deg, rgba(212,163,115,0.9), rgba(180,120,80,0.9));
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 .splash-btn:hover::before,
 .splash-btn:active::before { opacity: 1; }
-.splash-btn:hover { border-color: var(--accent); box-shadow: 0 0 32px rgba(212,163,115,0.4); }
-.splash-btn:active { transform: scale(0.96); }
+.splash-btn:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(212,163,115,0.45), 0 0 0 1px rgba(212,163,115,0.2);
+}
+.splash-btn:active { transform: scale(0.95); }
 .splash-btn span { position: relative; z-index: 1; }
 
-/* Pulsing ring around button */
+/* Curtain-pull icon */
+.splash-btn-icon {
+    position: relative;
+    z-index: 1;
+    font-size: 1em;
+    opacity: 0.8;
+}
+
+/* Pulsing outer ring */
 .splash-btn-ring {
     position: absolute;
-    inset: -8px;
+    inset: -10px;
     border-radius: 50px;
-    border: 1px solid rgba(212,163,115,0.3);
-    animation: splashRingPulse 2.2s ease-in-out infinite;
+    border: 1px solid rgba(212,163,115,0.28);
+    animation: splashRingPulse 2.4s ease-in-out infinite;
     pointer-events: none;
 }
 .splash-btn-ring2 {
     position: absolute;
-    inset: -16px;
+    inset: -20px;
     border-radius: 50px;
-    border: 1px solid rgba(212,163,115,0.15);
-    animation: splashRingPulse 2.2s ease-in-out 0.4s infinite;
+    border: 1px solid rgba(212,163,115,0.13);
+    animation: splashRingPulse 2.4s ease-in-out 0.5s infinite;
     pointer-events: none;
 }
 
-/* Floating music note hint */
 .splash-music-hint {
-    margin-top: 2rem;
-    font-size: clamp(0.62rem, 1.8vw, 0.72rem);
-    color: rgba(255,255,255,0.3);
+    margin-top: 1.8rem;
+    font-size: clamp(0.58rem, 1.6vw, 0.68rem);
+    color: rgba(255,255,255,0.28);
     letter-spacing: 1.5px;
     opacity: 0;
-    animation: splashFadeUp 1s ease 1.6s forwards;
+    animation: splashFadeUp 1s ease 1.65s forwards;
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Content fades out as curtains open */
+#splash.hiding .curtain-content {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
 @keyframes splashFadeUp {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes splashRingPulse {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50%       { opacity: 0; transform: scale(1.08); }
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50%       { opacity: 0;   transform: scale(1.06); }
 }
-/* Body locked while splash is showing */
-body.splash-open { overflow: hidden; }
 </style>
-
+```
 
 </head>
 <body class="splash-open">
 
 <!-- NOTE: NO <audio> tag here — created dynamically on first interaction for Samsung/Android compatibility -->
 
-<!-- ── Splash Screen ── -->
+<!-- ── Curtain Splash Screen ── -->
 
-<div id="splash" role="button" aria-label="Enter the celebration">
-    <div class="splash-corner tl"></div>
-    <div class="splash-corner tr"></div>
-    <div class="splash-corner bl"></div>
-    <div class="splash-corner br"></div>
-    <div class="splash-border top"></div>
-    <div class="splash-border bottom"></div>
+<div id="splash" aria-label="Enter the celebration">
+
+```
+<!-- Top pelmet bar -->
+<div class="curtain-pelmet"></div>
+
+<!-- Left curtain panel -->
+<div class="curtain-left">
+    <div class="curtain-sheen"></div>
+    <div class="curtain-trim"></div>
+</div>
+
+<!-- Right curtain panel -->
+<div class="curtain-right">
+    <div class="curtain-sheen"></div>
+    <div class="curtain-trim"></div>
+</div>
+
+<!-- Corner ornaments (sit above panels) -->
+<div class="splash-corner tl"></div>
+<div class="splash-corner tr"></div>
+<div class="splash-corner bl"></div>
+<div class="splash-corner br"></div>
+<div class="splash-border top"></div>
+<div class="splash-border bottom"></div>
+
+<!-- Centre content -->
+<div class="curtain-content">
     <div class="splash-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
     <div class="splash-names">
         Yadhir
         <span class="splash-ampersand">&amp;</span>
         Ashwari
     </div>
-    <div class="splash-tagline">Welcomes You</div>
+    <div class="splash-tagline">Are Getting Married</div>
     <div class="splash-date">December 19, 2026</div>
+    <div class="splash-divider"></div>
     <button class="splash-btn" id="splashBtn">
         <div class="splash-btn-ring"></div>
         <div class="splash-btn-ring2"></div>
-        <span>&#9825; &nbsp; Enter the Celebration &nbsp; &#9825;</span>
+        <span class="splash-btn-icon">🎭</span>
+        <span>Enter the Celebration</span>
     </button>
+    <div class="splash-music-hint">♪ &nbsp; Music will play on entry &nbsp; ♪</div>
+</div>
+```
+
 </div>
 
 <div class="floating-hearts" id="hearts-container"></div>
@@ -957,14 +1153,15 @@ body.splash-open { overflow: hidden; }
         function dismissSplash() {
             var splash = document.getElementById('splash');
             if (!splash || splash.classList.contains('hiding')) return;
-            // Start music immediately — this IS the user gesture
+            // Start music immediately — this IS the guaranteed user gesture
             startMusic();
-            // Animate splash away
+            // Trigger curtain open animation
             splash.classList.add('hiding');
             document.body.classList.remove('splash-open');
+            // Remove from DOM after curtains finish sliding (1.4s transition)
             setTimeout(function() {
                 if (splash.parentNode) splash.parentNode.removeChild(splash);
-                // Start the inscription AFTER splash is gone and fonts are ready
+                // Start inscription AFTER curtains gone and fonts ready
                 if (document.fonts && document.fonts.ready) {
                     document.fonts.ready.then(function() {
                         if (window._startInscription) window._startInscription();
@@ -974,7 +1171,7 @@ body.splash-open { overflow: hidden; }
                         if (window._startInscription) window._startInscription();
                     }, 300);
                 }
-            }, 950);
+            }, 1500);
         }
 
         // Wire up the splash button — both tap and click
