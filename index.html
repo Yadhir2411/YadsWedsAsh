@@ -1059,23 +1059,36 @@ body.splash-open { overflow: hidden; }
             if (played) return;
             played = true;
 
-            // Step 1: create and play a silent data-URI inline
-            // This unlocks the audio context in Brave + Samsung Internet
-            // because it is 100% synchronous with zero network/DOM delay
-            music = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
-            music.play().catch(function(){});
+            // Tear down any leftover element from a previous load
+            if (music) {
+                try { music.pause(); } catch(e) {}
+                music.src = '';
+                music = null;
+            }
 
-            // Step 2: immediately swap to real src and play again
-            // The gesture unlock from Step 1 persists for this element
+            var SILENT = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+
+            music = new Audio(SILENT);
+            music.volume = 1;
+
+            // Play silent clip — unlocks audio on Brave + Samsung Internet
+            music.play().catch(function() {});
+
+            // Synchronously (no .then()) swap to real track on same element.
+            // The unlock from the silent play persists on this object.
             music.src  = 'Music/Love.mp3';
             music.loop = true;
-            music.play().catch(function() {
-                // Final fallback: wait for enough data then retry
-                music.addEventListener('canplaythrough', function onReady() {
-                    music.removeEventListener('canplaythrough', onReady);
-                    music.play().catch(function() {});
+
+            // 80ms gap lets Samsung register the silent unlock before the swap
+            setTimeout(function() {
+                music.play().catch(function() {
+                    // Samsung final fallback: retry when data arrives
+                    music.addEventListener('canplaythrough', function retry() {
+                        music.removeEventListener('canplaythrough', retry);
+                        music.play().catch(function() {});
+                    });
                 });
-            });
+            }, 80);
         }
 
         function dismissSplash() {
@@ -1087,82 +1100,66 @@ body.splash-open { overflow: hidden; }
             var right   = document.getElementById('curtain-right');
             var content = document.getElementById('curtain-content');
 
-            // Step 1: fade out centre content instantly
+            // Step 1: fade out centre content
             if (content) {
-                content.style.transition   = 'opacity 0.3s ease';
-                content.style.opacity      = '0';
+                content.style.transition    = 'opacity 0.3s ease';
+                content.style.opacity       = '0';
                 content.style.pointerEvents = 'none';
             }
 
-            // Step 2: set transition FIRST, force reflow, THEN set transform
-            // Double-rAF is the only reliable way to make JS-driven transitions
-            // fire on mobile Chrome/Samsung — single rAF is still too fast
+            // Step 2: double-rAF + reflow to guarantee transition fires on mobile
             setTimeout(function() {
                 if (left)  { left.style.transition  = 'none'; left.style.transform  = 'translateX(0)'; }
                 if (right) { right.style.transition = 'none'; right.style.transform = 'translateX(0)'; }
-
-                // Force reflow so the browser registers the starting position
                 if (left)  left.getBoundingClientRect();
                 if (right) right.getBoundingClientRect();
-
-                // Now apply the transition and target position in next frame
                 requestAnimationFrame(function() {
                     requestAnimationFrame(function() {
                         var easing = 'cubic-bezier(0.77, 0, 0.175, 1)';
-                        if (left) {
-                            left.style.transition = 'transform 1.8s ' + easing;
-                            left.style.transform  = 'translateX(-100%)';
-                        }
-                        if (right) {
-                            right.style.transition = 'transform 1.8s ' + easing;
-                            right.style.transform  = 'translateX(100%)';
-                        }
+                        if (left)  { left.style.transition  = 'transform 1.8s ' + easing; left.style.transform  = 'translateX(-100%)'; }
+                        if (right) { right.style.transition = 'transform 1.8s ' + easing; right.style.transform = 'translateX(100%)';  }
                     });
                 });
             }, 280);
 
-            // Step 3: remove from DOM after animation completes (280 + 1800 + 100 buffer)
+            // Step 3: remove splash and start inscription
             setTimeout(function() {
                 document.body.classList.remove('splash-open');
                 if (splash.parentNode) splash.parentNode.removeChild(splash);
-
                 if (document.fonts && document.fonts.ready) {
-                    document.fonts.ready.then(function() {
-                        if (window._startInscription) window._startInscription();
-                    });
+                    document.fonts.ready.then(function() { if (window._startInscription) window._startInscription(); });
                 } else {
-                    setTimeout(function() {
-                        if (window._startInscription) window._startInscription();
-                    }, 300);
+                    setTimeout(function() { if (window._startInscription) window._startInscription(); }, 300);
                 }
             }, 2300);
         }
 
-        // ONLY the button triggers music — no fallback on splash background.
-        // Android fires touchstart on parent BEFORE child, stealing the gesture.
+        // ONLY the button triggers music — splash background listener removed
+        // (it was stealing the gesture from the button on Android)
         var splashBtn = document.getElementById('splashBtn');
-
-        function handleEnter(e) {
-            e.stopPropagation();
-            startMusic();     // ← must be first, synchronous, inside gesture
-            dismissSplash();
-        }
-
         if (splashBtn) {
-            // touchstart = instant on Android (no 300ms click delay)
-            splashBtn.addEventListener('touchstart', handleEnter, { passive: false });
-            // touchend catches Samsung Internet which sometimes skips touchstart
-            splashBtn.addEventListener('touchend', function(e) {
-                e.preventDefault();
+            // touchstart — instant on Android, no 300ms delay
+            splashBtn.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 startMusic();
                 dismissSplash();
             }, { passive: false });
-            // click for desktop / iPad
-            splashBtn.addEventListener('click', handleEnter);
-        }
 
-        // No other music triggers anywhere
+            // touchend — Samsung Internet sometimes skips touchstart on buttons
+            splashBtn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                startMusic();    // played flag prevents double-create
+                dismissSplash(); // _dismissed flag prevents double-dismiss
+            }, { passive: false });
+
+            // click — desktop and iPad
+            splashBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                startMusic();
+                dismissSplash();
+            });
+        }
     }
 
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
