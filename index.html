@@ -1052,31 +1052,48 @@ body.splash-open { overflow: hidden; }
 
         // ── Splash Screen + Music (Samsung/Android-safe) ──
         // Audio is created AND played directly inside the splash button tap handler.
-        // This is the most reliable gesture-unlock method across all mobile browsers.
+        // Android/Samsung-safe music — create AND play inside the gesture handler.
+        // Never call .load() before .play() on Android — it breaks the gesture chain.
         var music = null;
         var played = false;
 
-        function tryPlay() {
-            if (played || !music) return;
-            var p = music.play();
-            if (p !== undefined) {
-                p.then(function() { played = true; }).catch(function() {});
-            } else {
-                played = true;
-            }
-        }
-
         function startMusic() {
             if (played) return;
-            if (!music) {
-                music = document.createElement('audio');
-                music.loop = true;
-                music.volume = 0.5;
-                music.src = 'Music/Love.mp3';
-                document.body.appendChild(music);
+            played = true; // set immediately to block any double-fire
+
+            // Create element fresh inside this gesture call — required for Samsung Internet
+            music = document.createElement('audio');
+            music.loop   = true;
+            music.volume = 0.5;
+
+            // On Android, set src AFTER appending so the gesture context is still active
+            document.body.appendChild(music);
+            music.src = 'Music/Love.mp3';
+
+            // Attempt 1: play immediately (works on iOS + most Android)
+            var p = music.play();
+            if (p !== undefined) {
+                p.catch(function() {
+                    // Attempt 2: wait for canplay then try again (Samsung fallback)
+                    music.addEventListener('canplay', function onCanPlay() {
+                        music.removeEventListener('canplay', onCanPlay);
+                        music.play().catch(function() {});
+                    });
+                });
             }
-            music.load();
-            tryPlay();
+
+            // Attempt 3: resume via AudioContext (Samsung Internet nuclear option)
+            try {
+                var AC = window.AudioContext || window.webkitAudioContext;
+                if (AC) {
+                    var ctx = new AC();
+                    var src = ctx.createMediaElementSource(music);
+                    src.connect(ctx.destination);
+                    ctx.resume().then(function() {
+                        music.play().catch(function() {});
+                    }).catch(function() {});
+                }
+            } catch(e) {}
         }
 
         function dismissSplash() {
@@ -1165,10 +1182,8 @@ body.splash-open { overflow: hidden; }
             });
         }
 
-        // Fallback: if user somehow bypasses splash, still try to play on any interaction
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'visible' && !played) { startMusic(); }
-        });
+        // No fallback listeners needed — music ONLY starts from the splash button tap,
+        // which is a direct user gesture on all platforms.
     }
 
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
