@@ -1059,22 +1059,23 @@ body.splash-open { overflow: hidden; }
             if (played) return;
             played = true;
 
-            music      = document.createElement('audio');
-            music.loop = true;
-            music.src  = 'Music/Love.mp3';
-            document.body.appendChild(music);
+            // Step 1: create and play a silent data-URI inline
+            // This unlocks the audio context in Brave + Samsung Internet
+            // because it is 100% synchronous with zero network/DOM delay
+            music = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+            music.play().catch(function(){});
 
-            var promise = music.play();
-            if (promise !== undefined) {
-                promise.catch(function() {
-                    // Retry once data is ready (Android Samsung fallback)
-                    function onReady() {
-                        music.removeEventListener('canplaythrough', onReady);
-                        music.play().catch(function() {});
-                    }
-                    music.addEventListener('canplaythrough', onReady);
+            // Step 2: immediately swap to real src and play again
+            // The gesture unlock from Step 1 persists for this element
+            music.src  = 'Music/Love.mp3';
+            music.loop = true;
+            music.play().catch(function() {
+                // Final fallback: wait for enough data then retry
+                music.addEventListener('canplaythrough', function onReady() {
+                    music.removeEventListener('canplaythrough', onReady);
+                    music.play().catch(function() {});
                 });
-            }
+            });
         }
 
         function dismissSplash() {
