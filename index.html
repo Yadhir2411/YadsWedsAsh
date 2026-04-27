@@ -22,6 +22,7 @@
         body { font-family:'Montserrat',sans-serif; color:var(--dark); background-color:var(--light); overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.6; height:100%; max-width:100vw; }
         h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 
+```
 nav { position:fixed; top:0; width:100%; padding:0.4rem 0; z-index:1000; transition:all 0.3s ease, transform 0.35s ease; background:rgba(248,241,233,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 2px 8px rgba(0,0,0,0.12); border-bottom:1px solid var(--accent); }
 nav.nav-hidden { transform: translateY(-100%); }
 nav.scrolled { background:rgba(248,241,233,0.99); padding:0.8rem 0; }
@@ -574,6 +575,7 @@ body.splash-open { overflow: hidden; }
     50%     { opacity: 0;    transform: scale(1.07); }
 }
 </style>
+```
 
 </head>
 <body class="splash-open">
@@ -618,7 +620,9 @@ body.splash-open { overflow: hidden; }
         <div class="splash-btn-ring2"></div>
         <span>✦ &nbsp; Enter the Celebration &nbsp; ✦</span>
     </button>
+    <div class="splash-music-hint">♪ &nbsp; Music will play on entry &nbsp; ♪</div>
 </div>
+```
 
 </div>
 
@@ -1048,57 +1052,41 @@ body.splash-open { overflow: hidden; }
 
         // ── Splash Screen + Music (Samsung/Android-safe) ──
         // Audio is created AND played directly inside the splash button tap handler.
-        // Android/Samsung-safe music — create AND play inside the gesture handler.
-        // Never call .load() before .play() on Android — it breaks the gesture chain.
-        var music = null;
+        // Simple, cross-platform music starter.
+        // Key rules:
+        //   1. Create element fresh inside the gesture handler (Samsung requirement)
+        //   2. Set src, then play() — no .load(), no AudioContext (both cause issues)
+        //   3. On iOS the speaker icon appears because play() is called — that IS correct
+        var music  = null;
         var played = false;
 
         function startMusic() {
             if (played) return;
-            played = true; // set immediately to block any double-fire
+            played = true;
 
-            // Create element fresh inside this gesture call — required for Samsung Internet
-            music = document.createElement('audio');
+            music        = document.createElement('audio');
             music.loop   = true;
-            music.volume = 0.5;
-
-            // On Android, set src AFTER appending so the gesture context is still active
+            music.src    = 'Music/Love.mp3';
             document.body.appendChild(music);
-            music.src = 'Music/Love.mp3';
 
-            // Attempt 1: play immediately (works on iOS + most Android)
-            var p = music.play();
-            if (p !== undefined) {
-                p.catch(function() {
-                    // Attempt 2: wait for canplay then try again (Samsung fallback)
-                    music.addEventListener('canplay', function onCanPlay() {
-                        music.removeEventListener('canplay', onCanPlay);
+            // Play immediately — we are inside a direct user gesture
+            var promise = music.play();
+            if (promise !== undefined) {
+                promise.catch(function() {
+                    // If browser still blocks, wait for enough data then retry
+                    function onReady() {
+                        music.removeEventListener('canplaythrough', onReady);
                         music.play().catch(function() {});
-                    });
+                    }
+                    music.addEventListener('canplaythrough', onReady);
                 });
             }
-
-            // Attempt 3: resume via AudioContext (Samsung Internet nuclear option)
-            try {
-                var AC = window.AudioContext || window.webkitAudioContext;
-                if (AC) {
-                    var ctx = new AC();
-                    var src = ctx.createMediaElementSource(music);
-                    src.connect(ctx.destination);
-                    ctx.resume().then(function() {
-                        music.play().catch(function() {});
-                    }).catch(function() {});
-                }
-            } catch(e) {}
         }
 
         function dismissSplash() {
             var splash = document.getElementById('splash');
             if (!splash || splash._dismissed) return;
             splash._dismissed = true;
-
-            // Start music immediately — direct user gesture, Samsung-safe
-            startMusic();
 
             var left    = document.getElementById('curtain-left');
             var right   = document.getElementById('curtain-right');
@@ -1155,31 +1143,28 @@ body.splash-open { overflow: hidden; }
             }, 2300);
         }
 
-        // Wire up button — touchstart for instant mobile response
+        // Wire up button — startMusic() MUST be the very first call inside the handler
+        // so it sits at the top of the gesture call stack on all platforms
         var splashBtn = document.getElementById('splashBtn');
         var splashEl  = document.getElementById('splash');
-        if (splashBtn) {
-            splashBtn.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-                dismissSplash();
-            }, { passive: true });
-            splashBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dismissSplash();
-            });
-        }
-        // Tapping anywhere on splash is a fallback
-        if (splashEl) {
-            splashEl.addEventListener('touchstart', function() {
-                dismissSplash();
-            }, { passive: true });
-            splashEl.addEventListener('click', function() {
-                dismissSplash();
-            });
+
+        function handleEnter(e) {
+            if (e && e.stopPropagation) e.stopPropagation();
+            startMusic();     // ← first, inside gesture, before anything async
+            dismissSplash();  // ← then animate curtains
         }
 
-        // No fallback listeners needed — music ONLY starts from the splash button tap,
-        // which is a direct user gesture on all platforms.
+        if (splashBtn) {
+            splashBtn.addEventListener('touchstart', handleEnter, { passive: true });
+            splashBtn.addEventListener('click',      handleEnter);
+        }
+        // Full splash area as fallback
+        if (splashEl) {
+            splashEl.addEventListener('touchstart', handleEnter, { passive: true });
+            splashEl.addEventListener('click',      handleEnter);
+        }
+
+        // No other music triggers — gesture context only valid at point of tap
     }
 
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
