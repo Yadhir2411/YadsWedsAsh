@@ -663,6 +663,38 @@ body.splash-open { overflow: hidden; }
           .ins-hi-char{display:inline-block;opacity:0;animation:divineFade 0.8s ease-out forwards}
         </style>
         <script>
+        // ── URL Parameter Invite Control ──
+(function(){
+    var params = new URLSearchParams(window.location.search);
+
+    // --- Reception-only mode: hide Pre-Wedding section and its nav link ---
+    if (params.get('invite') === 'reception') {
+        var preWedSection = document.getElementById('prewedding');
+        if (preWedSection) preWedSection.style.display = 'none';
+
+        // Hide the nav link too
+        document.querySelectorAll('nav a').forEach(function(a) {
+            if (a.getAttribute('href') === '#prewedding') {
+                a.parentElement.style.display = 'none';
+            }
+        });
+    }
+
+    // --- Single guest mode: limit all dropdowns to max 1 ---
+    if (params.get('g') === '1') {
+        ['mehendi-count', 'hurdhee-count', 'reception-count'].forEach(function(id) {
+            var sel = document.getElementById(id);
+            if (!sel) return;
+            // Remove the "2" option, leaving only "1"
+            Array.prototype.slice.call(sel.options).forEach(function(opt) {
+                if (opt.value === '2' || opt.text === '2') {
+                    sel.removeChild(opt);
+                }
+            });
+        });
+    }
+})();
+
         // Exposed so dismissSplash() can call it after fonts are guaranteed loaded
         window._startInscription = function() {
           var EN='Om\u00A0Shri\u00A0Ganeshaya\u00A0Namaha', HI='ॐ श्री गणेशाय नमः';
