@@ -10,6 +10,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Satisfy&family=Noto+Serif+Devanagari:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ── Registry Banking Details ── */
+.registry-banking {
+    margin-top: 0.85rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(212,163,115,0.3);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.registry-bank-divider {
+    text-align: center;
+    color: rgba(212,163,115,0.7);
+    font-size: 0.6rem;
+    letter-spacing: 6px;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+}
+.registry-bank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.38rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: clamp(0.72rem, 1.9vw, 0.82rem);
+    line-height: 1.4;
+}
+.registry-bank-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.registry-bank-label {
+    color: rgba(212,163,115,0.8);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    font-size: clamp(0.62rem, 1.6vw, 0.7rem);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.registry-bank-value {
+    color: rgba(255,255,255,0.92);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: right;
+    letter-spacing: 0.3px;
+}
         :root {
             --primary:#e8c8b0;
             --secondary:#7a6a5f;
@@ -912,7 +960,29 @@ body.splash-open { overflow: hidden; }
           <div class="rc-card-icon"><i class="fas fa-gift"></i></div>
           <h3 class="rc-card-title">Registry</h3>
           <p>Your presence is present enough, but for those who insist...Love is our currency:</p>
-          <p></p>
+          <div class="registry-banking">
+  <div class="registry-bank-divider"><span>✦</span></div>
+  <div class="registry-bank-row">
+    <span class="registry-bank-label">Account Name</span>
+    <span class="registry-bank-value">Yadhir &amp; Ashwari</span>
+  </div>
+  <div class="registry-bank-row">
+    <span class="registry-bank-label">Bank</span>
+    <span class="registry-bank-value">FNB</span>
+  </div>
+  <div class="registry-bank-row">
+    <span class="registry-bank-label">Account No.</span>
+    <span class="registry-bank-value">62781920262</span>
+  </div>
+  <div class="registry-bank-row">
+    <span class="registry-bank-label">Branch Code</span>
+    <span class="registry-bank-value">250655</span>
+  </div>
+  <div class="registry-bank-row">
+    <span class="registry-bank-label">Reference</span>
+    <span class="registry-bank-value">Your Name &amp; Gift</span>
+  </div>
+</div>
         </div>
         <div class="rc-card-num">04</div>
       </div>
