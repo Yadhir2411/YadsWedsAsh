@@ -11,6 +11,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ── Registry Banking Details ── */
+/* ── Copyable account number ── */
+.registry-copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(212,163,115,0.7);
+    padding: 0 0 0 0.4rem;
+    font-size: 0.72rem;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.15s ease;
+    vertical-align: middle;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+.registry-copy-btn:hover { color: #d4a373; }
+.registry-copy-btn:active { transform: scale(0.88); }
+.registry-copy-btn.copied { color: #7ecb8f; }
+.registry-bank-value.account-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0;
+}
 .registry-banking {
     margin-top: 0.85rem;
     background: rgba(255,255,255,0.07);
@@ -970,10 +994,17 @@ body.splash-open { overflow: hidden; }
     <span class="registry-bank-label">Bank</span>
     <span class="registry-bank-value">FNB</span>
   </div>
-  <div class="registry-bank-row">
-    <span class="registry-bank-label">Account No.</span>
-    <span class="registry-bank-value">62781920262</span>
-  </div>
+<div class="registry-bank-row">
+  <span class="registry-bank-label">Account No.</span>
+  <span class="registry-bank-value account-row">
+    <span id="acct-num">62781920262</span>
+    <button class="registry-copy-btn" id="copy-acct-btn" aria-label="Copy account number" title="Copy">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+      </svg>
+    </button>
+  </span>
+</div>
   <div class="registry-bank-row">
     <span class="registry-bank-label">Branch Code</span>
     <span class="registry-bank-value">250655</span>
@@ -1111,6 +1142,34 @@ body.splash-open { overflow: hidden; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
 <script>
+
+    // ── Copy account number ──
+(function(){
+    var btn = document.getElementById('copy-acct-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var num = document.getElementById('acct-num').textContent.trim();
+        navigator.clipboard.writeText(num).then(function() {
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+            setTimeout(function() {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>';
+            }, 2000);
+        }).catch(function() {
+            // Fallback for older browsers
+            var ta = document.createElement('textarea');
+            ta.value = num;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        });
+    });
+}());
     // ── Email obfuscation ──
     (function(){var el=document.getElementById('email-link');if(el){el.href=['mai','lto:ashwariasrai','@gmail.com'].join('');}})();
 
