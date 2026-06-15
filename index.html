@@ -737,10 +737,12 @@ body.splash-open { overflow: hidden; }
         <script>
         // ── URL Parameter Invite Control ──
 // ── URL Parameter Invite Control ──
+// ── URL Parameter Invite Control ──
 (function(){
     var params = new URLSearchParams(window.location.search);
 
     function applyInviteRules() {
+
         // --- Reception-only mode: hide Pre-Wedding section and its nav link ---
         if (params.get('invite') === 'reception') {
             var preWedSection = document.getElementById('prewedding');
@@ -764,6 +766,12 @@ body.splash-open { overflow: hidden; }
                     }
                 }
             });
+        }
+
+        // --- Alternate banking details mode ---
+        if (params.get('gift') === 'alt') {
+            var acctEl = document.getElementById('acct-num');
+            if (acctEl) acctEl.textContent = '11426386583'; // ← replace with your real alternate account number
         }
     }
 
