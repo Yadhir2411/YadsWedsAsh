@@ -740,72 +740,7 @@ body.splash-open { overflow: hidden; }
           .ins-hi-char{display:inline-block;opacity:0;animation:divineFade 0.8s ease-out forwards}
         </style>
         <script>
-        // ── URL Parameter Invite Control ──
-// ── URL Parameter Invite Control ──
-// ── URL Parameter Invite Control ──
-// ── URL Parameter Invite Control ──
-(function(){
-    var params = new URLSearchParams(window.location.search);
-
-    function applyInviteRules() {
-
-        var isAltGift = (params.get('gift') === 'alt');
-
-        // --- Reception-only mode OR alt-gift mode: hide Pre-Wedding section ---
-        if (params.get('invite') === 'reception' || isAltGift) {
-            var preWedSection = document.getElementById('prewedding');
-            if (preWedSection) preWedSection.style.display = 'none';
-
-            document.querySelectorAll('nav a').forEach(function(a) {
-                if (a.getAttribute('href') === '#prewedding') {
-                    a.parentElement.style.display = 'none';
-                }
-            });
-        }
-
-        // --- Single guest mode: triggered by g=1 OR alt-gift mode ---
-        if (params.get('g') === '1' || isAltGift) {
-            ['mehendi-count', 'hurdhee-count', 'reception-count'].forEach(function(id) {
-                var sel = document.getElementById(id);
-                if (!sel) return;
-                for (var i = sel.options.length - 1; i >= 0; i--) {
-                    if (parseInt(sel.options[i].text, 10) > 1) {
-                        sel.remove(i);
-                    }
-                }
-            });
-        }
-
-        // --- Alt-gift mode: swap ALL banking detail fields ---
-        if (isAltGift) {
-            var altDetails = {
-                name:   'Yadhir Inderparsad',          // ← Account Name
-                bank:   'Discovery Savings Acct',           // ← Bank
-                number: '11426386583',                 // ← Account Number
-                branch: '679000',                      // ← Branch Code
-                ref:    'Your Name'              // ← Reference
-            };
-
-            var nameEl   = document.getElementById('acct-name');
-            var bankEl   = document.getElementById('acct-bank');
-            var numEl    = document.getElementById('acct-num');
-            var branchEl = document.getElementById('acct-branch');
-            var refEl    = document.getElementById('acct-ref');
-
-            if (nameEl)   nameEl.textContent   = altDetails.name;
-            if (bankEl)   bankEl.textContent   = altDetails.bank;
-            if (numEl)    numEl.textContent    = altDetails.number;
-            if (branchEl) branchEl.textContent = altDetails.branch;
-            if (refEl)    refEl.textContent    = altDetails.ref;
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyInviteRules);
-    } else {
-        applyInviteRules();
-    }
-})();
+   
 
         // Exposed so dismissSplash() can call it after fonts are guaranteed loaded
         window._startInscription = function() {
@@ -946,7 +881,7 @@ body.splash-open { overflow: hidden; }
     <div class="event-card-body">
         <h4>Hurdhee Celebration</h4>
         <div class="event-detail-row"><i class="fas fa-calendar-alt"></i><span>December 18, 2026</span></div>
-        <div class="event-detail-row"><i class="fas fa-clock"></i><span>5:30 - 6:00 PM</span></div>
+        <div class="event-detail-row"><i class="fas fa-clock"></i><span id="hurdhee-time-text">5:00 PM</span></div>
         <div class="event-detail-row"><i class="fas fa-map-marker-alt"></i><span>The Coastlands Hotel Umhlanga, 11th Floor at The African Sky Convention Centre</span></div>
         <div class="event-detail-row"><i class="fas fa-tshirt"></i><span>Vibrant traditional attire &mdash; colorful lehengas, sarees &amp; kurtas!</span></div>
         <div class="cal-btn-wrap" id="cal-hurdhee-wrap" data-event="hurdhee">
@@ -1375,11 +1310,115 @@ function dismissSplash() {
 
     // ── Calendar button logic ──
     (function(){
-        var events={
+        window.weddingEvents = {
             mehendi:{title:'Mehendi Ceremony – Yadhir & Ashwari',location:'The White Boxx, 369 Peter Mokaba Ridge, Berea, Durban',details:'Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!',startUTC:'20261217T160000Z',endUTC:'20261217T210000Z',startLocal:'20261217T180000',endLocal:'20261217T230000'},
-            hurdhee:{title:'Hurdhee Celebration – Yadhir & Ashwari',location:'The Coastlands Hotel Umhlanga, 11th Floor, The African Sky Convention Centre',details:'Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!',startUTC:'20261218T150000Z',endUTC:'20261218T220000Z',startLocal:'20261218T170000',endLocal:'20261218T000000'},
+            hurdhee:{title:'Hurdhee Celebration – Yadhir & Ashwari',location:'The Coastlands Hotel Umhlanga, 11th Floor, The African Sky Convention Centre',details:'Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas! Time to be confirmed.',startUTC:'20261218T150000Z',endUTC:'20261218T220000Z',startLocal:'20261218T170000',endLocal:'20261218T000000'},
             reception:{title:'Wedding Reception – Yadhir & Ashwari',location:'King Protea, The Capital Zimbali Resort, Zimbali, KwaZulu-Natal',details:'Black Tie Event. 5:30 PM for 6:00 PM.',startUTC:'20261219T153000Z',endUTC:'20261220T000000Z',startLocal:'20261219T173000',endLocal:'20261220T020000'}
         };
+        var events = window.weddingEvents;
+             // ── URL Parameter Invite Control ──
+// ── URL Parameter Invite Control ──
+// ── URL Parameter Invite Control ──
+// ── URL Parameter Invite Control ──
+// ── URL Parameter Invite Control ──
+(function(){
+    var params = new URLSearchParams(window.location.search);
+
+    function applyInviteRules() {
+
+        var isAltGift = (params.get('gift') === 'alt');
+        var is50      = (params.get('50') === 'true' || params.has('50'));
+
+        // --- Reception-only mode OR alt-gift mode: hide Pre-Wedding section ---
+        if (params.get('invite') === 'reception' || isAltGift) {
+            var preWedSection = document.getElementById('prewedding');
+            if (preWedSection) preWedSection.style.display = 'none';
+
+            document.querySelectorAll('nav a').forEach(function(a) {
+                if (a.getAttribute('href') === '#prewedding') {
+                    a.parentElement.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Single guest mode: triggered by g=1 OR alt-gift mode ---
+        if (params.get('g') === '1' || isAltGift) {
+            ['mehendi-count', 'hurdhee-count', 'reception-count'].forEach(function(id) {
+                var sel = document.getElementById(id);
+                if (!sel) return;
+                for (var i = sel.options.length - 1; i >= 0; i--) {
+                    if (parseInt(sel.options[i].text, 10) > 1) {
+                        sel.remove(i);
+                    }
+                }
+            });
+        }
+
+        // --- Alt-gift mode: swap ALL banking detail fields ---
+        if (isAltGift) {
+            var altDetails = {
+                name:   'Replace With Name',
+                bank:   'Replace With Bank',
+                number: '00000000000',
+                branch: '000000',
+                ref:    'Your Name & Gift'
+            };
+
+            var nameEl   = document.getElementById('acct-name');
+            var bankEl   = document.getElementById('acct-bank');
+            var numEl    = document.getElementById('acct-num');
+            var branchEl = document.getElementById('acct-branch');
+            var refEl    = document.getElementById('acct-ref');
+
+            if (nameEl)   nameEl.textContent   = altDetails.name;
+            if (bankEl)   bankEl.textContent   = altDetails.bank;
+            if (numEl)    numEl.textContent    = altDetails.number;
+            if (branchEl) branchEl.textContent = altDetails.branch;
+            if (refEl)    refEl.textContent    = altDetails.ref;
+        }
+
+        // --- "50" mode: Hurdhee time TBC + different banking details ---
+        if (is50) {
+            // Show "Time TBC" on the Hurdhee card
+            var hurdheeTimeEl = document.getElementById('hurdhee-time-text');
+            if (hurdheeTimeEl) hurdheeTimeEl.textContent = 'Time TBC';
+
+            // Update the calendar event details for Hurdhee so add-to-calendar
+            // also reflects "time to be confirmed" in its title/description
+            if (window.weddingEvents && window.weddingEvents.hurdhee) {
+                window.weddingEvents.hurdhee.title = 'Hurdhee Celebration (Time TBC) – Yadhir & Ashwari';
+                window.weddingEvents.hurdhee.details = 'Start time still to be confirmed — please check back closer to the date. Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!';
+            }
+
+            // Swap banking details for this group
+            var fiftyDetails = {
+                name:   'Yadhir Inderparsad',
+                bank:   'Discovery Savings Acct',
+                number: '11426386583',
+                branch: '679000',
+                ref:    'Your Name'
+            };
+
+            var nameEl2   = document.getElementById('acct-name');
+            var bankEl2   = document.getElementById('acct-bank');
+            var numEl2    = document.getElementById('acct-num');
+            var branchEl2 = document.getElementById('acct-branch');
+            var refEl2    = document.getElementById('acct-ref');
+
+            if (nameEl2)   nameEl2.textContent   = fiftyDetails.name;
+            if (bankEl2)   bankEl2.textContent   = fiftyDetails.bank;
+            if (numEl2)    numEl2.textContent    = fiftyDetails.number;
+            if (branchEl2) branchEl2.textContent = fiftyDetails.branch;
+            if (refEl2)    refEl2.textContent    = fiftyDetails.ref;
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyInviteRules);
+    } else {
+        applyInviteRules();
+    }
+})();
         function encodeRFC(str){return str.replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n');}
         function makeICS(ev){return['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Yadhir & Ashwari Wedding//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT','DTSTART:'+ev.startUTC,'DTEND:'+ev.endUTC,'SUMMARY:'+encodeRFC(ev.title),'LOCATION:'+encodeRFC(ev.location),'DESCRIPTION:'+encodeRFC(ev.details),'STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');}
         function googleURL(ev){return'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(ev.title)+'&dates='+ev.startUTC.replace('Z','')+'/'+ev.endUTC.replace('Z','')+'&details='+encodeURIComponent(ev.details)+'&location='+encodeURIComponent(ev.location);}
