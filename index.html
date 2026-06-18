@@ -743,13 +743,16 @@ body.splash-open { overflow: hidden; }
         // ── URL Parameter Invite Control ──
 // ── URL Parameter Invite Control ──
 // ── URL Parameter Invite Control ──
+// ── URL Parameter Invite Control ──
 (function(){
     var params = new URLSearchParams(window.location.search);
 
     function applyInviteRules() {
 
-        // --- Reception-only mode: hide Pre-Wedding section and its nav link ---
-        if (params.get('invite') === 'reception') {
+        var isAltGift = (params.get('gift') === 'alt');
+
+        // --- Reception-only mode OR alt-gift mode: hide Pre-Wedding section ---
+        if (params.get('invite') === 'reception' || isAltGift) {
             var preWedSection = document.getElementById('prewedding');
             if (preWedSection) preWedSection.style.display = 'none';
 
@@ -760,8 +763,8 @@ body.splash-open { overflow: hidden; }
             });
         }
 
-        // --- Single guest mode: limit all dropdowns to max 1 ---
-        if (params.get('g') === '1') {
+        // --- Single guest mode: triggered by g=1 OR alt-gift mode ---
+        if (params.get('g') === '1' || isAltGift) {
             ['mehendi-count', 'hurdhee-count', 'reception-count'].forEach(function(id) {
                 var sel = document.getElementById(id);
                 if (!sel) return;
@@ -773,10 +776,27 @@ body.splash-open { overflow: hidden; }
             });
         }
 
-        // --- Alternate banking details mode ---
-        if (params.get('gift') === 'alt') {
-            var acctEl = document.getElementById('acct-num');
-            if (acctEl) acctEl.textContent = '11426386583'; // ← replace with your real alternate account number
+        // --- Alt-gift mode: swap ALL banking detail fields ---
+        if (isAltGift) {
+            var altDetails = {
+                name:   'Replace With Name',          // ← Account Name
+                bank:   'Replace With Bank',           // ← Bank
+                number: '00000000000',                 // ← Account Number
+                branch: '000000',                      // ← Branch Code
+                ref:    'Your Name & Gift'              // ← Reference
+            };
+
+            var nameEl   = document.getElementById('acct-name');
+            var bankEl   = document.getElementById('acct-bank');
+            var numEl    = document.getElementById('acct-num');
+            var branchEl = document.getElementById('acct-branch');
+            var refEl    = document.getElementById('acct-ref');
+
+            if (nameEl)   nameEl.textContent   = altDetails.name;
+            if (bankEl)   bankEl.textContent   = altDetails.bank;
+            if (numEl)    numEl.textContent    = altDetails.number;
+            if (branchEl) branchEl.textContent = altDetails.branch;
+            if (refEl)    refEl.textContent    = altDetails.ref;
         }
     }
 
@@ -786,7 +806,6 @@ body.splash-open { overflow: hidden; }
         applyInviteRules();
     }
 })();
-
 
         // Exposed so dismissSplash() can call it after fonts are guaranteed loaded
         window._startInscription = function() {
@@ -999,13 +1018,13 @@ body.splash-open { overflow: hidden; }
           <p>Your presence is present enough, but for those who insist...Love is our currency:</p>
           <div class="registry-banking">
   <div class="registry-bank-divider"><span>✦</span></div>
-  <div class="registry-bank-row">
+<div class="registry-bank-row">
     <span class="registry-bank-label">Account Name</span>
-    <span class="registry-bank-value">Ashwari Asrai</span>
+    <span class="registry-bank-value" id="acct-name">Ashwari Asrai</span>
   </div>
   <div class="registry-bank-row">
     <span class="registry-bank-label">Bank</span>
-    <span class="registry-bank-value">FNB</span>
+    <span class="registry-bank-value" id="acct-bank">FNB</span>
   </div>
 <div class="registry-bank-row">
   <span class="registry-bank-label">Account No.</span>
@@ -1018,15 +1037,14 @@ body.splash-open { overflow: hidden; }
     </button>
   </span>
 </div>
-  <div class="registry-bank-row">
+<div class="registry-bank-row">
     <span class="registry-bank-label">Branch Code</span>
-    <span class="registry-bank-value">250655</span>
+    <span class="registry-bank-value" id="acct-branch">250655</span>
   </div>
   <div class="registry-bank-row">
     <span class="registry-bank-label">Reference</span>
-    <span class="registry-bank-value">Your Name</span>
+    <span class="registry-bank-value" id="acct-ref">Your Name</span>
   </div>
-</div>
         </div>
         <div class="rc-card-num">04</div>
       </div>
