@@ -1381,14 +1381,19 @@ function dismissSplash() {
         if (is50) {
             // Show "Time TBC" on the Hurdhee card
             var hurdheeTimeEl = document.getElementById('hurdhee-time-text');
-            if (hurdheeTimeEl) hurdheeTimeEl.textContent = 'Time TBC';
+            if (hurdheeTimeEl) hurdheeTimeEl.textContent = '5 PM';
 
             // Update the calendar event details for Hurdhee so add-to-calendar
             // also reflects "time to be confirmed" in its title/description
-            if (window.weddingEvents && window.weddingEvents.hurdhee) {
-                window.weddingEvents.hurdhee.title = 'Hurdhee Celebration (Time TBC) – Yadhir & Ashwari';
-                window.weddingEvents.hurdhee.details = 'Start time still to be confirmed — please check back closer to the date. Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!';
-            }
+if (window.weddingEvents && window.weddingEvents.hurdhee) {
+    window.weddingEvents.hurdhee.title   = 'Hurdhee Celebration – Yadhir & Ashwari';
+    window.weddingEvents.hurdhee.details = 'Dress code: Vibrant traditional attire — colorful lehengas, sarees & kurtas!';
+    window.weddingEvents.hurdhee.startUTC   = '20261218T150000Z';
+    window.weddingEvents.hurdhee.endUTC     = '20261218T220000Z';
+    window.weddingEvents.hurdhee.startLocal = '20261218T170000';
+    window.weddingEvents.hurdhee.endLocal   = '20261218T000000';
+}
+
 
             // Swap banking details for this group
             var fiftyDetails = {
