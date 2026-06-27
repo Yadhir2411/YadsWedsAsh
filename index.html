@@ -1331,15 +1331,26 @@ function dismissSplash() {
 
         // --- Reception-only mode OR alt-gift mode: hide Pre-Wedding section ---
         if (params.get('invite') === 'reception' || isAltGift) {
-            var preWedSection = document.getElementById('prewedding');
-            if (preWedSection) preWedSection.style.display = 'none';
+    // Hide Pre-Wedding section
+    var preWedSection = document.getElementById('prewedding');
+    if (preWedSection) preWedSection.style.display = 'none';
 
-            document.querySelectorAll('nav a').forEach(function(a) {
-                if (a.getAttribute('href') === '#prewedding') {
-                    a.parentElement.style.display = 'none';
-                }
-            });
+    // Hide Pre-Wedding nav link
+    document.querySelectorAll('nav a').forEach(function(a) {
+        if (a.getAttribute('href') === '#prewedding') {
+            a.parentElement.style.display = 'none';
         }
+    });
+
+    // Hide Mehendi and Hurdhee blocks from the RSVP form
+    var mehendiBlock = document.getElementById('mehendi') &&
+                       document.getElementById('mehendi').closest('.event-checkbox-block');
+    var hurdheeBlock = document.getElementById('hurdhee') &&
+                       document.getElementById('hurdhee').closest('.event-checkbox-block');
+    if (mehendiBlock) mehendiBlock.style.display = 'none';
+    if (hurdheeBlock) hurdheeBlock.style.display = 'none';
+}
+
 
         // --- Single guest mode: triggered by g=1 OR alt-gift mode ---
         if (params.get('g') === '1' || isAltGift) {
