@@ -1327,10 +1327,11 @@ function dismissSplash() {
     function applyInviteRules() {
 
         var isAltGift = (params.get('gift') === 'alt');
+        var isAshGift    = (params.get('gift') === 'ash');
         var is50      = (params.get('50') === 'true' || params.has('50'));
 
         // --- Reception-only mode OR alt-gift mode: hide Pre-Wedding section ---
-        if (params.get('invite') === 'reception' || isAltGift) {
+        if (params.get('invite') === 'reception' || isAltGift || isAshGift) {
     // Hide Pre-Wedding section
     var preWedSection = document.getElementById('prewedding');
     if (preWedSection) preWedSection.style.display = 'none';
@@ -1353,7 +1354,7 @@ function dismissSplash() {
 
 
         // --- Single guest mode: triggered by g=1 OR alt-gift mode ---
-        if (params.get('g') === '1' || isAltGift) {
+        if (params.get('g') === '1' || isAltGift || isAshGift) {
             ['mehendi-count', 'hurdhee-count', 'reception-count'].forEach(function(id) {
                 var sel = document.getElementById(id);
                 if (!sel) return;
